@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Provide a admin area view for the plugin
  *
@@ -7,8 +8,8 @@
  * @link       http://www.kubiiks.com
  * @since      1.0.0
  *
- * @package    GMA500
- * @subpackage GMA500/admin/partials
+ * @package    Gma500
+ * @subpackage Gma500/admin/partials
  */
 ?>
 

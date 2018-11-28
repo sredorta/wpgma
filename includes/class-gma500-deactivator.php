@@ -1,18 +1,27 @@
 <?php
 
 /**
- * Fired during plugin activation.
- *
- * This class defines all code necessary to run during the plugin's activation.
+ * Fired during plugin deactivation
  *
  * @link       http://www.kubiiks.com
  * @since      1.0.0
- * @package    GMA500
- * @subpackage GMA500/includes
- * @author     Sergi Redorta
+ *
+ * @package    Gma500
+ * @subpackage Gma500/includes
  */
 
-class GMA500_Deactivator {
+/**
+ * Fired during plugin deactivation.
+ *
+ * This class defines all code necessary to run during the plugin's deactivation.
+ *
+ * @since      1.0.0
+ * @package    Gma500
+ * @subpackage Gma500/includes
+ * @author     Sergi Redorta <sergi.redorta@kubiiks.com>
+ */
+class Gma500_Deactivator {
+
 	/**
 	 * Short Description. (use period)
 	 *
@@ -21,5 +30,7 @@ class GMA500_Deactivator {
 	 * @since    1.0.0
 	 */
 	public static function deactivate() {
+
 	}
+
 }

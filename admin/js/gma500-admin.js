@@ -29,4 +29,9 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 */
 
+	 console.log("Loaded js");
+	 $('#add-product-submit').click(function() {
+		console.log("You clicked !");
+	 });
+
 })( jQuery );
