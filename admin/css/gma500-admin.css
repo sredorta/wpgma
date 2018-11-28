@@ -5,3 +5,17 @@
  h1 {
      color:red;
  }
+ .error {
+     color:red;
+     display:block;
+ }
+ .shadow {
+     display:none;
+ }
+
+ .product-image {
+     width:140px;
+     height:140px;
+     margin:10px;
+     box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.5);
+ }

@@ -118,7 +118,17 @@ class Gma500_Admin {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		wp_register_script($this->plugin_name,plugin_dir_url( __FILE__ ) . 'js/gma500-admin.js');
+
+		//Form validator plugin
+		wp_register_script('jquery-validate-min', plugin_dir_url( __FILE__ ) . '/js/jquery.validate.min.js', array( 'jquery' ) );
+		wp_enqueue_script('jquery-validate-min');
+
+		wp_register_script('jquery-validate-lang-fr', plugin_dir_url( __FILE__ ) . '/js/messages_fr.min.js', array( 'jquery' ) );
+		wp_enqueue_script('jquery-validate-lang-fr');
+
+
+
+		wp_register_script($this->plugin_name,plugin_dir_url( __FILE__ ) . 'js/gma500-admin.js', array( 'jquery' ));
 		wp_enqueue_script($this->plugin_name);
 		//wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/gma500-admin.js', array( 'jquery' ), $this->version, false );
 
