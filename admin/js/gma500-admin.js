@@ -1,18 +1,39 @@
 jQuery(document).ready(function() {
-
+	//Validation
+	jQuery.validator.addMethod("valueNotEquals", function(value, element, arg){
+		return arg !== value;
+	   }, "Value must not equal arg.");
+	  
+	// configure your validation
 	jQuery('#form-add-product').validate();
-	/*jQuery('#test').click(function() {
-		var idGMA = jQuery('#idGMA').val();
-		if (!idGMA) jQuery('#idGMA-error').show();
+	/*{
+		rules: {
+		 SelectName: { valueNotEquals: "default" }
+		},
+		messages: {
+		 SelectName: { valueNotEquals: "Sélectioner un element !" }
+		}  
 	});*/
 
-	//Reset image
+	jQuery('#submit-add-product').click(function() {
+		if (jQuery('#form-add-product').valid()) {
+			console.log($image);
+			console.log("Submitting");
+		}
+	});
+
+
+	//Handle image with base64
+	// imagebase64 is a hidden input that contains the value that will be send for storing
+	//		it can be the default or the base64 string after processing
+	jQuery('#imagebase64').val("../wp-content/plugins/gma500/admin/assets/default-product.jpg");
 	jQuery('#rotate').hide();
 	jQuery('#clear').hide();
 	jQuery('#clear').on('click', function() {
 		jQuery('#productImage')[0].src = "../wp-content/plugins/gma500/admin/assets/default-product.jpg";
 		jQuery('#rotate').hide();
 		jQuery('#clear').hide();
+		jQuery('#imagebase64').val("../wp-content/plugins/gma500/admin/assets/default-product.jpg");
 		var canvas = jQuery('#shadowCanvas')[0];
 		var ctx =canvas.getContext('2d');
 		ctx.clearRect(0,0,canvas.width, canvas.heigth);
@@ -51,7 +72,9 @@ jQuery(document).ready(function() {
 				ctx.clearRect(0,0,canvas.width, canvas.heigth);
 				ctx.drawImage(myImageData, sourceX,sourceY, sourceSize, sourceSize, 0, 0, destSize,destSize);
 				var real = jQuery('#productImage')[0];
-				real.src = canvas.toDataURL('image/jpeg', 0.9);
+				$base64 = canvas.toDataURL('image/jpeg', 0.9);
+				real.src = $base64;
+				jQuery('#imagebase64').val($base64);
 				jQuery('#rotate').show();
 				jQuery('#clear').show();
 				console.log("Length is: " + canvas.toDataURL('image/jpeg', 0.9).length);
@@ -76,13 +99,9 @@ jQuery(document).ready(function() {
 		  // draw the previows image, now rotated
 		  ctx.drawImage(myImageData, 0, 0);   
 		  var real = jQuery('#productImage')[0];
-		  real.src = canvas.toDataURL('image/jpeg', 0.9);		  
-		  /*canvas.toBlob(function(blob){
-			form.patchValue({
-			  avatar: blob
-			});  
-		  });      
-		  result.src = canvas.toDataURL();*/
+		  $base64 = canvas.toDataURL('image/jpeg', 0.9);
+		  real.src = $base64;
+		  jQuery('#imagebase64').val($base64);		  
 		  ctx.restore();
 		  // clear the temporary image
 		  myImageData = null;       

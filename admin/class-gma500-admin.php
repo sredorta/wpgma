@@ -69,8 +69,29 @@ class Gma500_Admin {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-main.php';
 	}
 	function gma500_admin_product_add() {
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-add-product.php';		
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-add-product.php';
+		//Add product action
+		if ($_GET['action']=='addproduct') {
+			$result = $this->insertproduct($idGMA,$cathegory,$brand,$utilization,$serialNumber,$doc,$isEPI,$location,$description,$image,$bought);
+
+
+		}		
 	}
+
+	//Adds product in SQL DB
+	function insertproduct() {
+		global $wpdb;
+		$table = $wpdb->prefix.'gma500_products';
+		$sql = $wpdb->prepare (
+			"INSERT INTO ".$table . " (idGMA,cathegory,brand,utilization,serialNumber,doc,isEPI,location,description,image,bought,time) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+			$idGMA,$cathegory,$brand,$utilization,$serialNumber,$doc,$isEPI,$location,$description,$image,$bought, current_time('mysql') );
+		$wpdb->query($sql);
+		
+		if (!$sql) $insertproduct = false;
+		else $insertproduct = true;
+		return $insertproduct;
+	}
+
 
 	function my_plugin_options() {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-add-product.php';
@@ -94,6 +115,9 @@ class Gma500_Admin {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
+		//Get font awesome
+		wp_register_style("gma500_font_awesome","https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+		wp_enqueue_style("gma500_font_awesome");
 		wp_register_style($this->plugin_name,plugin_dir_url( __FILE__ ) . 'css/gma500-admin.css');
 		wp_enqueue_style($this->plugin_name);
 		//wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/gma500-admin.css', array(), $this->version, 'all' );
