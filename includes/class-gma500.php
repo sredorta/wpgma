@@ -161,6 +161,7 @@ class Gma500 {
 		//REGISTER ALL AJAX CALLS HERE !
 		$this->loader->add_action( 'wp_ajax_gma500_addproduct', $plugin_admin, 'insertproduct'); //wp_ajax + name of the action 
 		$this->loader->add_action( 'wp_ajax_gma500_getproducts', $plugin_admin, 'getproducts');
+		$this->loader->add_action( 'wp_ajax_gma500_searchproducts', $plugin_admin, 'searchproducts');
 	}
 
 	/**

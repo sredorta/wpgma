@@ -147,7 +147,7 @@ jQuery(document).ready(function() {
 ////////////////////////////////////////////////////////////////////////////////////
 // MAIN
 ////////////////////////////////////////////////////////////////////////////////////
-	jQuery('#admin-main-view-products').click(function() {
+/*	jQuery('#admin-main-view-products').click(function() {
 		jQuery('#admin-main-view-products i').css("opacity", "1");
 		jQuery.ajax({
 			type: 'POST',
@@ -157,11 +157,36 @@ jQuery(document).ready(function() {
 				  },
 			success: function(data) {
 				jQuery('#admin-main-view-products-list').html(data);
+				jQuery('#admin-main-view-products i').css("opacity", "0");
 			}
 		}).fail(function(err) {
 			jQuery('#admin-main-view-products i').css("opacity", "0");
 		});		
 
+	});*/
+	//Search part
+	jQuery('#admin-main-view-search-products').click(function() {
+		console.log("searching");
+		jQuery('#admin-main-view-products-list').html("");
+		jQuery.ajax({
+			type: 'POST',
+			url: ajaxurl,
+			data: { 
+					"action": "gma500_searchproducts",
+					"filter": jQuery('#admin-main-view-search-products-input').val()																																							
+				  },
+			success: function(data) {
+				jQuery('#admin-main-view-products-list').html(data);
+					//Redirect to product details admin
+				jQuery('.gma500-product-admin-wrapper').click(function() {
+					console.log("Going to product detail: " + jQuery(this).data('idproduct'));
+				});
+			}
+		}).fail(function(err) {
+			jQuery('#admin-main-view-products i').css("opacity", "0");
+		});			
 	});
+
+
 
 }); //End jQuery

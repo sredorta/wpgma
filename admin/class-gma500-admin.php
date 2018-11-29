@@ -121,6 +121,23 @@ class Gma500_Admin {
 		die();
 	}
 
+	//AJAX SEARCH PRODUCTS
+	function searchproducts() {
+		global $wpdb;
+		$table = $wpdb->prefix.'gma500_products';
+		$filter = strtolower($_POST['filter']);
+		$sql = $wpdb->prepare ("SELECT * FROM ". $table . " WHERE lower(idGMA) RLIKE '". $filter . "' OR lower(cathegory) RLIKE '". $filter . "' OR lower(brand) RLIKE '". $filter . "' OR lower(location) RLIKE '". $filter . "';");
+		$products = $wpdb->get_results($sql);
+		if (sizeof($products) == 0) {
+			echo "<p>Pas des resultats pour votre recherche</p>";
+			die();
+		}
+		foreach ($products as $product) {
+			require plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-product-item.php';
+		}
+		die();
+	}
+
 
 	function my_plugin_options() {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-add-product.php';

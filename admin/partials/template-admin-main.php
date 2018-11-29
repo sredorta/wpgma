@@ -1,8 +1,9 @@
 <div class="wrap">
-
-        <div id="admin-main-view-products" class="button button-primary">
-            Charger le matériel <i class="fa fa-spinner fa-lg" style="opacity:0"></i>
-        </div>
-        <div id ="admin-main-view-products-list"></div>
-
+        <div>
+        <input id="admin-main-view-search-products-input" type="text" name="search" id="search" placeholder="Chercher" value=""/>
+			<span class="input-group-btn">
+				<button id="admin-main-view-search-products" class="button button-secondary"><i class="fa fa-search fa-lg"></i>Chercher</button>
+            </span>
+        </div>      
+    <div id ="admin-main-view-products-list"></div>
 </div>    
