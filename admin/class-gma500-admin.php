@@ -88,13 +88,11 @@ class Gma500_Admin {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-add-product.php';	
 	}
 
+
+	//AJAX ADD PRODUCT
 	//Adds product in SQL DB
 	function insertproduct() {
 		//Add product action
-		if ($_POST['action']=='addproduct') {
-			$result = $this->insertproduct();
-		}	
-
 		global $wpdb;
 		$table = $wpdb->prefix.'gma500_products';
 		$sql = $wpdb->prepare (
@@ -108,6 +106,19 @@ class Gma500_Admin {
 			echo json_encode(["success" => "Metériel rajouté dans la base de donnés"]);
 			die();
 		}
+	}
+
+	//AJAX GET PRODUCTS
+	//Gets products from SQL
+	function getproducts() {
+		global $wpdb;
+		$table = $wpdb->prefix.'gma500_products';
+		$sql = $wpdb->prepare ("SELECT * FROM ". $table);
+		$products = $wpdb->get_results($sql);
+		foreach ($products as $product) {
+			require plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-product-item.php';
+		}
+		die();
 	}
 
 
@@ -138,8 +149,6 @@ class Gma500_Admin {
 		wp_enqueue_style("gma500_font_awesome");
 		wp_register_style($this->plugin_name,plugin_dir_url( __FILE__ ) . 'css/gma500-admin.css');
 		wp_enqueue_style($this->plugin_name);
-		//wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/gma500-admin.css', array(), $this->version, 'all' );
-
 	}
 
 	/**
@@ -173,9 +182,7 @@ class Gma500_Admin {
 		wp_register_script($this->plugin_name,plugin_dir_url( __FILE__ ) . 'js/gma500-admin.js', array( 'jquery' ));
 		// pass Ajax Url to script.js
 		wp_localize_script('gma500-admin', 'ajaxurl', admin_url( 'admin-ajax.php' ) );
-
 		wp_enqueue_script($this->plugin_name);
-		//wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/gma500-admin.js', array( 'jquery' ), $this->version, false );
 
 	}
 

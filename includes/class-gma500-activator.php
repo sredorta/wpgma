@@ -53,7 +53,8 @@ class Gma500_Activator {
 				description varchar(500) NOT NULL DEFAULT 'Pas de description',
 				image varchar(14000) NOT NULL DEFAULT '../wp-content/plugins/gma500/admin/assets/default-product.jpg',
 				bought datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-				time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL
+				time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+				user_id bigint(20) UNSIGNED DEFAULT '0'
 				) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;";
 			require_once(get_home_path() . 'wp-admin/includes/upgrade.php');
 			dbDelta($sql);

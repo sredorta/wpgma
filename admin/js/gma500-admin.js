@@ -1,10 +1,8 @@
 jQuery(document).ready(function() {
-	console.log("ajaxurl is : " + ajaxurl);
-	//Validation
-	jQuery.validator.addMethod("valueNotEquals", function(value, element, arg){
-		return arg !== value;
-	   }, "Value must not equal arg.");
-	  
+
+///////////////////////////////////////////////////////////////////////////////////
+// ADD PRODUCT
+///////////////////////////////////////////////////////////////////////////////////
 	// configure your validation
 	jQuery('#form-add-product').validate();
 
@@ -47,18 +45,12 @@ jQuery(document).ready(function() {
 						jQuery('#gma500-add-product-ajax-result').html(result.error).addClass('gma500-ajax-error');
 					}
 					if (result.success != null) {
-						jQuery('#gma500-add-product-ajax-result').html(result.error).addClass('gma500-ajax-success');
+						jQuery('#gma500-add-product-ajax-result').html(result.success).addClass('gma500-ajax-success');
 					}
 				}
-			}).done(function(data) {
-				console.log("done !!!");
-				console.log(data);
 			}).fail(function(err) {
-				console.log("error");
-				console.log(err);
-			})
-			;
-			return false;			
+				jQuery('#gma500-add-product-ajax-result').html("Une erreur est survenue").addClass('gma500-ajax-error');
+			});		
 		}
 	});
 	//Reset form   
@@ -152,4 +144,24 @@ jQuery(document).ready(function() {
 		}		
 
 	});
-});
+////////////////////////////////////////////////////////////////////////////////////
+// MAIN
+////////////////////////////////////////////////////////////////////////////////////
+	jQuery('#admin-main-view-products').click(function() {
+		jQuery('#admin-main-view-products i').css("opacity", "1");
+		jQuery.ajax({
+			type: 'POST',
+			url: ajaxurl,
+			data: { 
+					"action": "gma500_getproducts"																																								
+				  },
+			success: function(data) {
+				jQuery('#admin-main-view-products-list').html(data);
+			}
+		}).fail(function(err) {
+			jQuery('#admin-main-view-products i').css("opacity", "0");
+		});		
+
+	});
+
+}); //End jQuery
