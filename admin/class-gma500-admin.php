@@ -72,6 +72,10 @@ class Gma500_Admin {
 	    add_submenu_page( 'gma500_admin_menu_top', 'Modifier', 'Modifier', 'manage_options', 'gma500_admin_menu_update', array($this,'my_plugin_options'));
 	}
 
+	public function change_footer() {
+		echo '<div style="width:100%;border-top:1px solid;"><p>GMA500 un club pas comme les autres</p></div>';
+	}
+
 	function gma500_admin_main_page_options() {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-main.php';
 	}

@@ -74,10 +74,13 @@
       <div style="display:flex;flex-flow:column;max-width:400px;min-width:200px;margin:0 auto">
         <p style="width:100%">DESCRIPTION*:<br /><textarea class="gma500-textarea" id="description" name="description" type="text" required minlength="3" maxlength="400"></textarea></p>
         <div id="gma500-add-product-ajax-result" class="gma500-ajax"></div>    
+      </div>  
+      <div style="display:flex;flex-flow:row wrap;justify-content:space-between;max-width:400px;min-width:200px;margin:0 auto">
         <div id="submit-add-product" class="button button-primary gma500-button-submit">
             <i class="fa fa-plus-circle fa-lg"></i> Enregistrer
         </div>
-    </div>  
+        <div id="reset-add-product" class="button button-secondary"> Effacer formulaire</div>
+      </div>  
     </form>
 
 </div>

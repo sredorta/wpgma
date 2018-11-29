@@ -7,15 +7,8 @@ jQuery(document).ready(function() {
 	  
 	// configure your validation
 	jQuery('#form-add-product').validate();
-	/*{
-		rules: {
-		 SelectName: { valueNotEquals: "default" }
-		},
-		messages: {
-		 SelectName: { valueNotEquals: "Sélectioner un element !" }
-		}  
-	});*/
 
+	//Product submit   
 	jQuery('#submit-add-product').click(function() {
 		var obj = { "action": "addproduct",
 		"idGMA" : jQuery('#idGMA').val(),
@@ -30,8 +23,7 @@ jQuery(document).ready(function() {
 		"image" : jQuery('#imagebase64').val(),
 		"bought" : jQuery('#bought').val(),																																									
 	  };
-	  //console.log(obj);
-		//if (jQuery('#form-add-product').valid()) {
+		if (jQuery('#form-add-product').valid()) {
 			jQuery.ajax({
 				type: 'POST',
 				url: ajaxurl,
@@ -67,7 +59,11 @@ jQuery(document).ready(function() {
 			})
 			;
 			return false;			
-		//}
+		}
+	});
+	//Reset form   
+	jQuery('#reset-add-product').click(function() {
+		window.location.reload();
 	});
 
 
