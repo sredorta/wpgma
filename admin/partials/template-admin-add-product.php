@@ -68,14 +68,15 @@
             </select>              
             </p>
             <p>DOC:<br /><input  id="doc" name="doc" type="url" optional style="width:170px"/></p>
-            <p>DATE ACHAT*:<br /><input  id="idbought" name="bought" type="date" required style="width:170px"/></p>
+            <p>DATE ACHAT*:<br /><input  id="bought" name="bought" type="date" required style="width:170px"/></p>
         </div>         
       </div> 
-      <div style="display:flex;flex-flow:row wrap;max-width:400px;min-width:200px;margin:0 auto">
-        <p style="width:100%">DESCRIPTION*:<br /><textarea style="width:100%" id="description" name="description" type="text" required minlength="3" maxlength="400"></textarea></p>
-        <button id="submit-add-product" type="submit" class="button button-primary gma500-button-submit">
+      <div style="display:flex;flex-flow:column;max-width:400px;min-width:200px;margin:0 auto">
+        <p style="width:100%">DESCRIPTION*:<br /><textarea class="gma500-textarea" id="description" name="description" type="text" required minlength="3" maxlength="400"></textarea></p>
+        <div id="gma500-add-product-ajax-result" class="gma500-ajax"></div>    
+        <div id="submit-add-product" class="button button-primary gma500-button-submit">
             <i class="fa fa-plus-circle fa-lg"></i> Enregistrer
-        </button>
+        </div>
     </div>  
     </form>
 

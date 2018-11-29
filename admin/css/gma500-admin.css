@@ -27,11 +27,39 @@
  }
 
 .gma500-button-submit {
-     height:40px !important;
      width:120px;
  }
 .gma500-banner-image {
     height:20vh;
     width:100%;
     object-fit:cover;
+}
+.gma500-textarea {
+    width:100% !important;
+    min-width: 100% !important;
+}
+
+.gma500-ajax { 
+opacity:0;
+padding:10px;
+border-radius: 5px;
+    margin-bottom:10px;
+}
+.gma500-ajax-error {
+    opacity:1;
+    padding:10px;
+    border-radius: 5px;
+    border:1px solid red;
+    background-color: rgba(255, 0, 0, 0.1);
+    color:red;
+
+}
+.gma500-ajax-success {
+    opacity:1;
+    padding:10px;
+    border-radius: 5px;
+    border:1px solid green;
+    background-color: rgba(0, 255, 0, 0.1);
+    color:green;
+    margin-bottom:10px;
 }

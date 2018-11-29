@@ -54,6 +54,13 @@ class Gma500_Admin {
 
 	}
 
+	function log( $data ) {
+		$output = $data;
+		if ( is_array( $output ) )
+			$output = implode( ',', $output);
+	
+		echo "<script>console.log( 'Debug Objects: " . $output . "' );</script>";
+	}
 
     //Create admin menus
     public function create_menu() {
@@ -68,28 +75,35 @@ class Gma500_Admin {
 	function gma500_admin_main_page_options() {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-main.php';
 	}
-	function gma500_admin_product_add() {
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-add-product.php';
-		//Add product action
-		if ($_GET['action']=='addproduct') {
-			$result = $this->insertproduct($idGMA,$cathegory,$brand,$utilization,$serialNumber,$doc,$isEPI,$location,$description,$image,$bought);
 
-
-		}		
+	function gma500_admin_product_add() {		
+		//Block any intents of members to be here
+		if(!is_admin()) {
+			wp_redorect(home_url());
+		}
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-add-product.php';	
 	}
 
 	//Adds product in SQL DB
 	function insertproduct() {
+		//Add product action
+		if ($_POST['action']=='addproduct') {
+			$result = $this->insertproduct();
+		}	
+
 		global $wpdb;
 		$table = $wpdb->prefix.'gma500_products';
 		$sql = $wpdb->prepare (
 			"INSERT INTO ".$table . " (idGMA,cathegory,brand,utilization,serialNumber,doc,isEPI,location,description,image,bought,time) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-			$idGMA,$cathegory,$brand,$utilization,$serialNumber,$doc,$isEPI,$location,$description,$image,$bought, current_time('mysql') );
+			$_POST['idGMA'],$_POST['cathegory'],$_POST['brand'],$_POST['utilization'],$_POST['serialNumber'],$_POST['doc'],$_POST['isEPI'],$_POST['location'],$_POST['description'],$_POST['image'],$_POST['bought'], current_time('mysql') );
 		$wpdb->query($sql);
-		
-		if (!$sql) $insertproduct = false;
-		else $insertproduct = true;
-		return $insertproduct;
+		if($wpdb->last_error !== '') {
+			echo json_encode(["error" => $wpdb->last_error]); //return json error
+			die();
+		} else {
+			echo json_encode(["success" => "Metériel rajouté dans la base de donnés"]);
+			die();
+		}
 	}
 
 
@@ -153,6 +167,9 @@ class Gma500_Admin {
 
 
 		wp_register_script($this->plugin_name,plugin_dir_url( __FILE__ ) . 'js/gma500-admin.js', array( 'jquery' ));
+		// pass Ajax Url to script.js
+		wp_localize_script('gma500-admin', 'ajaxurl', admin_url( 'admin-ajax.php' ) );
+
 		wp_enqueue_script($this->plugin_name);
 		//wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/gma500-admin.js', array( 'jquery' ), $this->version, false );
 

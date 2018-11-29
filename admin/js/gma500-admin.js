@@ -1,4 +1,5 @@
 jQuery(document).ready(function() {
+	console.log("ajaxurl is : " + ajaxurl);
 	//Validation
 	jQuery.validator.addMethod("valueNotEquals", function(value, element, arg){
 		return arg !== value;
@@ -16,10 +17,57 @@ jQuery(document).ready(function() {
 	});*/
 
 	jQuery('#submit-add-product').click(function() {
-		if (jQuery('#form-add-product').valid()) {
-			console.log($image);
-			console.log("Submitting");
-		}
+		var obj = { "action": "addproduct",
+		"idGMA" : jQuery('#idGMA').val(),
+		"cathegory" : jQuery('#cathegory').val(),
+		"brand" : jQuery('#marque').val(),
+		"utilization" : jQuery('#utilization').val(),
+		"serialNumber" : jQuery('#serialNumber').val(),
+		"doc" : jQuery('#doc').val(),
+		"isEPI" : jQuery('#epi').val(),
+		"location" : jQuery('#location').val(),
+		"description" : jQuery('#description').val(),	
+		"image" : jQuery('#imagebase64').val(),
+		"bought" : jQuery('#bought').val(),																																									
+	  };
+	  //console.log(obj);
+		//if (jQuery('#form-add-product').valid()) {
+			jQuery.ajax({
+				type: 'POST',
+				url: ajaxurl,
+				data: { 
+						"action": "gma500_addproduct",
+						"idGMA" : jQuery('#idGMA').val(),
+						"cathegory" : jQuery('#cathegory').val(),
+						"brand" : jQuery('#marque').val(),
+						"utilization" : jQuery('#utilization').val(),
+						"serialNumber" : jQuery('#serialNumber').val(),
+						"doc" : jQuery('#doc').val(),
+						"isEPI" : jQuery('#epi').val(),
+						"location" : jQuery('#location').val(),
+						"description" : jQuery('#description').val(),	
+						"image" : jQuery('#imagebase64').val(),
+						"bought" : jQuery('#bought').val(),																																									
+					  },
+				success: function(data) {
+					var result = JSON.parse(data);
+					if (result.error != null) {						
+						jQuery('#gma500-add-product-ajax-result').html(result.error).addClass('gma500-ajax-error');
+					}
+					if (result.success != null) {
+						jQuery('#gma500-add-product-ajax-result').html(result.error).addClass('gma500-ajax-success');
+					}
+				}
+			}).done(function(data) {
+				console.log("done !!!");
+				console.log(data);
+			}).fail(function(err) {
+				console.log("error");
+				console.log(err);
+			})
+			;
+			return false;			
+		//}
 	});
 
 
