@@ -77,7 +77,7 @@ class Gma500_Admin {
 		if(!is_admin()) {
 			wp_redirect(home_url());
 		}
-
+		//ADD PRODUCT
 		if ($_POST['action'] == "gma500_admin_addproduct_page") {
 			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-add-update-product.php';	
 			echo "
@@ -90,9 +90,9 @@ class Gma500_Admin {
 					<input name='action' value='gma500_admin_addproduct_page'/>
 				</form>
 		  	</div>";  			
-
 			die();
 		}
+		//UPDATE PRODUCT
 		if ($_POST['action'] == "gma500_admin_updateproduct_page") {
 			$product = $this->getProductById($_POST['id']);
 			$idGMA = $product->idGMA;
@@ -120,7 +120,15 @@ class Gma500_Admin {
 		  	</div>"; 			
 			die();
 		}
+		//DELETE PRODUCT
+		if ($_POST['action'] == "gma500_admin_deleteproduct_page") {
+			global $wpdb;
+			$table = $wpdb->prefix.'gma500_products';
+			$where = array('id'=> $_POST['id']);
+			$wpdb->delete($table, $where);
+		}
 
+		//GET PRODUCTS
 		if ($_POST['action'] == "gma500_admin_viewproductdetails") {
 			$product_id = $_POST['id'];
 			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-product-details.php';

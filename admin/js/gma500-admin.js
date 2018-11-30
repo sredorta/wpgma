@@ -246,7 +246,16 @@ jQuery('#gma500-submit-update-product').click(function() {
 			jQuery('#admin-main-view-products i').css("opacity", "0");
 		});			
 	});
+///////////////////////////////
+// PRODUCT DETAILS
+//////////////////////////////
 
+//Handle product delete
+jQuery('#gma500-admin-product-details-delete-button').click(function() {
+	if (confirm('Êtes vous sûr de vouloir supprimer ce matériel ?\nLe matériel avec ses controles et historic seront effaces de la base de donnes !')) {
+		jQuery('#gma500-admin-product-details-delete-form').submit();
+	};
+})
 
 
 }); //End jQuery
