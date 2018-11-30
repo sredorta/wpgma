@@ -1,32 +1,37 @@
 jQuery(document).ready(function() {
+console.log(ajaxurl);
+
+
+///////////////////////////////////////////////////////////////////////////////////
+// PAGE REDIRECTIONS
+///////////////////////////////////////////////////////////////////////////////////
+	//Reload page with gma500_admin_addproduct_page action
+    jQuery('#gma500-admin-main-submit-add-product-page-button').click(function() {
+		jQuery('#gma500-admin-main-submit-add-product-page-form').submit();
+	});
+
+	//Update product item
+	jQuery('#gma500-admin-product-details-update-button').click(function() {
+		jQuery('#gma500-admin-product-details-update-form').submit();
+	});
 
 ///////////////////////////////////////////////////////////////////////////////////
 // ADD PRODUCT
 ///////////////////////////////////////////////////////////////////////////////////
-	// configure your validation
-	jQuery('#form-add-product').validate();
+	jQuery('#gma500-form-add-update-product').validate();
 
+	//Form reset
+	jQuery('#gma500-reset-add-product').click(function() {
+		jQuery('#gma500-reset-add-product-form').submit();
+	});
 	//Product submit   
-	jQuery('#submit-add-product').click(function() {
-		var obj = { "action": "addproduct",
-		"idGMA" : jQuery('#idGMA').val(),
-		"cathegory" : jQuery('#cathegory').val(),
-		"brand" : jQuery('#marque').val(),
-		"utilization" : jQuery('#utilization').val(),
-		"serialNumber" : jQuery('#serialNumber').val(),
-		"doc" : jQuery('#doc').val(),
-		"isEPI" : jQuery('#epi').val(),
-		"location" : jQuery('#location').val(),
-		"description" : jQuery('#description').val(),	
-		"image" : jQuery('#imagebase64').val(),
-		"bought" : jQuery('#bought').val(),																																									
-	  };
-		if (jQuery('#form-add-product').valid()) {
+	jQuery('#gma500-submit-add-product').click(function() {
+		if (jQuery('#gma500-form-add-update-product').valid()) {
 			jQuery.ajax({
 				type: 'POST',
 				url: ajaxurl,
 				data: { 
-						"action": "gma500_addproduct",
+						"action": "gma500_admin_addproduct",
 						"idGMA" : jQuery('#idGMA').val(),
 						"cathegory" : jQuery('#cathegory').val(),
 						"brand" : jQuery('#marque').val(),
@@ -40,6 +45,7 @@ jQuery(document).ready(function() {
 						"bought" : jQuery('#bought').val(),																																									
 					  },
 				success: function(data) {
+					console.log(data);
 					var result = JSON.parse(data);
 					if (result.error != null) {						
 						jQuery('#gma500-add-product-ajax-result').html(result.error).addClass('gma500-ajax-error');
@@ -52,17 +58,38 @@ jQuery(document).ready(function() {
 				jQuery('#gma500-add-product-ajax-result').html("Une erreur est survenue").addClass('gma500-ajax-error');
 			});		
 		}
-	});
-	//Reset form   
-	jQuery('#reset-add-product').click(function() {
-		window.location.reload();
-	});
+	});	
 
 
 	//Handle image with base64
 	// imagebase64 is a hidden input that contains the value that will be send for storing
 	//		it can be the default or the base64 string after processing
 	jQuery('#imagebase64').val("../wp-content/plugins/gma500/admin/assets/default-product.jpg");
+	
+	//When we enter here we might have a default image or a base64 input in the case of update PRODUCT
+	//We now init the canvas with the base64 if we have
+	if (jQuery('#productImage').length != 0) {
+		//Check if is base64 or file... if is base
+		if (jQuery('#productImage')[0].src.match(';base64,')) {
+			var canvas = jQuery('#shadowCanvas')[0];
+			canvas.width=150;
+			canvas.height=150;
+			var ctx =canvas.getContext('2d');
+			var image = new Image();
+			image.onload = function() {
+				ctx.drawImage(image, 0, 0);
+				var real = jQuery('#productImage')[0];
+				$base64 = canvas.toDataURL('image/jpeg', 0.9);
+				real.src = $base64;
+				jQuery('#imagebase64').val($base64);
+				jQuery('#rotate').show();
+				jQuery('#clear').show();
+			};
+			image.src = jQuery('#productImage')[0].src;
+	    } 
+	}
+
+
 	jQuery('#rotate').hide();
 	jQuery('#clear').hide();
 	jQuery('#clear').on('click', function() {
@@ -144,26 +171,58 @@ jQuery(document).ready(function() {
 		}		
 
 	});
-////////////////////////////////////////////////////////////////////////////////////
-// MAIN
-////////////////////////////////////////////////////////////////////////////////////
-/*	jQuery('#admin-main-view-products').click(function() {
-		jQuery('#admin-main-view-products i').css("opacity", "1");
+
+///////////////////////////////////////////////////////////////////////////////////
+// UPDATE PRODUCT
+///////////////////////////////////////////////////////////////////////////////////
+
+//Form reset
+jQuery('#gma500-reset-update-product').click(function() {
+	jQuery('#gma500-reset-update-product-form').submit();
+});
+
+//Product submit   
+jQuery('#gma500-submit-update-product').click(function() {
+	if (jQuery('#gma500-form-add-update-product').valid()) {
 		jQuery.ajax({
 			type: 'POST',
 			url: ajaxurl,
 			data: { 
-					"action": "gma500_getproducts"																																								
+					"action": "gma500_admin_updateproduct",
+					"id" : jQuery('#gma500-update-product-id').data('idproduct'),
+					"idGMA" : jQuery('#idGMA').val(),
+					"cathegory" : jQuery('#cathegory').val(),
+					"brand" : jQuery('#marque').val(),
+					"utilization" : jQuery('#utilization').val(),
+					"serialNumber" : jQuery('#serialNumber').val(),
+					"doc" : jQuery('#doc').val(),
+					"isEPI" : jQuery('#epi').val(),
+					"location" : jQuery('#location').val(),
+					"description" : jQuery('#description').val(),	
+					"image" : jQuery('#imagebase64').val(),
+					"bought" : jQuery('#bought').val(),																																									
 				  },
 			success: function(data) {
-				jQuery('#admin-main-view-products-list').html(data);
-				jQuery('#admin-main-view-products i').css("opacity", "0");
+				console.log(data);
+				var result = JSON.parse(data);
+				if (result.error != null) {						
+					jQuery('#gma500-add-product-ajax-result').html(result.error).addClass('gma500-ajax-error');
+				}
+				if (result.success != null) {
+					jQuery('#gma500-add-product-ajax-result').html(result.success).addClass('gma500-ajax-success');
+				}
 			}
 		}).fail(function(err) {
-			jQuery('#admin-main-view-products i').css("opacity", "0");
+			jQuery('#gma500-add-product-ajax-result').html("Une erreur est survenue").addClass('gma500-ajax-error');
 		});		
+	}
+});
 
-	});*/
+
+
+////////////////////////////////////////////////////////////////////////////////////
+// MAIN
+////////////////////////////////////////////////////////////////////////////////////
 	//Search part
 	jQuery('#admin-main-view-search-products').click(function() {
 		console.log("searching");
@@ -177,9 +236,10 @@ jQuery(document).ready(function() {
 				  },
 			success: function(data) {
 				jQuery('#admin-main-view-products-list').html(data);
-					//Redirect to product details admin
+				//Redirect to product details admin with the id of the product selected
 				jQuery('.gma500-product-admin-wrapper').click(function() {
-					console.log("Going to product detail: " + jQuery(this).data('idproduct'));
+					jQuery('#admin-main-view-product-detail-form-id').val(jQuery(this).data('idproduct'));
+					jQuery('#admin-main-view-product-detail-form').submit();
 				});
 			}
 		}).fail(function(err) {

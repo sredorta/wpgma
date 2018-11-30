@@ -64,29 +64,72 @@ class Gma500_Admin {
 
     //Create admin menus
     public function create_menu() {
-        //Hook the menu
-       // add_action( 'admin_menu', 'gma500_admin_menu' );
 		add_menu_page( 'Géstion du matériel', 'Matériel GMA500', 'manage_options', 'gma500_admin_menu_top', array($this,'gma500_admin_main_page_options'), plugin_dir_url(__FILE__) . 'assets/icon_menu.jpg',50);
-	    add_submenu_page( 'gma500_admin_menu_top', 'Ajouter', 'Ajouter', 'manage_options', 'gma500_admin_menu_add', array($this, 'gma500_admin_product_add'));
-	    add_submenu_page( 'gma500_admin_menu_top', 'Supprimer', 'Supprimer', 'manage_options', 'gma500_admin_menu_remove', array($this,'my_plugin_options'));
-	    add_submenu_page( 'gma500_admin_menu_top', 'Modifier', 'Modifier', 'manage_options', 'gma500_admin_menu_update', array($this,'my_plugin_options'));
 	}
 
+	//Change all admin footer
 	public function change_footer() {
 		echo '<div style="width:100%;border-top:1px solid;"><p>GMA500 un club pas comme les autres</p></div>';
 	}
 
 	function gma500_admin_main_page_options() {
+		//Block any intents of members to be here
+		if(!is_admin()) {
+			wp_redirect(home_url());
+		}
+
+		if ($_POST['action'] == "gma500_admin_addproduct_page") {
+			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-add-update-product.php';	
+			echo "
+			<div style='display:flex;flex-flow:row wrap;justify-content:space-between;max-width:400px;min-width:200px;margin:0 auto'>
+				<div id='gma500-submit-add-product' class='button button-primary'>
+					<i class='fa fa-plus-circle fa-lg'></i> Enregistrer
+				</div>
+				<div id='gma500-reset-add-product' class='button button-secondary'> Effacer formulaire</div>
+				<form id='gma500-reset-add-product-form' class='gma500-form-hidden' action='?page=gma500_admin_menu_top' method='post'> 
+					<input name='action' value='gma500_admin_addproduct_page'/>
+				</form>
+		  	</div>";  			
+
+			die();
+		}
+		if ($_POST['action'] == "gma500_admin_updateproduct_page") {
+			$product = $this->getProductById($_POST['id']);
+			$idGMA = $product->idGMA;
+			$brand = $product->brand;
+			$serialNumber = $product->serialNumber;
+			$image = $product->image;
+			$cathegory = $product->cathegory;
+			$utilization = $product->utilization;
+			$isEPI = $product->isEPI;
+			$location = $product->location;
+			$description = $product->description;
+			$bought = $product->bought;
+			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-add-update-product.php';	
+			echo "
+			<div style='display:flex;flex-flow:row wrap;justify-content:space-between;max-width:400px;min-width:200px;margin:0 auto'>
+				<div id='gma500-submit-update-product' class='button button-primary'>
+					<i class='fa fa-plus-circle fa-lg'></i> Enregistrer
+				</div>
+				<div id='gma500-reset-update-product' class='button button-secondary'><i class='fa fa-undo fa-lg'></i> Annuler</div>
+				<form id='gma500-reset-update-product-form' class='gma500-form-hidden' action='?page=gma500_admin_menu_top' method='post'> 
+					<input name='action' value='gma500_admin_updateproduct_page'>
+					<input name='id' value=".$product->id.">
+					<div id='gma500-update-product-id' data-idproduct=".$product->id."></div>
+				</form>
+		  	</div>"; 			
+			die();
+		}
+
+		if ($_POST['action'] == "gma500_admin_viewproductdetails") {
+			$product_id = $_POST['id'];
+			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-product-details.php';
+			die();
+		}
+
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-main.php';
 	}
 
-	function gma500_admin_product_add() {		
-		//Block any intents of members to be here
-		if(!is_admin()) {
-			wp_redorect(home_url());
-		}
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-add-product.php';	
-	}
 
 
 	//AJAX ADD PRODUCT
@@ -106,6 +149,40 @@ class Gma500_Admin {
 			echo json_encode(["success" => "Metériel rajouté dans la base de donnés"]);
 			die();
 		}
+	}
+	//Updates product in SQLDB
+	function updateproduct() {
+		//Add product action
+		global $wpdb;
+		$table = $wpdb->prefix.'gma500_products';
+		$where = array('id'=> $_POST['id']);
+		$data = array('idGMA'=>$_POST['idGMA'],
+					  'cathegory'=>$_POST['cathegory'],
+					  'brand'=>$_POST['brand'],
+					  'utilization'=>$_POST['utilization'],
+					  'serialNumber'=>$_POST['serialNumber'],
+					  'doc'=>$_POST['doc'],
+					  'isEPI'=>$_POST['isEPI'],
+					  'location'=>$_POST['location'],
+					  'description'=>$_POST['description'],
+					  'image'=>$_POST['image'],
+					  'bought'=>$_POST['bought']					  					  
+		);
+		$wpdb->update ($table, $data, $where);
+		if($wpdb->last_error !== '') {
+			echo json_encode(["error" => $wpdb->last_error]); //return json error
+			die();
+		} else {
+			echo json_encode(["success" => "Matériel mis a jour correctement"]);
+			die();
+		}
+	}	
+
+	function getProductById($id) {
+		global $wpdb;
+		$table = $wpdb->prefix.'gma500_products';
+		$filter = strtolower($_POST['filter']);
+		return  $wpdb->get_row ("SELECT * FROM  $table  WHERE id = $id;");	
 	}
 
 	//AJAX GET PRODUCTS
@@ -138,10 +215,6 @@ class Gma500_Admin {
 		die();
 	}
 
-
-	function my_plugin_options() {
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-add-product.php';
-	}
 
 	/**
 	 * Register the stylesheets for the admin area.

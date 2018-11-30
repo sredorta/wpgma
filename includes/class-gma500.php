@@ -159,7 +159,8 @@ class Gma500 {
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'create_menu' ); //Create menu action !!!
 		$this->loader->add_filter( 'admin_footer_text', $plugin_admin, 'change_footer');
 		//REGISTER ALL AJAX CALLS HERE !
-		$this->loader->add_action( 'wp_ajax_gma500_addproduct', $plugin_admin, 'insertproduct'); //wp_ajax + name of the action 
+		$this->loader->add_action( 'wp_ajax_gma500_admin_addproduct', $plugin_admin, 'insertproduct'); //wp_ajax + name of the action 
+		$this->loader->add_action( 'wp_ajax_gma500_admin_updateproduct', $plugin_admin, 'updateproduct'); //wp_ajax + name of the action 
 		$this->loader->add_action( 'wp_ajax_gma500_getproducts', $plugin_admin, 'getproducts');
 		$this->loader->add_action( 'wp_ajax_gma500_searchproducts', $plugin_admin, 'searchproducts');
 	}

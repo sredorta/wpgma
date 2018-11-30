@@ -15,6 +15,11 @@
      cursor:default;
      max-width: 200px;
  }
+
+ .gma500-form-hidden {
+     display:none;
+ }
+
  .gma500-shadow {
      display:none;
  }
