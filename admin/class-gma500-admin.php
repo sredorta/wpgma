@@ -105,6 +105,8 @@ class Gma500_Admin {
 			$location = $product->location;
 			$description = $product->description;
 			$bought = $product->bought;
+			$isRental = $product->isRental;
+			
 			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-add-update-product.php';	
 			echo "
 			<div style='display:flex;flex-flow:row wrap;justify-content:space-between;max-width:400px;min-width:200px;margin:0 auto'>
@@ -128,9 +130,12 @@ class Gma500_Admin {
 			$wpdb->delete($table, $where);
 		}
 
-		//GET PRODUCTS
+		//VIEW PRODUCT DETAILS
 		if ($_POST['action'] == "gma500_admin_viewproductdetails") {
 			$product_id = $_POST['id'];
+			$product = $this->getProductById($product_id);
+			$user = get_userdata($product->user_id);
+			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-product-details-header.php';
 			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-product-details.php';
 			die();
 		}
@@ -147,8 +152,8 @@ class Gma500_Admin {
 		global $wpdb;
 		$table = $wpdb->prefix.'gma500_products';
 		$sql = $wpdb->prepare (
-			"INSERT INTO ".$table . " (idGMA,cathegory,brand,utilization,serialNumber,doc,isEPI,location,description,image,bought,time) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-			$_POST['idGMA'],$_POST['cathegory'],$_POST['brand'],$_POST['utilization'],$_POST['serialNumber'],$_POST['doc'],$_POST['isEPI'],$_POST['location'],$_POST['description'],$_POST['image'],$_POST['bought'], current_time('mysql') );
+			"INSERT INTO ".$table . " (idGMA,cathegory,brand,utilization,serialNumber,doc,isEPI,location,description,image,bought,time,isRental) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+			$_POST['idGMA'],$_POST['cathegory'],$_POST['brand'],$_POST['utilization'],$_POST['serialNumber'],$_POST['doc'],$_POST['isEPI'],$_POST['location'],$_POST['description'],$_POST['image'],$_POST['bought'], current_time('mysql'),$_POST['isRental'] );
 		$wpdb->query($sql);
 		if($wpdb->last_error !== '') {
 			echo json_encode(["error" => $wpdb->last_error]); //return json error
@@ -189,9 +194,10 @@ class Gma500_Admin {
 	function getProductById($id) {
 		global $wpdb;
 		$table = $wpdb->prefix.'gma500_products';
-		$filter = strtolower($_POST['filter']);
 		return  $wpdb->get_row ("SELECT * FROM  $table  WHERE id = $id;");	
 	}
+
+
 
 	//AJAX GET PRODUCTS
 	//Gets products from SQL

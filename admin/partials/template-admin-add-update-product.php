@@ -69,7 +69,7 @@
         </div>  
         <div style="min-width:200px;margin:0 auto">
             <p>INDROIT*:<br />
-            <select id="location" required style="width:170px">
+            <select id="location" name="location" required style="width:170px">
             <?php if ($location!="") echo "<option value=". $location. " selected='selected'>".$location."</option>";
                   else echo "<option value=''>--Sélectioner--</option>";?>            
                 <option value="Amiral">Amiral</option>
@@ -81,6 +81,16 @@
         </div>         
       </div> 
       <div style="display:flex;flex-flow:column;max-width:400px;min-width:200px;margin:0 auto">
+        <p>Disponilbe à la location*:<br />
+            <select id="isRental" name="isRental" required style="width:170px">
+            <?php $isRentalText = "Oui";
+                  if ($isRental == "0") $isRentalText = "Non";
+                  if ($isRental!="") echo "<option value=". $isRental. " selected='selected'>".$isRentalText."</option>";
+                  else echo "<option value=''>--Sélectioner--</option>";?>            
+                <option value="1">Oui</option>
+                <option value="0">Non</option>
+            </select>              
+        </p>        
         <?php echo "<p style='width:100%'>DESCRIPTION*:<br /><textarea class='gma500-textarea' id='description' name='description' type='text' required minlength='3' maxlength='400'>".$description."</textarea></p>"?>
         <div id="gma500-add-product-ajax-result" class="gma500-ajax"></div>    
       </div>    

@@ -42,16 +42,17 @@ console.log(ajaxurl);
 						"location" : jQuery('#location').val(),
 						"description" : jQuery('#description').val(),	
 						"image" : jQuery('#imagebase64').val(),
+						"isRental" : jQuery('#isRental').val(),
 						"bought" : jQuery('#bought').val(),																																									
 					  },
 				success: function(data) {
 					console.log(data);
 					var result = JSON.parse(data);
 					if (result.error != null) {						
-						jQuery('#gma500-add-product-ajax-result').html(result.error).addClass('gma500-ajax-error');
+						jQuery('#gma500-add-product-ajax-result').html(result.error).removeClass('gma500-ajax-success').addClass('gma500-ajax-error').fadeIn();
 					}
 					if (result.success != null) {
-						jQuery('#gma500-add-product-ajax-result').html(result.success).addClass('gma500-ajax-success');
+						jQuery('#gma500-add-product-ajax-result').html(result.success).removeClass('gma500-ajax-error').addClass('gma500-ajax-success').fadeIn().delay(5000).fadeOut();
 					}
 				}
 			}).fail(function(err) {
@@ -200,17 +201,18 @@ jQuery('#gma500-submit-update-product').click(function() {
 					"location" : jQuery('#location').val(),
 					"description" : jQuery('#description').val(),	
 					"image" : jQuery('#imagebase64').val(),
+					"isRental" : jQuery('#isRental').val(),
 					"bought" : jQuery('#bought').val(),																																									
 				  },
 			success: function(data) {
 				console.log(data);
 				var result = JSON.parse(data);
 				if (result.error != null) {						
-					jQuery('#gma500-add-product-ajax-result').html(result.error).addClass('gma500-ajax-error');
+					jQuery('#gma500-add-product-ajax-result').html(result.error).removeClass('gma500-ajax-success').addClass('gma500-ajax-error').fadeIn();
 				}
 				if (result.success != null) {
-					jQuery('#gma500-add-product-ajax-result').html(result.success).addClass('gma500-ajax-success');
-				}
+					jQuery('#gma500-add-product-ajax-result').html(result.success).removeClass('gma500-ajax-error').addClass('gma500-ajax-success').fadeIn().delay(5000).fadeOut();
+				}				
 			}
 		}).fail(function(err) {
 			jQuery('#gma500-add-product-ajax-result').html("Une erreur est survenue").addClass('gma500-ajax-error');
@@ -256,6 +258,12 @@ jQuery('#gma500-admin-product-details-delete-button').click(function() {
 		jQuery('#gma500-admin-product-details-delete-form').submit();
 	};
 })
+jQuery('#gma500-admin-product-details-show-more-button').click(function () {
+	if (jQuery('#gma500-admin-product-details-show-more-content').css('display') == "none")
+		jQuery('#gma500-admin-product-details-show-more-content').css('display','block');
+	else
+		jQuery('#gma500-admin-product-details-show-more-content').css('display','none');
+});
 
 
 }); //End jQuery

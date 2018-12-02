@@ -46,11 +46,14 @@
 
 .gma500-ajax { 
 opacity:0;
-padding:10px;
+/*padding:10px;
 border-radius: 5px;
-    margin-bottom:10px;
+    margin-bottom:10px;*/
 }
 .gma500-ajax-error {
+    padding:10px;
+    border-radius: 5px;
+        margin-bottom:10px;    
     opacity:1;
     padding:10px;
     border-radius: 5px;
@@ -60,6 +63,9 @@ border-radius: 5px;
 
 }
 .gma500-ajax-success {
+    padding:10px;
+    border-radius: 5px;
+    margin-bottom:10px;    
     opacity:1;
     padding:10px;
     border-radius: 5px;
@@ -71,6 +77,7 @@ border-radius: 5px;
 
 /*Product item part*/
 .gma500-product-admin-label {
+    border-bottom: 1px solid;
     font-size:10px;
     margin:3px;
 }
@@ -144,4 +151,8 @@ border-radius: 5px;
 #admin-main-view-products-list {
     display:flex;
     flex-flow: row wrap;
+}
+
+#gma500-admin-product-details-show-more-content {
+    display:none;
 }
