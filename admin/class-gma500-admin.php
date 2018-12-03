@@ -154,6 +154,7 @@ class Gma500_Admin {
 			$product = $this->getProductById($product_id);
 			$user = get_userdata($product->user_id);
 			$historics = $this->getHistoric($product_id);
+			$controls = $this->getControls($product_id);
 			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-product-details-header.php';
 			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-product-details.php';
 			die();
@@ -161,7 +162,30 @@ class Gma500_Admin {
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-main.php';
 	}
+	function getProductById($id) {
+		global $wpdb;
+		$table = $wpdb->prefix.'gma500_products';
+		return  $wpdb->get_row ("SELECT * FROM  $table  WHERE id = $id;");	
+	}
 
+	//Gets last 10 historic from a product
+	function getHistoric($product_id) {
+		global $wpdb;
+		$table = $wpdb->prefix.'gma500_historic';
+		$sql = $wpdb->prepare ("SELECT * FROM ". $table . " WHERE product_id = '". $product_id . "' ORDER BY id DESC LIMIT 10;", $dummy);
+		$historics = $wpdb->get_results($sql);
+		return $historics;
+	}
+
+	function getControls($product_id) {
+		global $wpdb;
+		$table = $wpdb->prefix.'gma500_controls';
+		$sql = $wpdb->prepare ("SELECT * FROM ". $table . " WHERE product_id = '". $product_id . "' ORDER BY id DESC;", $dummy);
+		$controls = $wpdb->get_results($sql);
+		return $controls;
+
+
+	}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // AJAX CALLS
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -210,23 +234,6 @@ class Gma500_Admin {
 			die();
 		}
 	}	
-
-	function getProductById($id) {
-		global $wpdb;
-		$table = $wpdb->prefix.'gma500_products';
-		return  $wpdb->get_row ("SELECT * FROM  $table  WHERE id = $id;");	
-	}
-
-	//Gets last 10 historic from a product
-	function getHistoric($product_id) {
-		global $wpdb;
-		$table = $wpdb->prefix.'gma500_historic';
-		//Get last id from the product to insert comment
-		$sql = $wpdb->prepare ("SELECT * FROM ". $table . " WHERE product_id = '". $product_id . "' ORDER BY id DESC LIMIT 10;", $dummy);
-		$historics = $wpdb->get_results($sql);
-		return $historics;
-	}
-
 
 
 	//AJAX GET PRODUCTS
@@ -378,6 +385,50 @@ class Gma500_Admin {
 		echo json_encode(["success" => "Matériel correctement deassigné"]);
 		die();
 	}
+
+	//add control
+	function addcontrol() {
+		global $wpdb;
+		$product_id = $_POST['product_id'];
+		$type = $_POST['type'];
+		$description = $_POST['description'];
+		$due = $_POST['due'];
+
+
+		$table = $wpdb->prefix.'gma500_controls';
+		$sql = $wpdb->prepare (
+			"INSERT INTO ".$table . " (product_id,status,type,description,created,due) VALUES (%s,%s,%s,%s,%s,%s)",
+			$product_id,"ouvert", $type,$description,current_time('mysql'), $due );
+		$wpdb->query($sql);
+		if($wpdb->last_error !== '') {
+			echo json_encode(["error" => $wpdb->last_error]); //return json error
+			die();
+		} else {
+			echo json_encode(["success" => "Matériel correctement assigné"]);
+			die();
+		}		
+		die();
+	}
+
+	//close control
+	function closecontrol() {
+		global $wpdb;
+		$control_id = $_POST['control_id'];
+		//Update the table products
+		$table = $wpdb->prefix.'gma500_controls';
+		$where = array('id'=> $control_id);
+		$data = array('status'=> 'férmé');
+		$wpdb->update ($table, $data, $where);
+		if($wpdb->last_error !== '') {
+			echo json_encode(["error" => $wpdb->last_error]); //return json error
+			die();
+		} 
+		echo json_encode(["success" => "Controle correctement fermé"]);
+		die();
+	}	
+
+
+
 /////////////////////////////////////////////////// AJAX END ///////////////////////////////////////////////////
 
 

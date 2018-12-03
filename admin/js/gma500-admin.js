@@ -251,121 +251,189 @@ jQuery('#gma500-submit-update-product').click(function() {
 			jQuery('#admin-main-view-products i').css("opacity", "0");
 		});			
 	});
-///////////////////////////////
-// PRODUCT DETAILS
-//////////////////////////////
-//Show correct assign/unassign
-if (jQuery('#gma500-user-id').data('iduser')==0) {
-	jQuery('#gma500-admin-product-details-unassign-more-button').hide();
-} else {
-	jQuery('#gma500-admin-product-details-assign-more-button').hide();
-}
+	///////////////////////////////
+	// PRODUCT DETAILS
+	//////////////////////////////
+	//Show correct assign/unassign
+	if (jQuery('#gma500-user-id').data('iduser')==0) {
+		jQuery('#gma500-admin-product-details-unassign-more-button').hide();
+	} else {
+		jQuery('#gma500-admin-product-details-assign-more-button').hide();
+	}
 
-//Handle product delete
-jQuery('#gma500-admin-product-details-delete-button').click(function() {
-	if (confirm('Êtes vous sûr de vouloir supprimer ce matériel ?\nLe matériel avec ses controles et historic seront effaces de la base de donnes !')) {
-		jQuery('#gma500-admin-product-details-delete-form').submit();
-	};
-})
-jQuery('#gma500-admin-product-details-show-more-button').click(function () {
-	if (jQuery('#gma500-admin-product-details-show-more-content').css('display') == "none")
-		jQuery('#gma500-admin-product-details-show-more-content').slideDown();
-	else
-		jQuery('#gma500-admin-product-details-show-more-content').slideUp();
-});
-
-
-//Assign
-
-jQuery('#gma500-admin-product-details-assign-more-button').click(function() {
-	if (jQuery('#gma500-admin-product-details-assign-more-content').css('display') == "none")
-		jQuery('#gma500-admin-product-details-assign-more-content').slideDown();
-	else
-		jQuery('#gma500-admin-product-details-assign-more-content').slideUp();
-});
+	//Handle product delete
+	jQuery('#gma500-admin-product-details-delete-button').click(function() {
+		if (confirm('Êtes vous sûr de vouloir supprimer ce matériel ?\nLe matériel avec ses controles et historic seront effaces de la base de donnes !')) {
+			jQuery('#gma500-admin-product-details-delete-form').submit();
+		};
+	})
+	jQuery('#gma500-admin-product-details-show-more-button').click(function () {
+		if (jQuery('#gma500-admin-product-details-show-more-content').css('display') == "none")
+			jQuery('#gma500-admin-product-details-show-more-content').slideDown();
+		else
+			jQuery('#gma500-admin-product-details-show-more-content').slideUp();
+	});
 
 
-jQuery('#admin-main-product-details-search-user').click(function() {
-	console.log("Searching users");
-	jQuery('#admin-main-view-products-list').html("");
-	jQuery.ajax({
-		type: 'POST',
-		url: ajaxurl,
-		data: { 
-				"action": "gma500_searchusers",
-				"filter": jQuery('#admin-main-product-details-search-user-input').val()																																							
-			  },
-		success: function(data) {
-			jQuery('#gma500-admin-product-details-users-list').html(data);
-			jQuery('#gma500-assign-final-wrapper').css("display", "none");
-			jQuery('.gma500-user-list-item').click(function() {
-					jQuery('.gma500-user-list-item').removeClass('gma500-user-selected');
-					jQuery(this).addClass('gma500-user-selected');
-					jQuery('#gma500-assign-final-wrapper').css("display", "block");
-			});
-			jQuery('#gma500-assign-button').click(function() {
-				//Assign finally to user
-				jQuery.ajax({
-					type: 'POST',
-					url: ajaxurl,
-					data: { 
-							"action": "gma500_assign",
-							"user_id": jQuery('.gma500-user-selected').data('iduser'),
-							"product_id": jQuery('#gma500-product-id').data('idproduct'),
-							"due":	jQuery('#gma500-assign-back-date').val()																																						
-						  },
-					success: function(data) {
-						console.log(data);
-						var result = JSON.parse(data);
-						if (result.error != null) {						
-							jQuery('#gma500-assign-ajax-result').html(result.error).hide().addClass('gma500-ajax-error').fadeIn();
-						}
-						if (result.success != null) {
-							//Reload page
-							jQuery('#gma500-reset-product-details-form').submit();
-						}				
-					}
+	//Assign
+
+	jQuery('#gma500-admin-product-details-assign-more-button').click(function() {
+		if (jQuery('#gma500-admin-product-details-assign-more-content').css('display') == "none")
+			jQuery('#gma500-admin-product-details-assign-more-content').slideDown();
+		else
+			jQuery('#gma500-admin-product-details-assign-more-content').slideUp();
+	});
+
+
+	jQuery('#admin-main-product-details-search-user').click(function() {
+		console.log("Searching users");
+		jQuery('#admin-main-view-products-list').html("");
+		jQuery.ajax({
+			type: 'POST',
+			url: ajaxurl,
+			data: { 
+					"action": "gma500_searchusers",
+					"filter": jQuery('#admin-main-product-details-search-user-input').val()																																							
+				},
+			success: function(data) {
+				jQuery('#gma500-admin-product-details-users-list').html(data);
+				jQuery('#gma500-assign-final-wrapper').css("display", "none");
+				jQuery('.gma500-user-list-item').click(function() {
+						jQuery('.gma500-user-list-item').removeClass('gma500-user-selected');
+						jQuery(this).addClass('gma500-user-selected');
+						jQuery('#gma500-assign-final-wrapper').css("display", "block");
 				});
+				jQuery('#gma500-assign-button').click(function() {
+					//Assign finally to user
+					jQuery.ajax({
+						type: 'POST',
+						url: ajaxurl,
+						data: { 
+								"action": "gma500_assign",
+								"user_id": jQuery('.gma500-user-selected').data('iduser'),
+								"product_id": jQuery('#gma500-product-id').data('idproduct'),
+								"due":	jQuery('#gma500-assign-back-date').val()																																						
+							},
+						success: function(data) {
+							console.log(data);
+							var result = JSON.parse(data);
+							if (result.error != null) {						
+								jQuery('#gma500-assign-ajax-result').html(result.error).hide().addClass('gma500-ajax-error').fadeIn();
+							}
+							if (result.success != null) {
+								//Reload page
+								jQuery('#gma500-reset-product-details-form').submit();
+							}				
+						}
+					});
 
+				});
+			}
+		});			
+
+	});
+	//Unassign part
+	jQuery('#gma500-admin-product-details-unassign-more-button').click(function() {
+		if (jQuery('#gma500-admin-product-details-unassign-more-content').css('display') == "none")
+			jQuery('#gma500-admin-product-details-unassign-more-content').slideDown();
+		else
+			jQuery('#gma500-admin-product-details-unassign-more-content').slideUp();
+	});
+	jQuery('#gma500-admin-product-details-unassign-button').click(function() {
+		console.log("Unassign !!");
+		jQuery.ajax({
+			type: 'POST',
+			url: ajaxurl,
+			data: { 
+					"action": "gma500_unassign",
+					"product_id": jQuery('#gma500-product-id').data('idproduct'),
+					"comment": jQuery('#gma500-unassign-comment').val()																																							
+				},
+			success: function(data) {
+				var result = JSON.parse(data);
+				if (result.error != null) {						
+					jQuery('#gma500-unassign-ajax-result').html(result.error).hide().addClass('gma500-ajax-error').fadeIn();
+				} else {
+					//Reload page
+					jQuery('#gma500-reset-product-details-form').submit();
+				}
+			}});
+	});
+	//Historic part
+	jQuery('#gma500-admin-product-details-historic-more-button').click(function() {
+		if (jQuery('#gma500-admin-product-details-historic-more-content').css('display') == "none")
+			jQuery('#gma500-admin-product-details-historic-more-content').slideDown();
+		else
+			jQuery('#gma500-admin-product-details-historic-more-content').slideUp();
+	});
+	//Controls part
+	jQuery('#gma500-admin-product-details-controls-add-form').validate();
+	jQuery('#gma500-admin-product-details-controls-more-button').click(function() {
+		if (jQuery('#gma500-admin-product-details-controls-more-content').css('display') == "none")
+			jQuery('#gma500-admin-product-details-controls-more-content').slideDown();
+		else
+			jQuery('#gma500-admin-product-details-controls-more-content').slideUp();
+	});
+
+	jQuery('#gma500-admin-product-details-controls-add-button').click(function() {
+		if (jQuery('#gma500-admin-product-details-controls-add-form-wrapper').css('display') == "none")
+			jQuery('#gma500-admin-product-details-controls-add-form-wrapper').slideDown();
+		else 
+			jQuery('#gma500-admin-product-details-controls-add-form-wrapper').slideUp();
+	});
+
+	jQuery('#gma500-admin-product-details-controls-add-button').click(function() {
+		console.log("Add control");
+		//We need to show the form
+		jQuery('#gma500-admin-product-details-controls-add-form').slideDown();
+	});
+	jQuery('#gma500-admin-product-details-controls-add-button-submit').click(function() {
+		if (jQuery('#gma500-admin-product-details-controls-add-form').valid()) {
+			console.log("Creating control!");
+			jQuery.ajax({
+				type: 'POST',
+				url: ajaxurl,
+				data: { 
+						"action": "gma500_addcontrol",
+						"product_id": jQuery('#gma500-product-id').data('idproduct'),
+						"type": jQuery('#gma500-controls-add-type').val(),
+						"description": 	jQuery('#gma500-controls-add-description').val(),
+						"due": 	jQuery('#gma500-controls-add-due').val()																																				
+					},
+				success: function(data) {
+					var result = JSON.parse(data);
+					if (result.error != null) {						
+						jQuery('#gma500-controls-add-ajax-result').html(result.error).hide().addClass('gma500-ajax-error').fadeIn();
+					} else {
+						//Reload page
+						jQuery('#gma500-reset-product-details-form').submit();
+					}
+				}
 			});
 		}
-	});			
-
-});
-//Unassign part
-jQuery('#gma500-admin-product-details-unassign-more-button').click(function() {
-	if (jQuery('#gma500-admin-product-details-unassign-more-content').css('display') == "none")
-		jQuery('#gma500-admin-product-details-unassign-more-content').slideDown();
-	else
-		jQuery('#gma500-admin-product-details-unassign-more-content').slideUp();
-});
-jQuery('#gma500-admin-product-details-unassign-button').click(function() {
-	console.log("Unassign !!");
-	jQuery.ajax({
-		type: 'POST',
-		url: ajaxurl,
-		data: { 
-				"action": "gma500_unassign",
-				"product_id": jQuery('#gma500-product-id').data('idproduct'),
-				"comment": jQuery('#gma500-unassign-comment').val()																																							
-			  },
-		success: function(data) {
-			var result = JSON.parse(data);
-			if (result.error != null) {						
-				jQuery('#gma500-unassign-ajax-result').html(result.error).hide().addClass('gma500-ajax-error').fadeIn();
-			} else {
-				//Reload page
-				jQuery('#gma500-reset-product-details-form').submit();
-			}
-		}});
-});
-//Historic part
-jQuery('#gma500-admin-product-details-historic-more-button').click(function() {
-	if (jQuery('#gma500-admin-product-details-historic-more-content').css('display') == "none")
-		jQuery('#gma500-admin-product-details-historic-more-content').slideDown();
-	else
-		jQuery('#gma500-admin-product-details-historic-more-content').slideUp();
-});
-
+	});
+	//Close control
+	jQuery('.gma500-controls-item-close').click(function() {
+		if (confirm('Êtes vous sûr de vouloir changer le status de ce controle a "effectué" ?\n')) {
+			jQuery.ajax({
+				type: 'POST',
+				url: ajaxurl,
+				data: { 
+						"action": "gma500_closecontrol",
+						"control_id": jQuery(this).data('idcontrol')																											
+					},
+				success: function(data) {
+					console.log(data);
+					var result = JSON.parse(data);
+					if (result.error != null) {						
+						jQuery('#gma500-controls-add-ajax-result').html(result.error).hide().addClass('gma500-ajax-error').fadeIn();
+					} else {
+						//Reload page
+						jQuery('#gma500-reset-product-details-form').submit();
+					}
+				}
+			});
+		};
+	});
 
 }); //End jQuery
