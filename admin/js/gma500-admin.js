@@ -260,10 +260,72 @@ jQuery('#gma500-admin-product-details-delete-button').click(function() {
 })
 jQuery('#gma500-admin-product-details-show-more-button').click(function () {
 	if (jQuery('#gma500-admin-product-details-show-more-content').css('display') == "none")
-		jQuery('#gma500-admin-product-details-show-more-content').css('display','block');
+		jQuery('#gma500-admin-product-details-show-more-content').slideDown();
 	else
-		jQuery('#gma500-admin-product-details-show-more-content').css('display','none');
+		jQuery('#gma500-admin-product-details-show-more-content').slideUp();
 });
 
+
+//Assign
+
+jQuery('#gma500-admin-product-details-assign-more-button').click(function() {
+	if (jQuery('#gma500-admin-product-details-assign-more-content').css('display') == "none")
+		jQuery('#gma500-admin-product-details-assign-more-content').slideDown();
+	else
+		jQuery('#gma500-admin-product-details-assign-more-content').slideUp();
+});
+
+
+jQuery('#admin-main-product-details-search-user').click(function() {
+	console.log("Searching users");
+	jQuery('#admin-main-view-products-list').html("");
+	jQuery.ajax({
+		type: 'POST',
+		url: ajaxurl,
+		data: { 
+				"action": "gma500_searchusers",
+				"filter": jQuery('#admin-main-product-details-search-user-input').val()																																							
+			  },
+		success: function(data) {
+			jQuery('#gma500-admin-product-details-users-list').html(data);
+			jQuery('#gma500-assign-final-wrapper').css("display", "none");
+			jQuery('.gma500-user-list-item').click(function() {
+					jQuery('.gma500-user-list-item').removeClass('gma500-user-selected');
+					jQuery(this).addClass('gma500-user-selected');
+					jQuery('#gma500-assign-final-wrapper').css("display", "block");
+			});
+			jQuery('#gma500-assign-button').click(function() {
+				//Assign finally to user
+				jQuery.ajax({
+					type: 'POST',
+					url: ajaxurl,
+					data: { 
+							"action": "gma500_assign",
+							"user_id": jQuery('.gma500-user-selected').data('iduser'),
+							"product_id": jQuery('#gma500-product-id').data('idproduct'),
+							"due":	jQuery('#gma500-assign-back-date').val()																																						
+						  },
+					success: function(data) {
+						console.log(data);
+						var result = JSON.parse(data);
+						if (result.error != null) {						
+							jQuery('#gma500-assign-ajax-result').html(result.error).hide().addClass('gma500-ajax-error').fadeIn();
+						}
+						if (result.success != null) {
+							//We now refresh the page !
+							jQuery('#gma500-admin-product-details-assign-more-content').slideUp('slow', function() {
+								jQuery('#gma500-admin-product-details-users-list').html('');
+							});
+							
+
+						}				
+					}
+				});
+
+			});
+		}
+	});			
+
+});
 
 }); //End jQuery

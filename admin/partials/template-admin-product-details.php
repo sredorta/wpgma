@@ -23,6 +23,31 @@
         <?php echo "<p class='gma500-product-admin-value'>" . $isRentalText . "</p>";?>   
         </div>                            
     </div>
+    <!--Assign part-->
+    <div  style="display:flex;flex-flow:column;max-width:600px;margin:0 auto;margin-top:5px">
+        <div id="gma500-admin-product-details-assign-more-button" class="button button-secondary">
+            <i class="fa fa-user-plus fa-lg"></i> Assigner
+        </div>
+        <div id="gma500-admin-product-details-assign-more-content">
+            <div>
+                <input id="admin-main-product-details-search-user-input" type="text" name="search" id="search" placeholder="Chercher" value=""/>
+                <span class="input-group-btn">
+                    <button id="admin-main-product-details-search-user" class="button button-secondary"><i class="fa fa-search fa-lg"></i>Chercher</button>
+                </span>
+            </div> 
+            <div id="gma500-admin-product-details-users-list"></div>
+        </div>        
+    </div>    
+   <!--Unassign part-->
+   <div  style="display:flex;flex-flow:column;max-width:600px;margin:0 auto;margin-top:5px">
+        <div id="gma500-admin-product-details-unassign-more-button" class="button button-secondary">
+            <i class="fa fa-user-times fa-lg"></i> Desassigner
+        </div>
+        <div id="gma500-admin-product-details-unassign-more-content">
+
+        </div>
+    </div>    
+
 
 <div class="wrap">
 

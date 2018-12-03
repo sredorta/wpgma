@@ -228,7 +228,89 @@ class Gma500_Admin {
 		}
 		die();
 	}
+	//AJAX SEARCH USERS
+	function searchusers() {
+		global $wpdb;
+		$table = $wpdb->prefix.'gma500_users';
+		$filter_o = strtolower($_POST['filter']);
+		$filters = explode(" ", $filter_o);
+		$users = get_users();
+		$result = [];
+		foreach ($users as $user) {
+			$tmp  = "";
+			$meta = "";
+			$tmp->email = $user->user_email;
+			$meta = get_user_meta($user->ID);
+			$tmp->id = $user->ID;
+			$tmp->first_name = $meta['first_name'][0];
+			$tmp->last_name = $meta['last_name'][0];
+			if ($filter_o != "") {
+				//Do the filter
+				$found = false;
+				foreach ($filters as $filter) {
+					if (strpos(strtolower($tmp->first_name), $filter) !== false) $found = true;
+					if (strpos(strtolower($tmp->last_name), $filter) !== false) $found = true;
+					if (strpos(strtolower($tmp->email), $filter) !== false) $found = true;
+				}
+			} else {
+				$found = true;
+			}
+			if ($found) array_push($result,$tmp);
+		}
+		if (sizeof($result) == 0) {
+			echo "Pas de membre trouvé qui contient : " . $filter_o;
+			die();
+		}
+		//Create the html with the users found
+		foreach ($result as $tmp) {
+			echo "<div class='gma500-user-list-item' data-iduser=\"".$tmp->id."\">";
+			echo "<div class='gma500-user-list-item-first'><p>".$tmp->first_name."</p></div>";
+			echo "<div class='gma500-user-list-item-last'><p>".$tmp->last_name."</p></div>";
+			echo "<div class='gma500-user-list-item-email'><p>".$tmp->email."</p></div>";
+			echo "</div>";
+		}
+		echo "<div id ='gma500-assign-final-wrapper'>";
+		echo "<p>DATE DE RETOUR:<br /><input  id='gma500-assign-back-date' name='back' type='date' required style='width:170px' value=".current_time('mysql')."></p>";
+		echo "<div id='gma500-assign-ajax-result'></div>";
+		echo "<div id='gma500-assign-button' class='button button-primary'>Assigner</div>";
+		echo "</div>";
+		die();
+	}
+	function assignproduct() {
+		global $wpdb;
+		$product_id = $_POST['product_id'];
+		$user_id = $_POST['user_id'];
+		$due = $_POST['due'];
+		$myuser = get_user_by('ID', $user_id);
+		$email = $myuser->user_email;
+		$meta = get_user_meta($myuser->ID);
+		$first = $meta['first_name'][0];
+		$last = $meta['last_name'][0];
 
+		//Update the table products
+		$table = $wpdb->prefix.'gma500_products';
+		$where = array('id'=> $product_id);
+		$data = array('user_id'=>$user_id);
+		$wpdb->update ($table, $data, $where);
+		if($wpdb->last_error !== '') {
+			echo json_encode(["error" => $wpdb->last_error]); //return json error
+			die();
+		} 
+
+		$table = $wpdb->prefix.'gma500_historic';
+		$sql = $wpdb->prepare (
+			"INSERT INTO ".$table . " (product_id,first_name,last_name,email,start,end) VALUES (%s,%s,%s,%s,%s,%s)",
+			$product_id,$first, $last,$email,current_time('mysql'), $due );
+		$wpdb->query($sql);
+		if($wpdb->last_error !== '') {
+			echo json_encode(["error" => $wpdb->last_error]); //return json error
+			die();
+		} else {
+			echo json_encode(["success" => "Matériel correctement assigné"]);
+			die();
+		}		
+		die();
+	}
 
 	/**
 	 * Register the stylesheets for the admin area.

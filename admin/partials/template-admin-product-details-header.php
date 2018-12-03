@@ -1,4 +1,5 @@
 <div class="wrap" style="width:100%">
+    <?php echo "<div id='gma500-product-id' data-idproduct=\"". $product->id."\"></div>";?>
     <div style="display:flex;flex-flow:row wrap;max-width:600px;margin:0 auto">
        <div style="max-width:300px;display:flex;flex-flow:column;justify-content:center">
        <?php if ($product->image=="") $product->image = "../wp-content/plugins/gma500/admin/assets/default-product.jpg";

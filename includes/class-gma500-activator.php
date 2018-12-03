@@ -59,8 +59,35 @@ class Gma500_Activator {
 				) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;";
 			require_once(get_home_path() . 'wp-admin/includes/upgrade.php');
 			dbDelta($sql);
+
+			//Create historic table
+			$table_h = $wpdb->prefix . 'gma500_historic';
+			$sql = "CREATE TABLE " . $table_h . " (
+				id int(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+				product_id int(10) UNSIGNED,
+				first_name varchar(50) NOT NULL,
+				last_name varchar(50) NOT NULL,
+				email varchar(255) NOT NULL,
+				comment varchar(500) NOT NULL DEFAULT 'Pas de commentaire',
+				start datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+				end  datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+				FOREIGN KEY(product_id) REFERENCES ".$table."(id) ON DELETE CASCADE
+				) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;";
+			dbDelta($sql);
+
+			//Create controls table
+			$table_c = $wpdb->prefix . 'gma500_controls';
+			$sql = "CREATE TABLE " . $table_c . " (
+				id int(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+				product_id int(10) UNSIGNED,
+				status varchar(50) NOT NULL DEFAULT 'Ouvert',
+				type varchar(50) NOT NULL DEFAULT 'Rebut',
+				description varchar(500) NOT NULL DEFAULT 'Pas de description',
+				created datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+				due datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+				FOREIGN KEY(product_id) REFERENCES ".$table."(id) ON DELETE CASCADE
+				) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;";
+			dbDelta($sql);
 		}
-
-
 	}
 }

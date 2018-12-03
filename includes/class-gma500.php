@@ -163,6 +163,8 @@ class Gma500 {
 		$this->loader->add_action( 'wp_ajax_gma500_admin_updateproduct', $plugin_admin, 'updateproduct'); //wp_ajax + name of the action 
 		$this->loader->add_action( 'wp_ajax_gma500_getproducts', $plugin_admin, 'getproducts');
 		$this->loader->add_action( 'wp_ajax_gma500_searchproducts', $plugin_admin, 'searchproducts');
+		$this->loader->add_action( 'wp_ajax_gma500_searchusers', $plugin_admin, 'searchusers');
+		$this->loader->add_action( 'wp_ajax_gma500_assign', $plugin_admin, 'assignproduct');
 	}
 
 	/**

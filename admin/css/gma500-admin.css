@@ -155,4 +155,41 @@ border-radius: 5px;
 
 #gma500-admin-product-details-show-more-content {
     display:none;
+    border:1px solid;
+    padding:10px;
+}
+
+/*user list*/
+#gma500-admin-product-details-assign-more-content {
+    display:none;
+    border:1px solid;
+    padding:10px;
+}
+.gma500-user-list-item {
+    display:flex;
+    max-width:600px;
+    justify-content:flex-start;
+    align-content: center;
+    min-height: 30px;
+    margin:3px;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid rgba(0,0,0,0.3);
+}
+.gma500-user-list-item div {
+    flex: 1;
+    vertical-align: center;
+    padding-left:10px;
+    padding-right:10px;
+}
+.gma500-user-list-item div:last-child {
+    flex: 3;
+}
+.gma500-user-list-item:hover {
+    cursor:pointer;
+    box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.5);
+}
+.gma500-user-list-item.gma500-user-selected {
+    box-shadow: 3px 1px 2px 0px rgba(0,0,0,0.5);
+    font-weight: bold;
 }
