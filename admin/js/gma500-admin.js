@@ -18,6 +18,9 @@ console.log(ajaxurl);
 ///////////////////////////////////////////////////////////////////////////////////
 // ADD PRODUCT
 ///////////////////////////////////////////////////////////////////////////////////
+	jQuery('#gma500-back-to-admin-button').click(function() {
+		jQuery('#gma500-back-to-main-form').submit();
+	});
 	jQuery('#gma500-form-add-update-product').validate();
 
 	//Form reset
@@ -251,6 +254,12 @@ jQuery('#gma500-submit-update-product').click(function() {
 ///////////////////////////////
 // PRODUCT DETAILS
 //////////////////////////////
+//Show correct assign/unassign
+if (jQuery('#gma500-user-id').data('iduser')==0) {
+	jQuery('#gma500-admin-product-details-unassign-more-button').hide();
+} else {
+	jQuery('#gma500-admin-product-details-assign-more-button').hide();
+}
 
 //Handle product delete
 jQuery('#gma500-admin-product-details-delete-button').click(function() {
@@ -312,12 +321,8 @@ jQuery('#admin-main-product-details-search-user').click(function() {
 							jQuery('#gma500-assign-ajax-result').html(result.error).hide().addClass('gma500-ajax-error').fadeIn();
 						}
 						if (result.success != null) {
-							//We now refresh the page !
-							jQuery('#gma500-admin-product-details-assign-more-content').slideUp('slow', function() {
-								jQuery('#gma500-admin-product-details-users-list').html('');
-							});
-							
-
+							//Reload page
+							jQuery('#gma500-reset-product-details-form').submit();
 						}				
 					}
 				});
@@ -327,5 +332,40 @@ jQuery('#admin-main-product-details-search-user').click(function() {
 	});			
 
 });
+//Unassign part
+jQuery('#gma500-admin-product-details-unassign-more-button').click(function() {
+	if (jQuery('#gma500-admin-product-details-unassign-more-content').css('display') == "none")
+		jQuery('#gma500-admin-product-details-unassign-more-content').slideDown();
+	else
+		jQuery('#gma500-admin-product-details-unassign-more-content').slideUp();
+});
+jQuery('#gma500-admin-product-details-unassign-button').click(function() {
+	console.log("Unassign !!");
+	jQuery.ajax({
+		type: 'POST',
+		url: ajaxurl,
+		data: { 
+				"action": "gma500_unassign",
+				"product_id": jQuery('#gma500-product-id').data('idproduct'),
+				"comment": jQuery('#gma500-unassign-comment').val()																																							
+			  },
+		success: function(data) {
+			var result = JSON.parse(data);
+			if (result.error != null) {						
+				jQuery('#gma500-unassign-ajax-result').html(result.error).hide().addClass('gma500-ajax-error').fadeIn();
+			} else {
+				//Reload page
+				jQuery('#gma500-reset-product-details-form').submit();
+			}
+		}});
+});
+//Historic part
+jQuery('#gma500-admin-product-details-historic-more-button').click(function() {
+	if (jQuery('#gma500-admin-product-details-historic-more-content').css('display') == "none")
+		jQuery('#gma500-admin-product-details-historic-more-content').slideDown();
+	else
+		jQuery('#gma500-admin-product-details-historic-more-content').slideUp();
+});
+
 
 }); //End jQuery

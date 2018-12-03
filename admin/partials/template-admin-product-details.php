@@ -23,6 +23,32 @@
         <?php echo "<p class='gma500-product-admin-value'>" . $isRentalText . "</p>";?>   
         </div>                            
     </div>
+    <!--Historic show-->
+    <div  style="display:flex;flex-flow:column;max-width:600px;margin:0 auto;margin-top:5px">
+        <div id="gma500-admin-product-details-historic-more-button" class="button button-secondary">
+            <i class="fa fa-history fa-lg"></i> Historic
+        </div>
+        <div id="gma500-admin-product-details-historic-more-content">
+            <?php foreach($historics as $historic) {
+                $start = explode (" ", $historic->start)[0];
+                $end = explode(" ",$historic->end)[0];
+
+                    echo "<div class='gma500-historic-item'>";
+                    echo "<div class='gma500-historic-wrapper'>";
+                    echo "<div class='gma500-historic-item-name'>".$historic->first_name." ". $historic->last_name."</div>";
+                    echo "<div class='gma500-historic-item-email'>".$historic->email."</div>";
+                    echo "<div class='gma500-historic-item-start'>".$start."</div>";
+                    echo "<div class='gma500-historic-item-end'>".$end."</div>";
+                    echo "</div>";
+                    echo "<p class='gma500-product-admin-label'>COMMENTAIRE:</p>";
+                    echo "<div class='gma500-historic-item-comment'>".$historic->comment."</div>";
+                    echo "</div>";
+                }?>
+        </div>
+    </div>  
+
+
+
     <!--Assign part-->
     <div  style="display:flex;flex-flow:column;max-width:600px;margin:0 auto;margin-top:5px">
         <div id="gma500-admin-product-details-assign-more-button" class="button button-secondary">
@@ -44,7 +70,9 @@
             <i class="fa fa-user-times fa-lg"></i> Desassigner
         </div>
         <div id="gma500-admin-product-details-unassign-more-content">
-
+          <p style='width:100%'>COMMENTAIRE:<br /><textarea class='gma500-textarea' id='gma500-unassign-comment' name='comment' type='text' maxlength='400'></textarea></p>
+          <div id='gma500-unassign-ajax-result'></div>
+          <div id="gma500-admin-product-details-unassign-button" class="button button-primary">Desassigner</div>          
         </div>
     </div>    
 

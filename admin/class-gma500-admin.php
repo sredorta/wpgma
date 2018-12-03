@@ -80,6 +80,7 @@ class Gma500_Admin {
 		//ADD PRODUCT
 		if ($_POST['action'] == "gma500_admin_addproduct_page") {
 			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-add-update-product.php';	
+			echo "<div class='wrap'>";
 			echo "
 			<div style='display:flex;flex-flow:row wrap;justify-content:space-between;max-width:400px;min-width:200px;margin:0 auto'>
 				<div id='gma500-submit-add-product' class='button button-primary'>
@@ -89,7 +90,15 @@ class Gma500_Admin {
 				<form id='gma500-reset-add-product-form' class='gma500-form-hidden' action='?page=gma500_admin_menu_top' method='post'> 
 					<input name='action' value='gma500_admin_addproduct_page'/>
 				</form>
-		  	</div>";  			
+			  </div>";
+			echo "<div style='display:flex;flex-flow:row wrap;justify-content:space-between;max-width:400px;min-width:200px;margin:0 auto;box-sizing:border-box'>
+				<form id='gma500-back-to-main-form' class='gma500-form-hidden' action='?page=gma500_admin_menu_top' method='post'> 
+				</form>
+				<div id='gma500-back-to-admin-button' class='button button-secondary' style='width:100%'>
+					<i class='fa fa-chevron-left fa-lg'></i> Retour à la page principale
+				</div>				
+			</div>";    	
+			echo "</div>";
 			die();
 		}
 		//UPDATE PRODUCT
@@ -108,6 +117,7 @@ class Gma500_Admin {
 			$isRental = $product->isRental;
 			
 			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-add-update-product.php';	
+			echo "<div class='wrap'>";
 			echo "
 			<div style='display:flex;flex-flow:row wrap;justify-content:space-between;max-width:400px;min-width:200px;margin:0 auto'>
 				<div id='gma500-submit-update-product' class='button button-primary'>
@@ -119,7 +129,15 @@ class Gma500_Admin {
 					<input name='id' value=".$product->id.">
 					<div id='gma500-update-product-id' data-idproduct=".$product->id."></div>
 				</form>
-		  	</div>"; 			
+			  </div>"; 	
+			echo "<div style='display:flex;flex-flow:row wrap;justify-content:space-between;max-width:400px;min-width:200px;margin:0 auto;box-sizing:border-box'>
+			  <form id='gma500-back-to-main-form' class='gma500-form-hidden' action='?page=gma500_admin_menu_top' method='post'> 
+			  </form>
+			  <div id='gma500-back-to-admin-button' class='button button-secondary' style='width:100%'>
+				  <i class='fa fa-chevron-left fa-lg'></i> Retour à la page principale
+			  </div>				
+		  	</div>";    	
+		  	echo "</div>";
 			die();
 		}
 		//DELETE PRODUCT
@@ -135,6 +153,7 @@ class Gma500_Admin {
 			$product_id = $_POST['id'];
 			$product = $this->getProductById($product_id);
 			$user = get_userdata($product->user_id);
+			$historics = $this->getHistoric($product_id);
 			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-product-details-header.php';
 			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-product-details.php';
 			die();
@@ -143,9 +162,10 @@ class Gma500_Admin {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-main.php';
 	}
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// AJAX CALLS
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-	//AJAX ADD PRODUCT
 	//Adds product in SQL DB
 	function insertproduct() {
 		//Add product action
@@ -195,6 +215,16 @@ class Gma500_Admin {
 		global $wpdb;
 		$table = $wpdb->prefix.'gma500_products';
 		return  $wpdb->get_row ("SELECT * FROM  $table  WHERE id = $id;");	
+	}
+
+	//Gets last 10 historic from a product
+	function getHistoric($product_id) {
+		global $wpdb;
+		$table = $wpdb->prefix.'gma500_historic';
+		//Get last id from the product to insert comment
+		$sql = $wpdb->prepare ("SELECT * FROM ". $table . " WHERE product_id = '". $product_id . "' ORDER BY id DESC LIMIT 10;", $dummy);
+		$historics = $wpdb->get_results($sql);
+		return $historics;
 	}
 
 
@@ -276,6 +306,8 @@ class Gma500_Admin {
 		echo "</div>";
 		die();
 	}
+
+	//Assigns a product to a user
 	function assignproduct() {
 		global $wpdb;
 		$product_id = $_POST['product_id'];
@@ -311,6 +343,44 @@ class Gma500_Admin {
 		}		
 		die();
 	}
+
+	//Unassigns product from user
+	function unassignproduct() {
+		global $wpdb;
+		$product_id = $_POST['product_id'];
+		$comment = $_POST['comment'];
+		if ($comment == "") $comment = "Pas de commentaire";
+		//Update the table products
+		$table = $wpdb->prefix.'gma500_products';
+		$where = array('id'=> $product_id);
+		$data = array('user_id'=>0);
+		$wpdb->update ($table, $data, $where);
+		if($wpdb->last_error !== '') {
+			echo json_encode(["error" => $wpdb->last_error]); //return json error
+			die();
+		} 
+		//Add comment on last historic entry and update end with today's date
+		$table = $wpdb->prefix.'gma500_historic';
+		//Get last id from the product to insert comment
+		$sql = $wpdb->prepare ("SELECT * FROM ". $table . " WHERE product_id = '". $product_id . "' ORDER BY ID DESC LIMIT 1;");
+		$historics = $wpdb->get_results($sql);
+		if($wpdb->last_error !== '') {
+			echo json_encode(["error" => $wpdb->last_error]); //return json error
+			die();
+		} 		
+		$where = array('id'=> $historics[0]->id);
+		$data = array('comment'=>$comment, 'end'=>current_time('mysql'));
+		$wpdb->update ($table, $data, $where);
+		if($wpdb->last_error !== '') {
+			echo json_encode(["error" => $wpdb->last_error]); //return json error
+			die();
+		} 
+		echo json_encode(["success" => "Matériel correctement deassigné"]);
+		die();
+	}
+/////////////////////////////////////////////////// AJAX END ///////////////////////////////////////////////////
+
+
 
 	/**
 	 * Register the stylesheets for the admin area.

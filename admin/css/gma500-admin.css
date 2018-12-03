@@ -45,10 +45,7 @@
 }
 
 .gma500-ajax { 
-opacity:0;
-/*padding:10px;
-border-radius: 5px;
-    margin-bottom:10px;*/
+    opacity:0;
 }
 .gma500-ajax-error {
     padding:10px;
@@ -73,6 +70,9 @@ border-radius: 5px;
     background-color: rgba(0, 255, 0, 0.1);
     color:green;
     margin-bottom:10px;
+}
+#gma500-back-to-admin-button {
+    margin-top:20px;
 }
 
 /*Product item part*/
@@ -155,14 +155,16 @@ border-radius: 5px;
 
 #gma500-admin-product-details-show-more-content {
     display:none;
-    border:1px solid;
+    border:1px solid rgba(0,0,0,0.5);
+    border-radius: 3px;
     padding:10px;
 }
 
 /*user list*/
 #gma500-admin-product-details-assign-more-content {
     display:none;
-    border:1px solid;
+    border:1px solid rgba(0,0,0,0.5);
+    border-radius: 3px;
     padding:10px;
 }
 .gma500-user-list-item {
@@ -193,3 +195,50 @@ border-radius: 5px;
     box-shadow: 3px 1px 2px 0px rgba(0,0,0,0.5);
     font-weight: bold;
 }
+/*Unassign part*/
+#gma500-admin-product-details-unassign-more-content {
+    display:none;
+    border:1px solid rgba(0,0,0,0.5);
+    border-radius: 3px;
+    padding:10px;    
+}
+
+/*Historic part*/
+#gma500-admin-product-details-historic-more-content {
+    display: none;
+}
+.gma500-historic-item {
+    max-width:600px;
+    padding:5px;
+    min-height: 30px;
+    margin:3px;
+    border-radius: 3px;
+    background-color: white;
+    border: 1px solid rgba(0,0,0,0.3);      
+}
+.gma500-historic-wrapper {
+    padding-left:5px;
+    display:flex;
+    justify-content:flex-start;
+    align-content: center;
+    margin-bottom:10px;
+}
+.gma500-historic-wrapper div {
+    flex:1;
+}
+.gma500-historic-wrapper div:nth-child(2) {
+    flex:3;
+}
+.gma500-historic-item-comment {
+    font-size:10px;
+    padding-left:5px;
+}
+/*echo "<div class='gma500-historic-item'>";
+echo "<div class='gma500-historic-wrapper>";
+echo "<div class='gma500-historic-item-name'>".$historic->first_name." ". $historic->last_name."</div>";
+echo "<div class='gma500-historic-item-email'>".$historic->email."</div>";
+echo "<div class='gma500-historic-item-start'>".$historic->start."</div>";
+echo "<div class='gma500-historic-item-end'>".$historic->end."</div>";
+echo "</div>";
+echo "<div class='gma500-historic-item-comment'>".$historic->comment."</div>";
+echo "</div>";*/

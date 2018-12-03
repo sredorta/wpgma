@@ -1,5 +1,10 @@
 <div class="wrap" style="width:100%">
     <?php echo "<div id='gma500-product-id' data-idproduct=\"". $product->id."\"></div>";?>
+    <?php echo "<div id='gma500-user-id' data-iduser=\"". $product->user_id."\"></div>";?>
+    <form id='gma500-reset-product-details-form' class='gma500-form-hidden' action='?page=gma500_admin_menu_top' method='post'> 
+        <input name='action' value='gma500_admin_viewproductdetails'/>
+        <?php echo "<input name='id' value='".$product->id."'>";?>
+	</form>
     <div style="display:flex;flex-flow:row wrap;max-width:600px;margin:0 auto">
        <div style="max-width:300px;display:flex;flex-flow:column;justify-content:center">
        <?php if ($product->image=="") $product->image = "../wp-content/plugins/gma500/admin/assets/default-product.jpg";
