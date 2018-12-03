@@ -32,15 +32,18 @@
             <i class="fa fa-history fa-lg"></i> Historic
         </div>
         <div id="gma500-admin-product-details-historic-more-content">
-            <div class='gma500-historic-item header'>
-                    <div class='gma500-historic-wrapper'>
-                        <div class='gma500-historic-item-name'>NOM</div>
-                        <div class='gma500-historic-item-email'>EMAIL</div>
-                        <div class='gma500-historic-item-start'>EMPRUNTÉ:</div>
-                        <div class='gma500-historic-item-start'>RÉTOUR:</div>
-                    </div>
-            </div>            
-            <?php foreach($historics as $historic) {
+            <?php if (sizeof($historics) == 0) {
+                echo "<div>Pas d'historic de location pour le moment</div>";
+            } else {
+                echo "<div class='gma500-historic-item gma500-header'>
+                        <div class='gma500-historic-wrapper'>
+                            <div class='gma500-historic-item-name'>NOM</div>
+                            <div class='gma500-historic-item-email'>EMAIL</div>
+                            <div class='gma500-historic-item-start'>EMPRUNTÉ:</div>
+                            <div class='gma500-historic-item-start'>RÉTOUR:</div>
+                        </div>
+                    </div>";            
+             foreach($historics as $historic) {
                 $start = explode (" ", $historic->start)[0];
                 $end = explode(" ",$historic->end)[0];
 
@@ -54,7 +57,8 @@
                     echo "<p class='gma500-product-admin-label'>COMMENTAIRE:</p>";
                     echo "<div class='gma500-historic-item-comment'>".$historic->comment."</div>";
                     echo "</div>";
-                }?>
+                }
+            }?>
         </div>
     </div>  
 
@@ -118,7 +122,7 @@
                 } else {
                     
                     echo "
-                        <div class='gma500-controls-item header'>
+                        <div class='gma500-controls-item gma500-header'>
                             <div class='gma500-controls-wrapper'>
                                 <div class='gma500-controls-item-type'>TYPE</div>
                                 <div class='gma500-controls-item-created'>CRÉATION</div>
@@ -163,12 +167,18 @@
             <input name="action" value="gma500_admin_updateproduct_page"/>
             <?php echo "<input name='id' value=" .$product_id.">";?>
         </form>   
-        <div id="gma500-admin-product-details-delete-button" class="button button-primary"  style="text-align:center">
+        <div id="gma500-admin-product-details-delete-button" class="button button-primary"  style="text-align:center;margin-top:5px;">
         <i class="fa fa-trash fa-lg"></i> Supprimer
         </div>
         <form id="gma500-admin-product-details-delete-form" class="gma500-form-hidden" action="?page=gma500_admin_menu_top" method="post">
             <input name="action" value="gma500_admin_deleteproduct_page"/>
             <?php echo "<input name='id' value=" .$product_id.">";?>
         </form>      
+        <div id="gma500-admin-product-details-back-to-main" class="button button-secondary"  style="text-align:center;margin-top:20px;">
+        <i class='fa fa-chevron-left fa-lg'></i> Retour à la page principale
+        </div>        
+        <form id='gma500-back-to-main-form' class='gma500-form-hidden' action='?page=gma500_admin_menu_top' method='post'> 
+		</form>
+
     </div> 
 </div>

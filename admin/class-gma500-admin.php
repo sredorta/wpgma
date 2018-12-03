@@ -159,13 +159,29 @@ class Gma500_Admin {
 			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-product-details.php';
 			die();
 		}
-
+		//NO ACTION - MAIN PAGE
+		$products = $this->getProductsInUse();
+		$products_all = $this->getproducts();
+		foreach ($products as $product) {
+			$user_id = $product->user_id;
+			$meta = get_user_meta($user_id);
+			$product->user_name = $meta['first_name'][0] . " " . $meta['last_name'][0];
+		}
+		$controls = $this->getHotControls();
+		$historics_last = $this->getHistoricLast();
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-main.php';
 	}
 	function getProductById($id) {
 		global $wpdb;
 		$table = $wpdb->prefix.'gma500_products';
 		return  $wpdb->get_row ("SELECT * FROM  $table  WHERE id = $id;");	
+	}
+
+	function getProductsInUse() {
+		global $wpdb;
+		$table = $wpdb->prefix.'gma500_products';
+		$sql = $wpdb->prepare ("SELECT * FROM ". $table . " WHERE user_id <> 0 ORDER BY id;", $dummy);
+		return $wpdb->get_results($sql);		
 	}
 
 	//Gets last 10 historic from a product
@@ -177,14 +193,31 @@ class Gma500_Admin {
 		return $historics;
 	}
 
+	//Gets last historic from each product
+	function getHistoricLast() {
+		global $wpdb;
+		$table = $wpdb->prefix.'gma500_historic';
+		$sql = $wpdb->prepare ("SELECT * FROM (SELECT * FROM ". $table . " ORDER BY id DESC) AS x GROUP BY product_id;", $dummy);
+		$historics = $wpdb->get_results($sql);
+		return $historics;
+	}	
+
 	function getControls($product_id) {
 		global $wpdb;
 		$table = $wpdb->prefix.'gma500_controls';
 		$sql = $wpdb->prepare ("SELECT * FROM ". $table . " WHERE product_id = '". $product_id . "' ORDER BY id DESC;", $dummy);
 		$controls = $wpdb->get_results($sql);
 		return $controls;
+	}
 
-
+	//Gets comming controls
+	//TODO find only controls comming in next month
+	function getHotControls() {
+		global $wpdb;
+		$table = $wpdb->prefix.'gma500_controls';
+		$sql = $wpdb->prepare ("SELECT * FROM ". $table . " ORDER BY id DESC;", $dummy);
+		$controls = $wpdb->get_results($sql);
+		return $controls;		
 	}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // AJAX CALLS
@@ -241,13 +274,11 @@ class Gma500_Admin {
 	function getproducts() {
 		global $wpdb;
 		$table = $wpdb->prefix.'gma500_products';
-		$sql = $wpdb->prepare ("SELECT * FROM ". $table);
+		$sql = $wpdb->prepare ("SELECT * FROM ". $table, $toto);
 		$products = $wpdb->get_results($sql);
-		foreach ($products as $product) {
-			require plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-product-item.php';
-		}
-		die();
+		return $products;
 	}
+
 
 	//AJAX SEARCH PRODUCTS
 	function searchproducts() {
@@ -260,6 +291,13 @@ class Gma500_Admin {
 			echo "<p>Pas des resultats pour votre recherche</p>";
 			die();
 		}
+		echo "<div class='gma500-products-search-list-wrapper gma500-header' style='display:flex'>
+        <div>IMAGE</div>
+        <div>IDGMA</div>
+        <div>CATHEGORIE</div>
+        <div>MARQUE</div>
+        <div>DISPONIBLE:</div>
+    	</div>";
 		foreach ($products as $product) {
 			require plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-product-item.php';
 		}

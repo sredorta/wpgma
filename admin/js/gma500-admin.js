@@ -241,16 +241,45 @@ jQuery('#gma500-submit-update-product').click(function() {
 				  },
 			success: function(data) {
 				jQuery('#admin-main-view-products-list').html(data);
-				//Redirect to product details admin with the id of the product selected
-				jQuery('.gma500-product-admin-wrapper').click(function() {
-					jQuery('#admin-main-view-product-detail-form-id').val(jQuery(this).data('idproduct'));
-					jQuery('#admin-main-view-product-detail-form').submit();
+				//products search click redirection
+				jQuery('.gma500-products-search-list-wrapper').click(function() {
+					$id = jQuery(this).data('idproduct');
+					console.log("clicked " + jQuery(this).data('idproduct')	);
+					jQuery(this).append("<form id='gma500-tmp-form' class='gma500-form-hidden' action= '?page=gma500_admin_menu_top' method='post'> \
+						<input name='action' value='gma500_admin_viewproductdetails'> \
+						<input name='id' value='" + $id+ "'> \
+						</form>");
+					jQuery('#gma500-tmp-form').submit();			
 				});
 			}
 		}).fail(function(err) {
 			jQuery('#admin-main-view-products i').css("opacity", "0");
 		});			
 	});
+	//products in use click redirection
+	jQuery('.gma500-products-in-use-list-wrapper').click(function() {
+		$id = jQuery(this).data('idproduct');
+		console.log("clicked " + jQuery(this).data('idproduct')	);
+		jQuery(this).append("<form id='gma500-tmp-form' class='gma500-form-hidden' action= '?page=gma500_admin_menu_top' method='post'> \
+			<input name='action' value='gma500_admin_viewproductdetails'> \
+			<input name='id' value='" + $id+ "'> \
+			</form>");
+		jQuery('#gma500-tmp-form').submit();			
+	});
+	//Controls redirection
+	jQuery('.gma500-controls-hot-list-wrapper').click(function() {
+		$id = jQuery(this).data('idproduct');
+		console.log("clicked " + jQuery(this).data('idproduct')	);
+		jQuery(this).append("<form id='gma500-tmp-form' class='gma500-form-hidden' action= '?page=gma500_admin_menu_top' method='post'> \
+			<input name='action' value='gma500_admin_viewproductdetails'> \
+			<input name='id' value='" + $id+ "'> \
+			</form>");
+		jQuery('#gma500-tmp-form').submit();			
+	});
+
+
+
+
 	///////////////////////////////
 	// PRODUCT DETAILS
 	//////////////////////////////
@@ -435,5 +464,13 @@ jQuery('#gma500-submit-update-product').click(function() {
 			});
 		};
 	});
+
+	//Back to main
+	jQuery('#gma500-admin-product-details-back-to-main').click(function() {
+		jQuery('#gma500-back-to-main-form').submit();
+	});
+
+	//Disable click on header
+	jQuery('.gma500-header').click(false);
 
 }); //End jQuery

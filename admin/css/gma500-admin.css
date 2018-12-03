@@ -150,7 +150,7 @@
 
 #admin-main-view-products-list {
     display:flex;
-    flex-flow: row wrap;
+    flex-flow: column;
 }
 
 #gma500-admin-product-details-show-more-content {
@@ -215,11 +215,12 @@
     display:none;
 }
 
-.header {
+.gma500-header {
     height:16px;
     max-height: 16px;
     min-height: 16px !important;
     font-weight: bold;
+    cursor:default !important;
 }
 .gma500-controls-item {
     max-width:600px;
@@ -279,12 +280,89 @@
 .gma500-historic-item-email {
     font-size:10px;
 }
-/*echo "<div class='gma500-historic-item'>";
-echo "<div class='gma500-historic-wrapper>";
-echo "<div class='gma500-historic-item-name'>".$historic->first_name." ". $historic->last_name."</div>";
-echo "<div class='gma500-historic-item-email'>".$historic->email."</div>";
-echo "<div class='gma500-historic-item-start'>".$historic->start."</div>";
-echo "<div class='gma500-historic-item-end'>".$historic->end."</div>";
-echo "</div>";
-echo "<div class='gma500-historic-item-comment'>".$historic->comment."</div>";
-echo "</div>";*/
+
+/*Main part*/
+.gma500-products-in-use-list-wrapper {
+    background-color:white;
+    padding:5px;
+    border-radius: 3px;
+    background-color: white;
+    border: 1px solid rgba(0,0,0,0.3);  
+    display: flex;    
+    justify-content: center;
+    margin:3px;
+}
+.gma500-products-in-use-list-wrapper:hover {
+    cursor:pointer;
+    box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.5);
+}
+
+.gma500-products-in-use-list-wrapper div {
+    flex:1;
+    align-self: center;
+}
+.gma500-products-in-use-list-wrapper div:first-child {
+    max-width:60px;
+}
+
+.gma500-image-small {
+    width:50px !important;
+    height:50px !important;
+    margin:0px;
+}
+
+#gma500-admin-main-submit-add-product-page-button {
+    margin:10px;
+}
+
+.gma500-controls-hot-list-wrapper {
+    margin:3px;
+    background-color:white;
+    padding:5px;
+    border-radius: 3px;
+    background-color: white;
+    border: 1px solid rgba(0,0,0,0.3);  
+    display: flex;    
+    justify-content: center;
+}
+.gma500-controls-hot-list-wrapper:hover {
+    cursor:pointer;
+    box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.5);
+}
+
+.gma500-controls-hot-list-wrapper div {
+    flex:1;
+    align-self: center;
+}
+.gma500-controls-hot-list-wrapper div:first-child {
+    max-width:60px;
+}
+
+.gma500-products-search-list-wrapper {
+    background-color:white;
+    padding:5px;
+    border-radius: 3px;
+    background-color: white;
+    border: 1px solid rgba(0,0,0,0.3);  
+    display: flex;    
+    justify-content: center;
+    margin:3px;
+}
+.gma500-products-search-list-wrapper:hover {
+    cursor:pointer;
+    box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.5);
+}
+
+.gma500-products-search-list-wrapper div {
+    flex:1;
+    align-self: center;
+}
+.gma500-products-search-list-wrapper div:first-child {
+    max-width:60px;
+}
+
+.gma500-image-small {
+    width:50px !important;
+    height:50px !important;
+    margin:0px;
+}
