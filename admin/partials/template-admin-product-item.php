@@ -6,8 +6,8 @@
     echo "<div>".$product->cathegory."</div>";
     echo "<div>".$product->brand."</div>";
     if ($product->user_id == 0)
-        echo "<div style='font-weight:bold'>OUI</div>";
+        echo "<div style='font-weight:bold;color:green'>OUI</div>";
     else
-        echo "<div style='font-weight:bold'>NON</div>";
+        echo "<div style='font-weight:bold;color:red'>NON</div>";
     echo "</div>";
 ?>

@@ -244,7 +244,6 @@ jQuery('#gma500-submit-update-product').click(function() {
 				//products search click redirection
 				jQuery('.gma500-products-search-list-wrapper:not(.gma500-header)').click(function() {
 					$id = jQuery(this).data('idproduct');
-					console.log("clicked " + jQuery(this).data('idproduct')	);
 					jQuery(this).append("<form id='gma500-tmp-form' class='gma500-form-hidden' action= '?page=gma500_admin_menu_top' method='post'> \
 						<input name='action' value='gma500_admin_viewproductdetails'> \
 						<input name='id' value='" + $id+ "'> \
