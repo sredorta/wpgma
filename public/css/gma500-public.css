@@ -2,3 +2,120 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
+ .gma500-products-list-wrapper {
+    min-width:300px;
+    /*margin-left:15vw !important;*/
+    margin-right:15vw !important;
+    background-color:white;
+    padding:5px;
+    border-radius: 3px;
+    background-color: white;
+    border: 1px solid rgba(0,0,0,0.3);  
+   
+    justify-content: center;
+    margin:3px;
+    font-size: 15px;
+}
+
+.gma500-products-list-main {
+    display: flex; 
+}
+
+
+
+
+
+.gma500-products-list-main div {
+    flex:1;
+    align-self: center;
+}
+.gma500-products-list-main div:first-child {
+    max-width:110px;
+}
+.gma500-products-list-main div:last-child {
+    max-width:60px;
+}
+
+
+.gma500-header {
+    font-weight:bold;
+}
+
+.gma500-id {
+    color:blue;
+    opacity:0.4;
+    font-weight: bold;
+}
+
+.gma500-image-small {
+    width:100px !important;
+    height:100px !important;
+    min-width:100px !important;
+    min-height:100px !important;
+    margin:0px;
+}
+
+.gma500-products-list-wrapper:hover {
+    cursor:pointer;
+    box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.5);
+}
+
+.gma500-product-label {
+    border-bottom: 1px solid;
+    font-size:10px;
+    font-weight: bold;
+    opacity: 0.5;
+    margin:3px;
+}
+
+.gma500-product-value {
+    margin:3px;
+    margin-bottom:10px;
+    font-size: 14px;
+}
+.gma500-product-expansion {
+    width:100%;
+    padding:5px;
+    background-color:white;
+    padding:5px;
+    border-radius: 3px;
+    background-color: white; 
+    justify-content: center;
+    font-size: 15px;  
+    display:none;  
+}
+.gma500-header {
+    font-weight: bold;
+    cursor:default !important;
+}
+.gma500-header:hover {
+    cursor: default !important;
+    box-shadow: none !important;
+}
+
+@media screen and (max-width:600px) {
+    .gma500-products-list-wrapper {
+        font-size:12px;
+        margin-left:5px !important;
+        margin-right:5px !important;
+    }
+    .gma500-h1 {
+        font-size:20px;
+    }
+    .gma500-image-small {
+        width:50px !important;
+        height:50px !important;
+        min-width:50px !important;
+        min-height:50px !important;
+    }    
+    .gma500-header {
+        font-size:11px;
+    }
+    
+}
+/*remove brand if too small screeen*/
+@media screen and (max-width:400px) {
+    .gma500-brand {
+        display:none;
+    }
+}

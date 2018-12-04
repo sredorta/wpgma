@@ -152,13 +152,14 @@ class Gma500 {
 	 */
 	private function define_admin_hooks() {
 
+		//ADMIN PART
 		$plugin_admin = new Gma500_Admin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'create_menu' ); //Create menu action !!!
 		$this->loader->add_filter( 'admin_footer_text', $plugin_admin, 'change_footer');
-		//REGISTER ALL AJAX CALLS HERE !
+		//REGISTER ALL ADMIN AJAX CALLS HERE !
 		$this->loader->add_action( 'wp_ajax_gma500_admin_addproduct', $plugin_admin, 'insertproduct'); //wp_ajax + name of the action 
 		$this->loader->add_action( 'wp_ajax_gma500_admin_updateproduct', $plugin_admin, 'updateproduct'); //wp_ajax + name of the action 
 		$this->loader->add_action( 'wp_ajax_gma500_getproducts', $plugin_admin, 'getproducts');
@@ -170,6 +171,12 @@ class Gma500 {
 		$this->loader->add_action( 'wp_ajax_gma500_closecontrol', $plugin_admin, 'closecontrol');
 		$this->loader->add_action( 'wp_ajax_gma500_configremove', $plugin_admin, 'removeconfig');
 		$this->loader->add_action( 'wp_ajax_gma500_configadd', $plugin_admin, 'addconfig');
+
+		//PUBLIC PART
+		$plugin_public = new Gma500_Public($this->get_plugin_name(), $this->get_version());
+//		$this->loader->add_filter( 'single_template', $plugin_public, 'gma500_template' );
+//		$this->loader->add_filter( 'wp_nav_menu_items', $plugin_public, 'add_menu');
+		//$this->loader->add_filter( 'page_template', $plugin_public, 'gma500_template');
 	}
 
 	/**

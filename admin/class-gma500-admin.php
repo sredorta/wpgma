@@ -290,7 +290,7 @@ class Gma500_Admin {
 		$table = $wpdb->prefix.'gma500_products';
 		$sql = $wpdb->prepare (
 			"INSERT INTO ".$table . " (idGMA,cathegory,brand,utilization,serialNumber,doc,isEPI,location,description,image,bought,time,isRental) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-			$_POST['idGMA'],$_POST['cathegory'],$_POST['brand'],$_POST['utilization'],$_POST['serialNumber'],$_POST['doc'],$_POST['isEPI'],$_POST['location'],$_POST['description'],$_POST['image'],$_POST['bought'], current_time('mysql'),$_POST['isRental'] );
+			$_POST['idGMA'],$_POST['cathegory'],$_POST['brand'],$_POST['utilization'],$_POST['serialNumber'],$_POST['doc'],$_POST['isEPI'],$_POST['location'],stripcslashes($_POST['description']),$_POST['image'],$_POST['bought'], current_time('mysql'),$_POST['isRental'] );
 		$wpdb->query($sql);
 		if($wpdb->last_error !== '') {
 			echo json_encode(["error" => $wpdb->last_error]); //return json error
@@ -314,7 +314,7 @@ class Gma500_Admin {
 					  'doc'=>$_POST['doc'],
 					  'isEPI'=>$_POST['isEPI'],
 					  'location'=>$_POST['location'],
-					  'description'=>$_POST['description'],
+					  'description'=>stripcslashes($_POST['description']),
 					  'image'=>$_POST['image'],
 					  'bought'=>$_POST['bought']					  					  
 		);
@@ -569,7 +569,7 @@ class Gma500_Admin {
 		//Get font awesome
 		wp_register_style("gma500_font_awesome","https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
 		wp_enqueue_style("gma500_font_awesome");
-		wp_register_style($this->plugin_name,plugin_dir_url( __FILE__ ) . 'css/gma500-admin.css');
+		wp_register_style($this->plugin_name,plugin_dir_url( __FILE__ ) . '/css/gma500-admin.css');
 		wp_enqueue_style($this->plugin_name);
 	}
 
