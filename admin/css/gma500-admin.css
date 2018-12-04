@@ -167,6 +167,7 @@
     border-radius: 3px;
     padding:10px;
 }
+/*
 .gma500-user-list-item {
     display:flex;
     max-width:600px;
@@ -186,6 +187,9 @@
 }
 .gma500-user-list-item div:last-child {
     flex: 3;
+}*/
+.gma500-user-list-item {
+    box-sizing: border-box;
 }
 .gma500-user-list-item:hover {
     cursor:pointer;
@@ -193,8 +197,10 @@
 }
 .gma500-user-list-item.gma500-user-selected {
     box-shadow: 3px 1px 2px 0px rgba(0,0,0,0.5);
-    font-weight: bold;
+    color: blue;
+
 }
+
 /*Unassign part*/
 #gma500-admin-product-details-unassign-more-content {
     display:none;
@@ -221,6 +227,10 @@
     min-height: 16px !important;
     font-weight: bold;
     cursor:default !important;
+}
+.gma500-header:hover {
+    cursor: default !important;
+    box-shadow: none !important;
 }
 .gma500-controls-item {
     max-width:600px;
@@ -365,4 +375,16 @@
     width:50px !important;
     height:50px !important;
     margin:0px;
+}
+
+.gma500-user-wrapper {
+    background-color: white;
+    border:1px solid rgba(0,0,0,0.3); 
+    border-radius: 3px;
+    box-sizing: border-box;
+    margin-top:3px;
+}
+.gma500-user-wrapper .gma500-product-admin-value {
+    font-size: 12px;
+    margin-bottom:2px;
 }

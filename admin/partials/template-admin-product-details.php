@@ -1,5 +1,5 @@
 
-<div class="wrap">
+<div>
     <!--Part that is not in the header but part of details-->
     <div  style="display:flex;flex-flow:column;max-width:600px;margin:0 auto;margin-top:5px">
         <div id="gma500-admin-product-details-show-more-button" class="button button-secondary">

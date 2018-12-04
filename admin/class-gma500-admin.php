@@ -153,6 +153,9 @@ class Gma500_Admin {
 			$product_id = $_POST['id'];
 			$product = $this->getProductById($product_id);
 			$user = get_userdata($product->user_id);
+			$avatar = $this->getAvatar($product->user_id);
+			if ($avatar != null)
+			   $user->avatar = $avatar;
 			$historics = $this->getHistoric($product_id);
 			$controls = $this->getControls($product_id);
 			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-product-details-header.php';
@@ -171,6 +174,20 @@ class Gma500_Admin {
 		$historics_last = $this->getHistoricLast();
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-main.php';
 	}
+
+	function getAvatar($user_id) {
+		$avatar = null;
+		$meta = get_user_meta($user_id);
+		$avatars = explode(";",$meta['wp_user_avatars'][0]); 
+		foreach ($avatars as $avatar_tmp) {
+			if (strpos($avatar_tmp, "52x52")!== false) {
+				preg_match('/\".*\"/',$avatar_tmp,$avatar);
+				$avatar = $avatar[0];
+			}
+		}
+		return $avatar;
+	}
+
 	function getProductById($id) {
 		global $wpdb;
 		$table = $wpdb->prefix.'gma500_products';
@@ -211,7 +228,7 @@ class Gma500_Admin {
 	}
 
 	//Gets comming controls
-	//TODO find only controls comming in next month
+	//We get all and filter after
 	function getHotControls() {
 		global $wpdb;
 		$table = $wpdb->prefix.'gma500_controls';
@@ -338,10 +355,23 @@ class Gma500_Admin {
 		}
 		//Create the html with the users found
 		foreach ($result as $tmp) {
+			$avatar = $this->getAvatar($tmp->id);
 			echo "<div class='gma500-user-list-item' data-iduser=\"".$tmp->id."\">";
-			echo "<div class='gma500-user-list-item-first'><p>".$tmp->first_name."</p></div>";
-			echo "<div class='gma500-user-list-item-last'><p>".$tmp->last_name."</p></div>";
-			echo "<div class='gma500-user-list-item-email'><p>".$tmp->email."</p></div>";
+
+			echo "<div style='display:flex;width:100%;padding:5px' class='gma500-user-wrapper'>";
+			echo "<div>";
+			if ($avatar != null)
+				echo "<img src=".$avatar." alt_text='avatar' style='width:50px;height:50px'>";
+			echo "</div>";    
+			echo "<div style='margin-left:20px'>";
+			echo "<p class='gma500-product-admin-value' style='margin-bottom:2px;font-weight:bold'>" .$tmp->first_name." ". $tmp->last_name ."</p>";
+			echo "<p class='gma500-product-admin-value'>" .$tmp->email."</p>";
+			echo "</div>";
+			echo "</div>";
+
+			//echo "<div class='gma500-user-list-item-first'><p>".$tmp->first_name."</p></div>";
+			//echo "<div class='gma500-user-list-item-last'><p>".$tmp->last_name."</p></div>";
+			//echo "<div class='gma500-user-list-item-email'><p>".$tmp->email."</p></div>";
 			echo "</div>";
 		}
 		echo "<div id ='gma500-assign-final-wrapper'>";

@@ -28,8 +28,16 @@
     <div style="display:flex;flex-flow:column;max-width:600px;margin:0 auto;margin-top:20px">
         <?php if ($user->user_email != null) {
                 echo "<p class='gma500-product-admin-label'>UTILIZÉ PAR:</p>";
-                echo "<p class='gma500-product-admin-value' style='margin-bottom:2px'>" .$user->first_name." ". $user->last_name ."</p>";
+                echo "<div style='display:flex;width:100%;padding:5px' class='gma500-user-wrapper'>";
+                echo "<div>";
+                if ($user->avatar != null)
+                    echo "<img src=".$user->avatar." alt_text='avatar' style='width:50px;height:50px'>";
+                echo "</div>";    
+                echo "<div style='margin-left:20px'>";
+                echo "<p class='gma500-product-admin-value' style='margin-bottom:2px;font-weight:bold'>" .$user->first_name." ". $user->last_name ."</p>";
                 echo "<p class='gma500-product-admin-value'>" .$user->user_email."</p>";
+                echo "</div>";
+                echo "</div>";
               }?>
         <p class='gma500-product-admin-label'>DESCRIPTION:</p>
         <?php echo "<p class='gma500-product-admin-value'>" . $product->description . "</p>";?>

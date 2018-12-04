@@ -242,14 +242,14 @@ jQuery('#gma500-submit-update-product').click(function() {
 			success: function(data) {
 				jQuery('#admin-main-view-products-list').html(data);
 				//products search click redirection
-				jQuery('.gma500-products-search-list-wrapper').click(function() {
+				jQuery('.gma500-products-search-list-wrapper:not(.gma500-header)').click(function() {
 					$id = jQuery(this).data('idproduct');
 					console.log("clicked " + jQuery(this).data('idproduct')	);
 					jQuery(this).append("<form id='gma500-tmp-form' class='gma500-form-hidden' action= '?page=gma500_admin_menu_top' method='post'> \
 						<input name='action' value='gma500_admin_viewproductdetails'> \
 						<input name='id' value='" + $id+ "'> \
 						</form>");
-					jQuery('#gma500-tmp-form').submit();			
+					jQuery('#gma500-tmp-form').submit();		
 				});
 			}
 		}).fail(function(err) {
@@ -257,7 +257,7 @@ jQuery('#gma500-submit-update-product').click(function() {
 		});			
 	});
 	//products in use click redirection
-	jQuery('.gma500-products-in-use-list-wrapper').click(function() {
+	jQuery('.gma500-products-in-use-list-wrapper:not(.gma500-header)').click(function() {
 		$id = jQuery(this).data('idproduct');
 		console.log("clicked " + jQuery(this).data('idproduct')	);
 		jQuery(this).append("<form id='gma500-tmp-form' class='gma500-form-hidden' action= '?page=gma500_admin_menu_top' method='post'> \
@@ -267,7 +267,7 @@ jQuery('#gma500-submit-update-product').click(function() {
 		jQuery('#gma500-tmp-form').submit();			
 	});
 	//Controls redirection
-	jQuery('.gma500-controls-hot-list-wrapper').click(function() {
+	jQuery('.gma500-controls-hot-list-wrapper:not(.gma500-header)').click(function() {
 		$id = jQuery(this).data('idproduct');
 		console.log("clicked " + jQuery(this).data('idproduct')	);
 		jQuery(this).append("<form id='gma500-tmp-form' class='gma500-form-hidden' action= '?page=gma500_admin_menu_top' method='post'> \
@@ -305,7 +305,6 @@ jQuery('#gma500-submit-update-product').click(function() {
 
 
 	//Assign
-
 	jQuery('#gma500-admin-product-details-assign-more-button').click(function() {
 		if (jQuery('#gma500-admin-product-details-assign-more-content').css('display') == "none")
 			jQuery('#gma500-admin-product-details-assign-more-content').slideDown();

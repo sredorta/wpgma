@@ -14,40 +14,45 @@
 
     <!--LIST PRODUCTS IN USE-->
     <h2>Liste de matériel en utilization</h2>
-    <div class='gma500-products-in-use-list-wrapper gma500-header' style='display:flex'>
-        <div>IMAGE</div>
-        <div>IDGMA</div>
-        <div>CATHEGORIE</div>
-        <div>MARQUE</div>
-        <div>IL RESTE:</div>
-    </div>
+    <?php if (sizeof($products)==0) {
+            echo "<p>Pas de matériel en utilization en ce moment</p>";
+        } else {
+            echo "
+            <div class='gma500-products-in-use-list-wrapper gma500-header' style='display:flex'>
+                <div>IMAGE</div>
+                <div>IDGMA</div>
+                <div>CATHEGORIE</div>
+                <div>MARQUE</div>
+                <div>IL RESTE:</div>
+            </div>";
+        }?>
 
-    <?php
-    foreach ($products as $product) {
+        <?php
+        foreach ($products as $product) {
 
 
-        foreach ($historics_last as $historic) {
-            if ($historic->product_id == $product->id) $duedate = $historic->end;
+            foreach ($historics_last as $historic) {
+                if ($historic->product_id == $product->id) $duedate = $historic->end;
+            }
+            $date = DateTime::createFromFormat('Y-m-d', explode(" ",$duedate)[0]);
+            $due = $date->format('U'); 
+            $now = new DateTime();
+            $now = $now->format('U');
+            $diff = $due - $now;
+            $diff = round($diff / (3600 * 24)); //Convert to days
+
+            echo "<div class='gma500-products-in-use-list-wrapper' data-idproduct=\"".$product->id."\" style='display:flex'>";
+            echo "<div><img class='gma500-product-image gma500-image-small' src=\"" .$product->image. "\" alt='Image du matériel'></div>";
+            echo "<div>".$product->idGMA."</div>";
+            echo "<div>".$product->cathegory."</div>";
+            echo "<div>".$product->brand."</div>";
+            if ($diff<0) 
+                echo "<div style='color:red;font-weight:bold'>Dépasé de ".abs($diff)." jours </div>";
+            else
+                echo "<div style='color:green;font-weight:bold'>".$diff." jours </div>";    
+            echo "</div>";
         }
-        $date = DateTime::createFromFormat('Y-m-d', explode(" ",$duedate)[0]);
-        $due = $date->format('U'); 
-        $now = new DateTime();
-        $now = $now->format('U');
-        $diff = $due - $now;
-        $diff = round($diff / (3600 * 24)); //Convert to days
-
-        echo "<div class='gma500-products-in-use-list-wrapper' data-idproduct=\"".$product->id."\" style='display:flex'>";
-        echo "<div><img class='gma500-product-image gma500-image-small' src=\"" .$product->image. "\" alt='Image du matériel'></div>";
-        echo "<div>".$product->idGMA."</div>";
-        echo "<div>".$product->cathegory."</div>";
-        echo "<div>".$product->brand."</div>";
-        if ($diff<0) 
-            echo "<div style='color:red;font-weight:bold'>Dépasé de ".abs($diff)." jours </div>";
-        else
-            echo "<div style='color:green;font-weight:bold'>".$diff." jours </div>";    
-        echo "</div>";
-    }
-    ?>
+        ?>
 
     <!--SEARCH PRODUCT AJAX AND REDIRECTION-->
     <h2>Chercher du matériel</h2>
@@ -92,7 +97,7 @@
             echo "<div>".explode(" ",$control->due)[0]."</div>";
             if ($diff < 10) 
                 if ($diff<0)
-                    echo "<div style='color:red;font-weight:bold'>Temps dépasé</div>";
+                    echo "<div style='color:red;font-weight:bold'>Dépasé de ".abs($diff)." jours </div>";
                 else
                     echo "<div style='color:red;font-weight:bold'>". $diff ." jours</div>";
             else
