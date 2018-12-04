@@ -40,7 +40,7 @@
                 echo "</div>";
               }?>
         <p class='gma500-product-admin-label'>DESCRIPTION:</p>
-        <?php echo "<p class='gma500-product-admin-value'>" . $product->description . "</p>";?>
+        <?php echo "<p class='gma500-product-admin-value'>" . stripcslashes($product->description) . "</p>";?>
         <?php if ($product->doc != "") {
             echo "<p class='gma500-product-admin-label'>DOC:</p>";
             echo "<p class='gma500-product-admin-value'><a href='". $product->doc . "'>Voir la documentation</a></p>";

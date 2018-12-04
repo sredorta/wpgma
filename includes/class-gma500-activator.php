@@ -85,6 +85,9 @@ class Gma500_Activator {
 				description varchar(500) NOT NULL DEFAULT 'Pas de description',
 				created datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
 				due datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+				closetime datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+				closecomment varchar(500) NOT NULL DEFAULT 'Pas de commentaire',
+				closeuser varchar(100) NOT NULL DEFAULT 'unknown',
 				FOREIGN KEY(product_id) REFERENCES ".$table."(id) ON DELETE CASCADE
 				) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;";
 			dbDelta($sql);

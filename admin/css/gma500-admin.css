@@ -14,6 +14,7 @@
      display:block;
      cursor:default;
      max-width: 200px;
+     font-size: 10px;
  }
 
  .gma500-form-hidden {
@@ -79,6 +80,8 @@
 .gma500-product-admin-label {
     border-bottom: 1px solid;
     font-size:10px;
+    font-weight: bold;
+    opacity: 0.5;
     margin:3px;
 }
 
@@ -167,27 +170,7 @@
     border-radius: 3px;
     padding:10px;
 }
-/*
-.gma500-user-list-item {
-    display:flex;
-    max-width:600px;
-    justify-content:flex-start;
-    align-content: center;
-    min-height: 30px;
-    margin:3px;
-    background-color: white;
-    border-radius: 5px;
-    border: 1px solid rgba(0,0,0,0.3);
-}
-.gma500-user-list-item div {
-    flex: 1;
-    vertical-align: center;
-    padding-left:10px;
-    padding-right:10px;
-}
-.gma500-user-list-item div:last-child {
-    flex: 3;
-}*/
+
 .gma500-user-list-item {
     box-sizing: border-box;
 }

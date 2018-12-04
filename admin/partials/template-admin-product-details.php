@@ -55,7 +55,7 @@
                     echo "<div class='gma500-historic-item-end'>".$end."</div>";
                     echo "</div>";
                     echo "<p class='gma500-product-admin-label'>COMMENTAIRE:</p>";
-                    echo "<div class='gma500-historic-item-comment'>".$historic->comment."</div>";
+                    echo "<div class='gma500-product-admin-value'>".stripcslashes($historic->comment)."</div>";
                     echo "</div>";
                 }
             }?>
@@ -141,16 +141,25 @@
                         echo "<div class='gma500-controls-item-created'>".$created."</div>";
                         echo "<div class='gma500-controls-item-due'>".$due."</div>";
                         if ($control->status == "en cours")
-                            echo "<div class='gma500-controls-item-status' style='color:orange;font-weight:bold'>". $control->status."</div>";
+                            echo "<div class='gma500-controls-item-status' style='color:orange;font-weight:bold;font-size:16px'>". $control->status."</div>";
                         else
-                            echo "<div class='gma500-controls-item-status' style='color:green;font-weight:bold'>". $control->status."</div>";
-
-                        //echo "<div class='gma500-controls-item-end'>".$end."</div>";
+                            echo "<div class='gma500-controls-item-status' style='color:green;font-weight:bold;font-size:16px'>". $control->status."</div>";
                         echo "</div>";
                         echo "<p class='gma500-product-admin-label'>DÉSCRIPTION:</p>";
-                        echo "<div class='gma500-controls-item-comment'>".$control->description."</div>";
-                        if ($control->status == "en cours")
-                            echo "<div style='width:100%;display:flex;justify-content:flex-end'><div style='margin:5px' class='button button-primary gma500-controls-item-close' data-idcontrol=\"".$control->id."\"><i class='fa fa-check-circle fa-lg'></i> Fermer</div></div>";
+                        echo "<div class='gma500-product-admin-value'>".stripcslashes($control->description)."</div>";
+                        if ($control->status == "en cours") {
+                            echo "<form data-idcontrol=\"".$control->id."\" class='gma500-control-close-form'>";
+                            echo "<p style='width:100%'>COMMENTAIRE*:<br /><textarea class='gma500-textarea'  name='closecomment' type='text' required minlength='3' maxlength='400'></textarea></p>";
+                            echo "</form>";
+                            echo "<div style='width:100%;display:flex;justify-content:flex-end'><div style='margin:5px' class='button button-primary gma500-controls-item-close' data-idcontrol=\"".$control->id."\"><i class='fa fa-check-circle fa-lg'></i> Controle fait</div></div>";
+                        } else {
+                            echo "<p class='gma500-product-admin-label'>CONTROL ÉFFECTUÉ LE:</p>";
+                            echo "<div class='gma500-product-admin-value'>".explode(" ",$control->closetime)[0]."</div>";
+                            echo "<p class='gma500-product-admin-label'>CONTROL FAIT PAR:</p>";
+                            echo "<div class='gma500-product-admin-value'>".$control->closeuser."</div>";         
+                            echo "<p class='gma500-product-admin-label'>COMMENTAIRES:</p>";
+                            echo "<div class='gma500-product-admin-value'>".stripcslashes($control->closecomment)."</div>";                                                        
+                        }    
                         echo "</div>";
                     }
                 }?>

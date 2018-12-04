@@ -368,7 +368,6 @@ jQuery('#gma500-submit-update-product').click(function() {
 			jQuery('#gma500-admin-product-details-unassign-more-content').slideUp();
 	});
 	jQuery('#gma500-admin-product-details-unassign-button').click(function() {
-		console.log("Unassign !!");
 		jQuery.ajax({
 			type: 'POST',
 			url: ajaxurl,
@@ -411,13 +410,11 @@ jQuery('#gma500-submit-update-product').click(function() {
 	});
 
 	jQuery('#gma500-admin-product-details-controls-add-button').click(function() {
-		console.log("Add control");
 		//We need to show the form
 		jQuery('#gma500-admin-product-details-controls-add-form').slideDown();
 	});
 	jQuery('#gma500-admin-product-details-controls-add-button-submit').click(function() {
 		if (jQuery('#gma500-admin-product-details-controls-add-form').valid()) {
-			console.log("Creating control!");
 			jQuery.ajax({
 				type: 'POST',
 				url: ajaxurl,
@@ -441,26 +438,35 @@ jQuery('#gma500-submit-update-product').click(function() {
 		}
 	});
 	//Close control
+	jQuery('.gma500-control-close-form').each(function() {
+		jQuery(this).validate();
+	});
+
 	jQuery('.gma500-controls-item-close').click(function() {
-		if (confirm('Êtes vous sûr de vouloir changer le status de ce controle a "effectué" ?\n')) {
-			jQuery.ajax({
-				type: 'POST',
-				url: ajaxurl,
-				data: { 
-						"action": "gma500_closecontrol",
-						"control_id": jQuery(this).data('idcontrol')																											
-					},
-				success: function(data) {
-					console.log(data);
-					var result = JSON.parse(data);
-					if (result.error != null) {						
-						jQuery('#gma500-controls-add-ajax-result').html(result.error).hide().addClass('gma500-ajax-error').fadeIn();
-					} else {
-						//Reload page
-						jQuery('#gma500-reset-product-details-form').submit();
+		var idcontrol = jQuery(this).data('idcontrol');
+		var form = jQuery('.gma500-control-close-form[data-idcontrol="'+idcontrol+'"]');
+		if (form.valid()) {
+			if (confirm('Êtes vous sûr de vouloir changer le status de ce controle a "effectué" ?\n')) {
+				jQuery.ajax({
+					type: 'POST',
+					url: ajaxurl,
+					data: { 
+							"action": "gma500_closecontrol",
+							"control_id": jQuery(this).data('idcontrol'),
+							"closecomment": form.find('textarea').val()																										
+						},
+					success: function(data) {
+						console.log(data);
+						var result = JSON.parse(data);
+						if (result.error != null) {						
+							jQuery('#gma500-controls-add-ajax-result').html(result.error).hide().addClass('gma500-ajax-error').fadeIn();
+						} else {
+							//Reload page
+							jQuery('#gma500-reset-product-details-form').submit();
+						}
 					}
-				}
-			});
+				});
+			};
 		};
 	});
 

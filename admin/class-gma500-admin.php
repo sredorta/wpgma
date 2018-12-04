@@ -482,10 +482,14 @@ class Gma500_Admin {
 	function closecontrol() {
 		global $wpdb;
 		$control_id = $_POST['control_id'];
+		$closecomment = $_POST['closecomment'];
+		$closetime = current_time('mysql');
+		$current_user = wp_get_current_user();
+		$closeuser = $current_user->user_firstname . " " . $current_user->user_lastname; 
 		//Update the table products
 		$table = $wpdb->prefix.'gma500_controls';
 		$where = array('id'=> $control_id);
-		$data = array('status'=> 'fait');
+		$data = array('status'=> 'fait', 'closetime'=>$closetime, 'closecomment'=>$closecomment,'closeuser'=>$closeuser);
 		$wpdb->update ($table, $data, $where);
 		if($wpdb->last_error !== '') {
 			echo json_encode(["error" => $wpdb->last_error]); //return json error
