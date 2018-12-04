@@ -49,6 +49,9 @@
 
         }
         ?>
+        <div class='kubiiks-add'>
+            <small>La géstion du matériel à éte fait par <a href='http://www.kubiiks.com'>kubiiks</a></small>
+        </div>
 </div>
 </div>
 <?php get_footer();?>

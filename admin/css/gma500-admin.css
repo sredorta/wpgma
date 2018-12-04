@@ -10,15 +10,14 @@
  }
  
 
- /* NEED TO DEBUG IT CAUSES ERROR ON PAGE CREATION !!!!!
-.error {
+.gma500-error {
      color:red;
      display:block;
      cursor:default;
      max-width: 200px;
      font-size: 10px;
  }
-*/
+
  .gma500-form-hidden {
      display:none;
  }

@@ -21,7 +21,7 @@ console.log(ajaxurl);
 	jQuery('#gma500-back-to-admin-button').click(function() {
 		jQuery('#gma500-back-to-main-form').submit();
 	});
-	jQuery('#gma500-form-add-update-product').validate();
+	jQuery('#gma500-form-add-update-product').validate({errorClass:'gma500-error'});
 
 	//Form reset
 	jQuery('#gma500-reset-add-product').click(function() {
@@ -394,7 +394,7 @@ jQuery('#gma500-submit-update-product').click(function() {
 			jQuery('#gma500-admin-product-details-historic-more-content').slideUp();
 	});
 	//Controls part
-	jQuery('#gma500-admin-product-details-controls-add-form').validate();
+	jQuery('#gma500-admin-product-details-controls-add-form').validate({errorClass:'gma500-error'});
 	jQuery('#gma500-admin-product-details-controls-more-button').click(function() {
 		if (jQuery('#gma500-admin-product-details-controls-more-content').css('display') == "none")
 			jQuery('#gma500-admin-product-details-controls-more-content').slideDown();
@@ -439,7 +439,7 @@ jQuery('#gma500-submit-update-product').click(function() {
 	});
 	//Close control
 	jQuery('.gma500-control-close-form').each(function() {
-		jQuery(this).validate();
+		jQuery(this).validate({errorClass:'gma500-error'});
 	});
 
 	jQuery('.gma500-controls-item-close').click(function() {
@@ -480,7 +480,7 @@ jQuery('#gma500-submit-update-product').click(function() {
 	////////////////////////////////////////////////////////////////////////////////////////////
 	// CONFIG PART
 	////////////////////////////////////////////////////////////////////////////////////////////
-	jQuery('.gma500-config-add-form').validate();
+	jQuery('.gma500-config-add-form').validate({errorClass:'gma500-error'});
 
 	jQuery('#gma500-admin-main-config-page-button').click(function() {
 		jQuery('#gma500-admin-main-config-page-form').submit();
