@@ -477,5 +477,49 @@ jQuery('#gma500-submit-update-product').click(function() {
 
 	//Disable click on header
 	jQuery('.gma500-header').click(false);
+	////////////////////////////////////////////////////////////////////////////////////////////
+	// CONFIG PART
+	////////////////////////////////////////////////////////////////////////////////////////////
+	jQuery('.gma500-config-add-form').validate();
 
+	jQuery('#gma500-admin-main-config-page-button').click(function() {
+		jQuery('#gma500-admin-main-config-page-form').submit();
+	});
+	jQuery('.gma500-config-remove-button').click(function() {
+		console.log("Removing " + jQuery(this).data('idconfig'));
+		jQuery.ajax({
+			type: 'POST',
+			url: ajaxurl,
+			data: { 
+					"action": "gma500_configremove",
+					"config_id": jQuery(this).data('idconfig')																									
+				},
+			success: function(data) {
+				console.log(data);
+				//Reload page
+				jQuery('#gma500-reset-config-page').submit();
+			}
+		});		
+	});
+
+	jQuery('#gma500-admin-main-submit-add-location-button').click(function() {
+		if(jQuery('#gma500-config-add-location-form').valid()) {
+			console.log("Adding location !");
+			jQuery.ajax({
+				type: 'POST',
+				url: ajaxurl,
+				data: { 
+						"action": "gma500_configadd",
+						"meta_key": 'location',
+						"meta_value": jQuery('#gma500-config-add-location-form').find('input').val()																								
+					},
+				success: function(data) {
+					//Reload page
+					jQuery('#gma500-reset-config-page').submit();
+				}
+			});		
+	
+
+		}
+	});
 }); //End jQuery

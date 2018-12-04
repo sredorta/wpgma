@@ -137,9 +137,9 @@
 
                         echo "<div class='gma500-controls-item'>";
                         echo "<div class='gma500-controls-wrapper'>";
-                        echo "<div class='gma500-controls-item-type'>".$control->type."</div>";
+                        echo "<div class='gma500-controls-item-type' style='font-weight:bold'>".$control->type."</div>";
                         echo "<div class='gma500-controls-item-created'>".$created."</div>";
-                        echo "<div class='gma500-controls-item-due'>".$due."</div>";
+                        echo "<div class='gma500-controls-item-due' style='font-weight:bold'>".$due."</div>";
                         if ($control->status == "en cours")
                             echo "<div class='gma500-controls-item-status' style='color:orange;font-weight:bold;font-size:16px'>". $control->status."</div>";
                         else

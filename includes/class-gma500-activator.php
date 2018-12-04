@@ -91,6 +91,15 @@ class Gma500_Activator {
 				FOREIGN KEY(product_id) REFERENCES ".$table."(id) ON DELETE CASCADE
 				) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;";
 			dbDelta($sql);
+
+			//Config table
+			$table_c = $wpdb->prefix . 'gma500_config';
+			$sql = "CREATE TABLE " . $table_c . " (
+				id int(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+				meta_key varchar(100) NOT NULL DEFAULT 'unknown',
+				meta_value varchar(100) NOT NULL DEFAULT 'unknown'
+				) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;";
+			dbDelta($sql);			
 		}
 	}
 }

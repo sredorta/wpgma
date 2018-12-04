@@ -168,6 +168,8 @@ class Gma500 {
 		$this->loader->add_action( 'wp_ajax_gma500_unassign', $plugin_admin, 'unassignproduct');
 		$this->loader->add_action( 'wp_ajax_gma500_addcontrol', $plugin_admin, 'addcontrol');
 		$this->loader->add_action( 'wp_ajax_gma500_closecontrol', $plugin_admin, 'closecontrol');
+		$this->loader->add_action( 'wp_ajax_gma500_configremove', $plugin_admin, 'removeconfig');
+		$this->loader->add_action( 'wp_ajax_gma500_configadd', $plugin_admin, 'addconfig');
 	}
 
 	/**

@@ -109,6 +109,12 @@
         }
     }
     ?>
-
+    <!--CONFIG REDIRECTION-->
+    <div id="gma500-admin-main-config-page-button" class="button button-primary">
+            <i class="fa fa-cog fa-lg"></i> Configuration
+    </div>
+    <form id="gma500-admin-main-config-page-form" class="gma500-form-hidden" action="?page=gma500_admin_menu_top" method="post">
+        <input name="action" value="gma500_admin_config"/>
+    </form>  
 
 </div>    

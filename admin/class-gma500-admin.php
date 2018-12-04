@@ -162,6 +162,14 @@ class Gma500_Admin {
 			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-product-details.php';
 			die();
 		}
+		//Config to add types
+		if ($_POST['action'] == "gma500_admin_config") {
+			$cathegories = $this->getCathegories();
+			$locations = $this->getLocations();
+			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-config.php';
+			die();
+		}
+
 		//NO ACTION - MAIN PAGE
 		$products = $this->getProductsInUse();
 		$products_all = $this->getproducts();
@@ -173,6 +181,19 @@ class Gma500_Admin {
 		$controls = $this->getHotControls();
 		$historics_last = $this->getHistoricLast();
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-main.php';
+	}
+
+	function getCathegories() {
+		global $wpdb;
+		$table = $wpdb->prefix.'gma500_config';
+		$sql = $wpdb->prepare ("SELECT * FROM ". $table . " WHERE meta_key = 'cathegory' ORDER BY meta_value;", $dummy);
+		return $wpdb->get_results($sql);			
+	}
+	function getLocations() {
+		global $wpdb;
+		$table = $wpdb->prefix.'gma500_config';
+		$sql = $wpdb->prepare ("SELECT * FROM ". $table . " WHERE meta_key = 'location' ORDER BY meta_value;", $dummy);
+		return $wpdb->get_results($sql);		
 	}
 
 	function getAvatar($user_id) {
@@ -239,6 +260,24 @@ class Gma500_Admin {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // AJAX CALLS
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//removes a config
+	function removeconfig() {
+		global $wpdb;
+		$table = $wpdb->prefix.'gma500_config';
+		$sql = $wpdb->prepare (
+			"DELETE FROM ".$table . " WHERE id = ".$_POST['config_id']." ;" );
+		$wpdb->query($sql);
+
+	}
+
+	function addconfig() {
+		global $wpdb;
+		$table = $wpdb->prefix.'gma500_config';
+		$sql = $wpdb->prepare (
+			"INSERT INTO ".$table . " (meta_key,meta_value) VALUES (%s,%s)",
+			$_POST['meta_key'],$_POST['meta_value'] );
+		$wpdb->query($sql);
+	}
 
 	//Adds product in SQL DB
 	function insertproduct() {
