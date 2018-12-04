@@ -80,7 +80,7 @@ class Gma500_Activator {
 			$sql = "CREATE TABLE " . $table_c . " (
 				id int(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 				product_id int(10) UNSIGNED,
-				status varchar(50) NOT NULL DEFAULT 'Ouvert',
+				status varchar(50) NOT NULL DEFAULT 'en cours',
 				type varchar(50) NOT NULL DEFAULT 'Rebut',
 				description varchar(500) NOT NULL DEFAULT 'Pas de description',
 				created datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,

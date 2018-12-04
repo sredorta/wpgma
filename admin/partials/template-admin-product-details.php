@@ -140,7 +140,7 @@
                         echo "<div class='gma500-controls-item-type'>".$control->type."</div>";
                         echo "<div class='gma500-controls-item-created'>".$created."</div>";
                         echo "<div class='gma500-controls-item-due'>".$due."</div>";
-                        if ($control->status == "ouvert")
+                        if ($control->status == "en cours")
                             echo "<div class='gma500-controls-item-status' style='color:orange;font-weight:bold'>". $control->status."</div>";
                         else
                             echo "<div class='gma500-controls-item-status' style='color:green;font-weight:bold'>". $control->status."</div>";
@@ -149,7 +149,7 @@
                         echo "</div>";
                         echo "<p class='gma500-product-admin-label'>DÉSCRIPTION:</p>";
                         echo "<div class='gma500-controls-item-comment'>".$control->description."</div>";
-                        if ($control->status == "ouvert")
+                        if ($control->status == "en cours")
                             echo "<div style='width:100%;display:flex;justify-content:flex-end'><div style='margin:5px' class='button button-primary gma500-controls-item-close' data-idcontrol=\"".$control->id."\"><i class='fa fa-check-circle fa-lg'></i> Fermer</div></div>";
                         echo "</div>";
                     }

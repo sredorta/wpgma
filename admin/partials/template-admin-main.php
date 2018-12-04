@@ -71,15 +71,18 @@
 
     <!--CONTROLS THAT HAVE TO BE DONE-->
     <h2>Controls à faire</h2>
-    <div class='gma500-controls-hot-list-wrapper gma500-header' style='display:flex'>
-        <div>IMAGE</div>
-        <div>IDGMA</div>
-        <div>DATE</div>
-        <div>IL RESTE:</div>
-    </div>
+    <?php if (sizeof($controls)== 0) {
+        echo "<p>Pas de controls à venir dans les prochains 30 jours</p>";
+    } else {
+        echo "<div class='gma500-controls-hot-list-wrapper gma500-header' style='display:flex'>
+                <div>IMAGE</div>
+                <div>IDGMA</div>
+                <div>DATE</div>
+                <div>IL RESTE:</div>
+            </div>";
+    }?>
     <?php
     foreach ($controls as $control) {
-
         foreach($products_all as $product) {
             if ($control->product_id == $product->id) $myproduct = $product;
         }

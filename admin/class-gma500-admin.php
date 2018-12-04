@@ -232,7 +232,7 @@ class Gma500_Admin {
 	function getHotControls() {
 		global $wpdb;
 		$table = $wpdb->prefix.'gma500_controls';
-		$sql = $wpdb->prepare ("SELECT * FROM ". $table . " ORDER BY id DESC;", $dummy);
+		$sql = $wpdb->prepare ("SELECT * FROM ". $table . " WHERE status <> 'fait' ORDER BY id DESC;", $dummy);
 		$controls = $wpdb->get_results($sql);
 		return $controls;		
 	}
@@ -466,7 +466,7 @@ class Gma500_Admin {
 		$table = $wpdb->prefix.'gma500_controls';
 		$sql = $wpdb->prepare (
 			"INSERT INTO ".$table . " (product_id,status,type,description,created,due) VALUES (%s,%s,%s,%s,%s,%s)",
-			$product_id,"ouvert", $type,$description,current_time('mysql'), $due );
+			$product_id,"en cours", $type,$description,current_time('mysql'), $due );
 		$wpdb->query($sql);
 		if($wpdb->last_error !== '') {
 			echo json_encode(["error" => $wpdb->last_error]); //return json error
@@ -485,7 +485,7 @@ class Gma500_Admin {
 		//Update the table products
 		$table = $wpdb->prefix.'gma500_controls';
 		$where = array('id'=> $control_id);
-		$data = array('status'=> 'férmé');
+		$data = array('status'=> 'fait');
 		$wpdb->update ($table, $data, $where);
 		if($wpdb->last_error !== '') {
 			echo json_encode(["error" => $wpdb->last_error]); //return json error
