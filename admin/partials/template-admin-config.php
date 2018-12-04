@@ -5,7 +5,8 @@
     <form id="gma500-reset-config-page" class="gma500-form-hidden" action="?page=gma500_admin_menu_top" method="post">
             <input name="action" value="gma500_admin_config"/>
     </form>    
-
+    <form id="gma500-config-back-to-home" class="gma500-form-hidden" action="?page=gma500_admin_menu_top" method="post">
+    </form>   
     <h1 class="gma500-h1" style="margin-bottom:10px;">Configuration</h1>
 
     <h3>Cathegories de matériel</h3>
@@ -47,6 +48,8 @@
         </div>
         </div>
     </div>
-
+    <div id="gma500-config-back-button" class="button button-secondary">
+                <i class="fa fa-chevron-left fa-lg"></i> Retour à la page principale
+        </div>
 
 </div>

@@ -79,6 +79,8 @@ class Gma500_Admin {
 		}
 		//ADD PRODUCT
 		if ($_POST['action'] == "gma500_admin_addproduct_page") {
+			$cathegories = $this->getCathegories();
+			$locations = $this->getLocations();
 			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-add-update-product.php';	
 			echo "<div class='wrap'>";
 			echo "
@@ -103,6 +105,8 @@ class Gma500_Admin {
 		}
 		//UPDATE PRODUCT
 		if ($_POST['action'] == "gma500_admin_updateproduct_page") {
+			$cathegories = $this->getCathegories();
+			$locations = $this->getLocations();
 			$product = $this->getProductById($_POST['id']);
 			$idGMA = $product->idGMA;
 			$brand = $product->brand;

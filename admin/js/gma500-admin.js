@@ -502,6 +502,43 @@ jQuery('#gma500-submit-update-product').click(function() {
 		});		
 	});
 
+	jQuery('#gma500-admin-main-submit-add-cathegory-button').click(function() {
+		if(jQuery('#gma500-config-add-cathegory-form').valid()) {
+			console.log("Adding cathegory !");
+			jQuery.ajax({
+				type: 'POST',
+				url: ajaxurl,
+				data: { 
+						"action": "gma500_configadd",
+						"meta_key": 'cathegory',
+						"meta_value": jQuery('#gma500-config-add-cathegory-form').find('input').val()																								
+					},
+				success: function(data) {
+					//Reload page
+					jQuery('#gma500-reset-config-page').submit();
+				}
+			});		
+	
+
+		}
+	});
+	jQuery('.gma500-config-remove-button').click(function() {
+		console.log("Removing " + jQuery(this).data('idconfig'));
+		jQuery.ajax({
+			type: 'POST',
+			url: ajaxurl,
+			data: { 
+					"action": "gma500_configremove",
+					"config_id": jQuery(this).data('idconfig')																									
+				},
+			success: function(data) {
+				console.log(data);
+				//Reload page
+				jQuery('#gma500-reset-config-page').submit();
+			}
+		});		
+	});
+
 	jQuery('#gma500-admin-main-submit-add-location-button').click(function() {
 		if(jQuery('#gma500-config-add-location-form').valid()) {
 			console.log("Adding location !");
@@ -521,5 +558,9 @@ jQuery('#gma500-submit-update-product').click(function() {
 	
 
 		}
+	});	
+	//Back to main
+	jQuery('#gma500-config-back-button').click(function() {
+		jQuery('#gma500-config-back-to-home').submit();
 	});
 }); //End jQuery

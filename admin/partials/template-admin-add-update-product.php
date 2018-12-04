@@ -39,13 +39,10 @@
             <p>CATHEGORIE*:<br />
             <select id='cathegory' name='cathegory' required style='width:170px'>
             <?php if ($cathegory!="") echo "<option value=". $cathegory. " selected='selected'>".$cathegory."</option>";
-                  else echo "<option value=''>--Sélectioner--</option>";?>
-                <option value='Corde'>Corde</option>
-                <option value='Arva'>Arva</option>
-                <option value='Chaussures'>Chaussures</option>
-                <option value='Skis'>Skis</option>
-                <option value='Degaines'>Degaines</option>
-                <option value='Livre'>Livre</option>
+                  else echo "<option value=''>--Sélectioner--</option>";
+                  foreach ($cathegories as $tmp) {
+                      echo "<option value='".$tmp->meta_value."'>".$tmp->meta_value."</option>";
+                  }?>
             </select>           
             </p>
             <p>UTILIZATION*:<br />
@@ -71,9 +68,10 @@
             <p>INDROIT*:<br />
             <select id="location" name="location" required style="width:170px">
             <?php if ($location!="") echo "<option value=". $location. " selected='selected'>".$location."</option>";
-                  else echo "<option value=''>--Sélectioner--</option>";?>            
-                <option value="Amiral">Amiral</option>
-                <option value="Local">Local</option>
+                  else echo "<option value=''>--Sélectioner--</option>";
+                  foreach ($locations as $tmp) {
+                    echo "<option value='".$tmp->meta_value."'>".$tmp->meta_value."</option>";
+                  }?>                              
             </select>              
             </p>
             <?php echo "<p>DOC:<br /><input  id='doc' name='doc' type='url' optional style='width:170px' value=". $doc."></p>"?>
