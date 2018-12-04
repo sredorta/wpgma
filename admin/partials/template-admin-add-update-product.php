@@ -7,9 +7,9 @@
     <form id="gma500-form-add-update-product"  method="post"> 
       <div style="display:flex;flex-flow:row wrap-reverse;max-width:400px;margin:0 auto">
         <div style="min-width:200px;margin:0 auto">
-            <?php echo "<p>ID GMA*:<br /><input  id='idGMA' name='idGMA' type='text' required minlength='3' style='width:170px' value=".$idGMA."></p>"?>
-            <?php echo "<p>MARQUE*:<br /><input  id='marque' name='brand' type='text' required minlength='3' style='width:170px' value=".$brand."></p>"?>
-            <?php echo "<p>NÚMERO DE SÉRIE*:<br /><input  id='serialNumber' name='serialNumber' type='text' required minlength='3' style='width:170px' value=".$serialNumber."></p>"?>
+            <?php echo "<p>ID GMA*:<br /><input  id='idGMA' name='idGMA' type='text' required minlength='3' style='width:170px' value='".$idGMA."'></p>"?>
+            <?php echo "<p>MARQUE*:<br /><input  id='marque' name='brand' type='text' required minlength='3' style='width:170px' value='".$brand."'></p>"?>
+            <?php echo "<p>NÚMERO DE SÉRIE*:<br /><input  id='serialNumber' name='serialNumber' type='text' required minlength='3' style='width:170px' value='".$serialNumber."'></p>"?>
         </div>  
         <div style="min-width:200px;display:flex;flex-flow:column;justify-content:center;margin:0 auto">
             <div style="display:flex;justify-content:center">
@@ -47,7 +47,7 @@
             </p>
             <p>UTILIZATION*:<br />
             <select id="utilization" name="utilization" required style="width:170px">
-            <?php if ($utilization!="") echo "<option value=". $utilization. " selected='selected'>".$utilization."</option>";
+            <?php if ($utilization!="") echo "<option value='". $utilization. "' selected='selected'>".$utilization."</option>";
                   else echo "<option value=''>--Sélectioner--</option>";?>            
                 <option value="Salle">Salle</option>
                 <option value="Exterieur">Exterieur</option>
@@ -67,7 +67,7 @@
         <div style="min-width:200px;margin:0 auto">
             <p>INDROIT*:<br />
             <select id="location" name="location" required style="width:170px">
-            <?php if ($location!="") echo "<option value=". $location. " selected='selected'>".$location."</option>";
+            <?php if ($location!="") echo "<option value='". $location. "' selected='selected'>".$location."</option>";
                   else echo "<option value=''>--Sélectioner--</option>";
                   foreach ($locations as $tmp) {
                     echo "<option value='".$tmp->meta_value."'>".$tmp->meta_value."</option>";

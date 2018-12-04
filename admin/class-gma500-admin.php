@@ -216,7 +216,8 @@ class Gma500_Admin {
 	function getProductById($id) {
 		global $wpdb;
 		$table = $wpdb->prefix.'gma500_products';
-		return  $wpdb->get_row ("SELECT * FROM  $table  WHERE id = $id;");	
+		$sql = $wpdb->prepare ("SELECT * FROM $table WHERE id = $id;", $dummy);
+		return  $wpdb->get_results($sql)[0];	
 	}
 
 	function getProductsInUse() {
@@ -315,6 +316,7 @@ class Gma500_Admin {
 					  'isEPI'=>$_POST['isEPI'],
 					  'location'=>$_POST['location'],
 					  'description'=>stripcslashes($_POST['description']),
+					  'isRental'=>$_POST['isRental'],
 					  'image'=>$_POST['image'],
 					  'bought'=>$_POST['bought']					  					  
 		);
@@ -411,10 +413,6 @@ class Gma500_Admin {
 			echo "<p class='gma500-product-admin-value'>" .$tmp->email."</p>";
 			echo "</div>";
 			echo "</div>";
-
-			//echo "<div class='gma500-user-list-item-first'><p>".$tmp->first_name."</p></div>";
-			//echo "<div class='gma500-user-list-item-last'><p>".$tmp->last_name."</p></div>";
-			//echo "<div class='gma500-user-list-item-email'><p>".$tmp->email."</p></div>";
 			echo "</div>";
 		}
 		echo "<div id ='gma500-assign-final-wrapper'>";
