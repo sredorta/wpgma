@@ -116,5 +116,7 @@
     <form id="gma500-admin-main-config-page-form" class="gma500-form-hidden" action="?page=gma500_admin_menu_top" method="post">
         <input name="action" value="gma500_admin_config"/>
     </form>  
-
+    <div class='kubiiks-add'>
+            <small>La géstion du matériel à éte fait par <a href='http://www.kubiiks.com'>kubiiks</a></small>
+    </div>
 </div>    

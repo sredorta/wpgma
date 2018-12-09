@@ -76,8 +76,8 @@ console.log(ajaxurl);
 		//Check if is base64 or file... if is base
 		if (jQuery('#productImage')[0].src.match(';base64,')) {
 			var canvas = jQuery('#shadowCanvas')[0];
-			canvas.width=150;
-			canvas.height=150;
+			canvas.width=130;
+			canvas.height=130;
 			var ctx =canvas.getContext('2d');
 			var image = new Image();
 			image.onload = function() {
@@ -116,7 +116,7 @@ console.log(ajaxurl);
 			reader.readAsDataURL(file);
 			reader.onloadend = () => {
 			  //Resize and crop image to 200x200
-			  var destSize = 150;
+			  var destSize = 130;
 			  var myImageData = new Image();
 			  myImageData.src = reader.result;
 			  var canvas = jQuery('#shadowCanvas')[0];
