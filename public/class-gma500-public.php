@@ -234,9 +234,10 @@ class Gma500_Public {
 		 * class.
 		 */
 		wp_register_script($this->plugin_name,plugin_dir_url( __FILE__ ) . 'js/gma500-public.js', array( 'jquery' ));
+		wp_localize_script($this->plugin_name, 'ajaxurl', admin_url( 'admin-ajax.php' ) );
 		wp_enqueue_script($this->plugin_name);
 		// pass Ajax Url to script.js
-		wp_localize_script('gma500-public', 'ajaxurl', admin_url( 'admin-ajax.php' ) );
+
 		wp_enqueue_script($this->plugin_name);		
 		//wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/gma500-public.js', array( 'jquery' ), $this->version, false );
 

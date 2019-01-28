@@ -2,9 +2,38 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
- .gma500-products-list-wrapper {
+ .gma500-products-search-list-wrapper {
+    
+    background-color:white;
+    padding:5px;
+    border-radius: 3px;
+    background-color: white;
+    border: 1px solid rgba(0,0,0,0.3);  
+    display: flex;    
+    justify-content: center;
+    margin:3px;
+}
+.gma500-products-search-list-wrapper:hover {
+    cursor:pointer;
+    box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.5);
+}
+
+.gma500-products-search-list-wrapper div {
+    flex:1;
+    align-self: center;
+}
+.gma500-products-search-list-wrapper div:first-child {
+    max-width:110px;
+    min-width: 110px;
+}
+.gma500-products-search-list-wrapper div:nth-child(5) {
+    max-width:60px;
+    min-width: 60px;
+}
+
+/*
+ .gma500-products-search-list-wrapper {
     min-width:300px;
-    /*margin-left:15vw !important;*/
     margin-right:15vw !important;
     background-color:white;
     padding:5px;
@@ -15,12 +44,13 @@
     justify-content: center;
     margin:3px;
     font-size: 15px;
+    display:flex;
 }
 
 .gma500-products-list-main {
     display: flex; 
 }
-
+*/
 
 
 
@@ -40,6 +70,18 @@
 .gma500-header {
     font-weight:bold;
 }
+.gma500-header div {
+    flex:1;
+    align-self: center;
+}
+.gma500-header div:first-child {
+    max-width:110px;
+    min-width: 110px;
+}
+
+
+
+
 
 .gma500-id {
     color:blue;
@@ -93,10 +135,15 @@
 }
 
 @media screen and (max-width:600px) {
-    .gma500-products-list-wrapper {
+    .gma500-products-search-list-wrapper {
         font-size:12px;
         margin-left:5px !important;
         margin-right:5px !important;
+
+    }
+    .gma500-products-search-list-wrapper div:first-child {
+        min-width:60px;
+        max-width:60px;
     }
     .gma500-h1 {
         font-size:20px;
@@ -114,9 +161,18 @@
 }
 /*remove brand if too small screeen*/
 @media screen and (max-width:400px) {
-    .gma500-brand {
-        display:none;
+    .gma500-products-search-list-wrapper div:nth-child(4) {
+        display: none;
     }
+    .gma500-products-search-list-wrapper div:nth-child(5) {
+        max-width: 40px;
+        min-width: 40px;
+    }
+    .wrap {
+        padding-left:5px !important;
+        padding-right: 5px !important;
+    }
+
 }
 
 .kubiiks-add {
@@ -127,9 +183,12 @@
 .kubiiks-add small {
     transition: all 0.4s ease-in-out;
 }
+.kubiiks-add a {
+    font-weight:bold;
+}
 
 .kubiiks-add small:hover {
-    transform:scale(1.2);
+    transform:scale(1.1);
 
 }
 

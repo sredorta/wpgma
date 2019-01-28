@@ -174,6 +174,8 @@ class Gma500 {
 
 		//PUBLIC PART
 		$plugin_public = new Gma500_Public($this->get_plugin_name(), $this->get_version());
+		$this->loader->add_action( 'wp_ajax_gma500_public_search', $plugin_public, 'searchproducts');
+
 //		$this->loader->add_filter( 'single_template', $plugin_public, 'gma500_template' );
 //		$this->loader->add_filter( 'wp_nav_menu_items', $plugin_public, 'add_menu');
 		//$this->loader->add_filter( 'page_template', $plugin_public, 'gma500_template');
