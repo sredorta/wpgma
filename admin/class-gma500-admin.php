@@ -356,7 +356,7 @@ class Gma500_Admin {
 		echo "<div class='gma500-products-search-list-wrapper gma500-header' style='display:flex'>
         <div>IMAGE</div>
         <div>IDGMA</div>
-        <div>CATHEGORIE</div>
+        <div>CATÉGORIE</div>
         <div>MARQUE</div>
         <div>DISPONIBLE:</div>
     	</div>";

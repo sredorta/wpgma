@@ -9,7 +9,7 @@
     </form>   
     <h1 class="gma500-h1" style="margin-bottom:10px;">Configuration</h1>
 
-    <h3>Cathegories de matériel</h3>
+    <h3>Catégories de matériel</h3>
     <?php foreach($cathegories as $cathegory) {
         echo "<div style='display:flex;justify-content:center;width:300px' class='gma500-config-item'>";
         echo "<div style='flex:1'><p>".$cathegory->meta_value."</p></div>";
@@ -29,7 +29,7 @@
         </div>
     </div>
 
-    <h3>Indroits ou le locale est stocké</h3>
+    <h3>Lieu de stockage du matériel</h3>
     <?php foreach($locations as $cathegory) {
         echo "<div style='display:flex;justify-content:center;width:300px' class='gma500-config-item'>";
         echo "<div style='flex:1'><p>".$cathegory->meta_value."</p></div>";

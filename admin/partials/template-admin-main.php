@@ -13,7 +13,7 @@
     </form>    
 
     <!--LIST PRODUCTS IN USE-->
-    <h2>Liste de matériel en utilization</h2>
+    <h2>Liste de matériel en utilisation</h2>
     <?php if (sizeof($products)==0) {
             echo "<p>Pas de matériel en utilization en ce moment</p>";
         } else {
@@ -21,7 +21,7 @@
             <div class='gma500-products-in-use-list-wrapper gma500-header' style='display:flex'>
                 <div>IMAGE</div>
                 <div>IDGMA</div>
-                <div>CATHEGORIE</div>
+                <div>CATÉGORIE</div>
                 <div>MARQUE</div>
                 <div>IL RESTE:</div>
             </div>";
@@ -47,7 +47,7 @@
             echo "<div>".$product->cathegory."</div>";
             echo "<div>".$product->brand."</div>";
             if ($diff<0) 
-                echo "<div style='color:red;font-weight:bold'>Dépasé de ".abs($diff)." jours </div>";
+                echo "<div style='color:red;font-weight:bold'>Dépassé de ".abs($diff)." jours </div>";
             else
                 echo "<div style='color:green;font-weight:bold'>".$diff." jours </div>";    
             echo "</div>";
@@ -70,7 +70,7 @@
 
 
     <!--CONTROLS THAT HAVE TO BE DONE-->
-    <h2>Controls à faire</h2>
+    <h2>Contrôles à faire</h2>
     <?php if (sizeof($controls)== 0) {
         echo "<p>Pas de controls à venir dans les prochains 30 jours</p>";
     } else {
@@ -100,7 +100,7 @@
             echo "<div>".explode(" ",$control->due)[0]."</div>";
             if ($diff < 10) 
                 if ($diff<0)
-                    echo "<div style='color:red;font-weight:bold'>Dépasé de ".abs($diff)." jours </div>";
+                    echo "<div style='color:red;font-weight:bold'>Dépassé de ".abs($diff)." jours </div>";
                 else
                     echo "<div style='color:red;font-weight:bold'>". $diff ." jours</div>";
             else

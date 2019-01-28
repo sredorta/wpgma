@@ -36,7 +36,7 @@
       </div>     
       <div style="display:flex;flex-flow:row wrap;max-width:400px;margin:0 auto">
         <div style="min-width:200px;margin:0 auto">
-            <p>CATHEGORIE*:<br />
+            <p>CATÉGORIE*:<br />
             <select id='cathegory' name='cathegory' required style='width:170px'>
             <?php if ($cathegory!="") echo "<option value=". $cathegory. " selected='selected'>".$cathegory."</option>";
                   else echo "<option value=''>--Sélectioner--</option>";
@@ -45,7 +45,7 @@
                   }?>
             </select>           
             </p>
-            <p>UTILIZATION*:<br />
+            <p>UTILISATION*:<br />
             <select id="utilization" name="utilization" required style="width:170px">
             <?php if ($utilization!="") echo "<option value='". $utilization. "' selected='selected'>".$utilization."</option>";
                   else echo "<option value=''>--Sélectioner--</option>";?>            

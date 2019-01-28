@@ -37,7 +37,7 @@
             <div class='gma500-products-list-wrapper gma500-products-list-main gma500-header' style='display:flex'>
                 <div>IMAGE</div>
                 <div>IDGMA</div>
-                <div>CATHEGORIE</div>
+                <div>CATÉGORIE</div>
                 <div class='gma500-brand'>MARQUE</div>
                 <div>DISPO</div>
             </div>";
@@ -59,7 +59,7 @@
             echo "<div class='gma500-product-expansion'>";
             echo "<p class='gma500-product-label'>DESCRIPTION:</p>";
             echo "<p class='gma500-product-value'>" . stripcslashes($product->description) . "</p>";
-            echo "<p class='gma500-product-label'>UTILIZATION:</p>";
+            echo "<p class='gma500-product-label'>UTILISATION:</p>";
             echo "<p class='gma500-product-value'>". $product->utilization . "</p>";
             if ($product->doc != "") {
                 echo "<p class='gma500-product-label'>DOC:</p>";
@@ -71,7 +71,7 @@
         }
         ?>
         <div class='kubiiks-add'>
-            <small>La géstion du matériel à éte fait par <a href='http://www.kubiiks.com'>kubiiks</a></small>
+            <small>Le plugin de gestion du matériel à été fait par <a href='http://www.kubiiks.com'>kubiiks</a></small>
         </div>
 </div>
 </div>

@@ -6,13 +6,13 @@
             <i class="fa fa-plus-circle fa-lg"></i> Voir plus de détails
         </div>
         <div id="gma500-admin-product-details-show-more-content">
-        <p class='gma500-product-admin-label'>NUMERO DE SERIE:</p>
+        <p class='gma500-product-admin-label'>NUMÉRO DE SÉRIE:</p>
         <?php echo "<p class='gma500-product-admin-value'>" . $product->serialNumber . "</p>";?>
         <p class='gma500-product-admin-label'>DISPOSITIF EPI:</p>
         <?php $isEPIText = "Non";
               if ($product->isEPI == 1) $isEPIText = "Oui";?>
         <?php echo "<p class='gma500-product-admin-value'>" . $isEPIText . "</p>";?>       
-        <p class='gma500-product-admin-label'>TYPE D'UTILIZATION:</p>
+        <p class='gma500-product-admin-label'>TYPE D'UTILISATION:</p>
         <?php echo "<p class='gma500-product-admin-value'>" . $product->utilization . "</p>";?>   
         <p class='gma500-product-admin-label'>LIEU DE STOCKAGE:</p>
         <?php echo "<p class='gma500-product-admin-value'>" . $product->location . "</p>";?>    
@@ -29,7 +29,7 @@
     <!--Historic show-->
     <div  style="display:flex;flex-flow:column;max-width:600px;margin:0 auto;margin-top:5px">
         <div id="gma500-admin-product-details-historic-more-button" class="button button-secondary">
-            <i class="fa fa-history fa-lg"></i> Historic
+            <i class="fa fa-history fa-lg"></i> Historique
         </div>
         <div id="gma500-admin-product-details-historic-more-content">
             <?php if (sizeof($historics) == 0) {
@@ -82,7 +82,7 @@
    <!--Unassign part-->
    <div  style="display:flex;flex-flow:column;max-width:600px;margin:0 auto;margin-top:5px">
         <div id="gma500-admin-product-details-unassign-more-button" class="button button-secondary">
-            <i class="fa fa-user-times fa-lg"></i> Desassigner
+            <i class="fa fa-user-times fa-lg"></i> Désassigner
         </div>
         <div id="gma500-admin-product-details-unassign-more-content">
           <p style='width:100%'>COMMENTAIRE:<br /><textarea class='gma500-textarea' id='gma500-unassign-comment' name='comment' type='text' maxlength='400'></textarea></p>
@@ -94,7 +94,7 @@
     <!--Controls-->
     <div  style="display:flex;flex-flow:column;max-width:600px;margin:0 auto;margin-top:5px">
         <div id="gma500-admin-product-details-controls-more-button" class="button button-secondary">
-            <i class="fa fa-flag fa-lg"></i> Controles
+            <i class="fa fa-flag fa-lg"></i> Contrôles
         </div>
         <div id="gma500-admin-product-details-controls-more-content">
         <div id="gma500-admin-product-details-controls-add-button" class="button button-secondary"><i class="fa fa-plus-circle fa-lg"></i> Créer un nouveau controle</div> 
@@ -104,7 +104,7 @@
                         <div style="min-width:300px;width:100%">
                             <p>TYPE*:<br />
                                 <select id="gma500-controls-add-type" name="type" required style="width:170px">
-                                    <option value=''>--Sélectioner--</option>               
+                                    <option value=''>--Sélectionner--</option>               
                                     <option value="Rebut">Rebut</option>
                                     <option value="Périodique">Périodique</option>
                                 </select>  
@@ -115,7 +115,7 @@
                     </div>                        
                 </form>
                 <div id='gma500-controls-add-ajax-result'></div>
-                <div id="gma500-admin-product-details-controls-add-button-submit" class="button button-primary" style="margin-bottom:10px"><i class="fa fa-plus-circle fa-lg"></i> Ajouter le controle</div> 
+                <div id="gma500-admin-product-details-controls-add-button-submit" class="button button-primary" style="margin-bottom:10px"><i class="fa fa-plus-circle fa-lg"></i> Ajouter le contrôle</div> 
             </div>
             <?php if (sizeof($controls) == 0) {
                     echo "<p>Pas de controles sur ce matériel</p>";

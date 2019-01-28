@@ -19,7 +19,7 @@
        <div style="max-width:300px">
             <p class='gma500-product-admin-label'>IDGMA:</p>
             <?php echo "<p class='gma500-product-admin-value'>". $product->idGMA . "</p>"?>
-            <p class='gma500-product-admin-label'>CATHEGORIE:</p>
+            <p class='gma500-product-admin-label'>CATÉGORIE:</p>
             <?php echo "<p class='gma500-product-admin-value'>" . $product->cathegory . "</p>"?>
             <p class='gma500-product-admin-label'>MARQUE:</p>
             <?php echo "<p class='gma500-product-admin-value'>" . $product->brand . "</p>"?>                       
