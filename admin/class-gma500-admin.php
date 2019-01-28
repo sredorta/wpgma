@@ -519,6 +519,7 @@ class Gma500_Admin {
 		die();
 	}
 
+
 	//close control
 	function closecontrol() {
 		global $wpdb;
@@ -536,7 +537,26 @@ class Gma500_Admin {
 			echo json_encode(["error" => $wpdb->last_error]); //return json error
 			die();
 		} 
-		echo json_encode(["success" => "Controle correctement fermé"]);
+		//If controle is Périodique add next control in 1 year
+		//Get last id from the product to insert comment
+		$sql = $wpdb->prepare ("SELECT * FROM ". $table . " WHERE id = '". $control_id . "' LIMIT 1;");
+		$tmp = $wpdb->get_row($sql);
+		if ($tmp->type == "Périodique") {
+			$description = "Controle périodique automatiquement génereré";
+			$product_id = $tmp->product_id;
+			$type = $tmp->type;
+			$due = date( 'Y-m-d H:i:s', strtotime( current_time('mysql') ) + 60*60*24*365 ); //Add 1 year
+			$table = $wpdb->prefix.'gma500_controls';
+			$sql = $wpdb->prepare (
+				"INSERT INTO ".$table . " (product_id,status,type,description,created,due) VALUES (%s,%s,%s,%s,%s,%s)",
+				$product_id,"en cours", $type,$description,current_time('mysql'), $due );
+			$wpdb->query($sql);
+			if($wpdb->last_error !== '') {
+				echo json_encode(["error" => $wpdb->last_error]); //return json error
+				die();
+			} 		
+		}
+		echo json_encode(["success" => "Controle correctement fermé "]);
 		die();
 	}	
 

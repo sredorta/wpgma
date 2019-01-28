@@ -9,7 +9,7 @@
         <div style="min-width:200px;margin:0 auto">
             <?php echo "<p>ID GMA*:<br /><input  id='idGMA' name='idGMA' type='text' required minlength='3' style='width:170px' value='".$idGMA."'></p>"?>
             <?php echo "<p>MARQUE*:<br /><input  id='marque' name='brand' type='text' required minlength='3' style='width:170px' value='".$brand."'></p>"?>
-            <?php echo "<p>NÚMERO DE SÉRIE*:<br /><input  id='serialNumber' name='serialNumber' type='text' required minlength='3' style='width:170px' value='".$serialNumber."'></p>"?>
+            <?php echo "<p>NÚMERO DE SÉRIE:<br /><input  id='serialNumber' name='serialNumber' type='text' style='width:170px' value='".$serialNumber."'></p>"?>
         </div>  
         <div style="min-width:200px;display:flex;flex-flow:column;justify-content:center;margin:0 auto">
             <div style="display:flex;justify-content:center">

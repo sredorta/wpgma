@@ -19,7 +19,7 @@
  * @package    Gma500
  * @subpackage Gma500/public
  * @author     Sergi Redorta <sergi.redorta@kubiiks.com>
- */
+ */ 
 class Gma500_Public {
 	/**
 	 * A reference to an instance of this class.
