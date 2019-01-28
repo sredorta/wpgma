@@ -132,3 +132,7 @@
     transform:scale(1.2);
 
 }
+
+.gma500-form-hidden {
+    display:none;
+}

@@ -1,7 +1,28 @@
 
 <?php get_header();?>
 <div class="wrap">
-<h1 class='gma500-h1'>Liste de matériel en location</h1>
+
+<!--Include the post of the page in the top-->
+<?php
+    $thepageinquestion = get_post(get_the_ID());
+    $content = $thepageinquestion->post_content;
+    $content = apply_filters('the_content', $content);
+    echo $content;
+?>
+
+    <!--SEARCH PRODUCT AJAX AND REDIRECTION-->
+ <!--   <div style='display:flex;vertical-align:center;max-width:400px;margin-left:5px;margin-bottom:15px'>
+        <input id="public-search-products-input" type="text" name="search" id="search" placeholder="Chercher" value=""/>
+		<span class="input-group-btn">
+			<button id="public-search-products" class="button button-secondary"><i class="fa fa-search fa-lg"></i></button>
+        </span>
+    </div>      
+    <div id ="admin-main-view-products-list"></div>
+    <form id="admin-main-view-product-detail-form" class="gma500-form-hidden" action="?page=gma500_admin_menu_top" method="post"> 
+            <input name="action" value="gma500_public_search_products"/>
+            <input id="public-form-id" name="id" value="1"/>
+    </form>-->
+
 <div style='margin:0 auto'>
         <?php 
 		global $wpdb;
