@@ -2,90 +2,47 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
- .gma500-products-search-list-wrapper {
-    
-    background-color:white;
-    padding:5px;
+.gma500-products-search-list-wrapper {
+    border: 1px solid rgba(0,0,0,0.3);
     border-radius: 3px;
-    background-color: white;
-    border: 1px solid rgba(0,0,0,0.3);  
-    display: flex;    
-    justify-content: center;
     margin:3px;
 }
-.gma500-products-search-list-wrapper:hover {
+
+ .gma500-product-item-main {
+    background-color:white;
+    padding:5px;
+    background-color: white;  
+    display: flex;    
+    justify-content: center;
+}
+.gma500-product-item-main:hover {
     cursor:pointer;
     box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.5);
 }
 
-.gma500-products-search-list-wrapper div {
+.gma500-product-item-main div {
     flex:1;
     align-self: center;
 }
-.gma500-products-search-list-wrapper div:first-child {
+.gma500-product-item-main div:first-child {
     max-width:110px;
     min-width: 110px;
 }
-.gma500-products-search-list-wrapper div:nth-child(5) {
+.gma500-product-item-main div:nth-child(5) {
     max-width:60px;
     min-width: 60px;
 }
-
-/*
- .gma500-products-search-list-wrapper {
-    min-width:300px;
-    margin-right:15vw !important;
-    background-color:white;
-    padding:5px;
-    border-radius: 3px;
-    background-color: white;
-    border: 1px solid rgba(0,0,0,0.3);  
-   
-    justify-content: center;
-    margin:3px;
-    font-size: 15px;
-    display:flex;
+.gma500-product-item-main:not(.gma500-header) div:nth-child(2) {
+    color:blue;
+    font-weight: bold;
 }
 
-.gma500-products-list-main {
-    display: flex; 
+.gma500-product-expansion {
+    display:none;
 }
-*/
-
-
-
-
-.gma500-products-list-main div {
-    flex:1;
-    align-self: center;
-}
-.gma500-products-list-main div:first-child {
-    max-width:110px;
-}
-.gma500-products-list-main div:last-child {
-    max-width:60px;
-}
-
 
 .gma500-header {
     font-weight:bold;
-}
-.gma500-header div {
-    flex:1;
-    align-self: center;
-}
-.gma500-header div:first-child {
-    max-width:110px;
-    min-width: 110px;
-}
-
-
-
-
-
-.gma500-id {
-    color:blue;
-    font-weight: bold;
 }
 
 .gma500-image-small {
@@ -96,10 +53,6 @@
     margin:0px;
 }
 
-.gma500-products-list-wrapper:hover {
-    cursor:pointer;
-    box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.5);
-}
 
 .gma500-product-label {
     border-bottom: 1px solid;
@@ -135,13 +88,13 @@
 }
 
 @media screen and (max-width:600px) {
-    .gma500-products-search-list-wrapper {
+    .gma500-product-item-main {
         font-size:12px;
         margin-left:5px !important;
         margin-right:5px !important;
 
     }
-    .gma500-products-search-list-wrapper div:first-child {
+    .gma500-product-item-main div:first-child {
         min-width:60px;
         max-width:60px;
     }
@@ -161,10 +114,10 @@
 }
 /*remove brand if too small screeen*/
 @media screen and (max-width:400px) {
-    .gma500-products-search-list-wrapper div:nth-child(4) {
+    .gma500-product-item-main div:nth-child(4) {
         display: none;
     }
-    .gma500-products-search-list-wrapper div:nth-child(5) {
+    .gma500-product-item-main div:nth-child(5) {
         max-width: 40px;
         min-width: 40px;
     }

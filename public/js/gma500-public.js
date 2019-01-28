@@ -18,6 +18,9 @@ jQuery(document).ready(function() {
 				console.log("Result is");
 				console.log(data);
 				jQuery('#public-main-view-products-list').html("<p>Resultats pour '"+jQuery('#public-search-products-input').val()+"' :</p>" + data);
+				jQuery('.gma500-products-search-list-wrapper').click(function() {
+					jQuery(this).find('.gma500-product-expansion').slideToggle();
+				});
 			}
 		}).fail(function(err) {
 			console.log(err);

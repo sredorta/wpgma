@@ -164,6 +164,7 @@ class Gma500 {
 		$this->loader->add_action( 'wp_ajax_gma500_admin_updateproduct', $plugin_admin, 'updateproduct'); //wp_ajax + name of the action 
 		$this->loader->add_action( 'wp_ajax_gma500_getproducts', $plugin_admin, 'getproducts');
 		$this->loader->add_action( 'wp_ajax_gma500_searchproducts', $plugin_admin, 'searchproducts');
+
 		$this->loader->add_action( 'wp_ajax_gma500_searchusers', $plugin_admin, 'searchusers');
 		$this->loader->add_action( 'wp_ajax_gma500_assign', $plugin_admin, 'assignproduct');
 		$this->loader->add_action( 'wp_ajax_gma500_unassign', $plugin_admin, 'unassignproduct');
@@ -174,7 +175,8 @@ class Gma500 {
 
 		//PUBLIC PART
 		$plugin_public = new Gma500_Public($this->get_plugin_name(), $this->get_version());
-		$this->loader->add_action( 'wp_ajax_gma500_public_search', $plugin_public, 'searchproducts');
+		//Add searchproducts as nopriv to allow all users to get it
+		$this->loader->add_action( 'wp_ajax_nopriv_gma500_searchproducts', $plugin_admin, 'searchproducts');
 
 //		$this->loader->add_filter( 'single_template', $plugin_public, 'gma500_template' );
 //		$this->loader->add_filter( 'wp_nav_menu_items', $plugin_public, 'add_menu');

@@ -73,6 +73,7 @@ class Gma500_Admin {
 	}
 
 	function gma500_admin_main_page_options() {
+
 		//Block any intents of members to be here
 		if(!is_admin()) {
 			wp_redirect(home_url());
@@ -353,12 +354,12 @@ class Gma500_Admin {
 			echo "<p>Pas des resultats pour votre recherche</p>";
 			die();
 		}
-		echo "<div class='gma500-products-search-list-wrapper gma500-header' style='display:flex'>
+		echo "<div class='gma500-product-item-main gma500-header' style='display:flex'>
         <div>IMAGE</div>
         <div>IDGMA</div>
         <div>CATÉGORIE</div>
         <div>MARQUE</div>
-        <div>DISPONIBLE:</div>
+        <div>DISPO</div>
     	</div>";
 		foreach ($products as $product) {
 			require plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/template-admin-product-item.php';

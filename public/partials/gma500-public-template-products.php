@@ -28,7 +28,7 @@
             echo "<p>Pas de matériel disponible en ce moment</p>";
         } else {
             echo "
-            <div class='gma500-products-search-list-wrapper gma500-header' style='display:flex'>
+            <div class='gma500-product-item-main gma500-header' style='display:flex'>
                 <div>IMAGE</div>
                 <div>IDGMA</div>
                 <div>CATÉGORIE</div>
@@ -40,6 +40,7 @@
         <?php
         foreach ($products as $product) {
             echo "<div class='gma500-products-search-list-wrapper' data-idproduct=\"".$product->id."\">";
+                echo "<div class='gma500-product-item-main'>";
                 echo "<div><img class='gma500-product-image gma500-image-small' src=\"" .$product->image. "\" alt='Image du matériel'></div>";
                 echo "<div class='gma500-id'>".$product->idGMA."</div>";
                 echo "<div>".$product->cathegory."</div>";
@@ -47,7 +48,8 @@
                 if ($product->user_id != 0) 
                     echo "<div style='color:red;font-weight:bold'>NON</div>";
                 else
-                    echo "<div style='color:green;font-weight:bold'>OUI</div>";    
+                    echo "<div style='color:green;font-weight:bold'>OUI</div>"; 
+                echo '</div>';       
             echo "<div class='gma500-product-expansion'>";
             echo "<p class='gma500-product-label'>DESCRIPTION:</p>";
             echo "<p class='gma500-product-value'>" . stripcslashes($product->description) . "</p>";
