@@ -444,6 +444,10 @@
     .gma500-header {
         font-size:11px;
     }
+
+    .gma500-products-in-use-list-wrapper {
+        font-size: 12px;
+    }
     
 }
 /*remove brand if too small screeen*/
@@ -458,6 +462,9 @@
     .wrap {
         padding-left:5px !important;
         padding-right: 5px !important;
+    }
+    .gma500-products-in-use-list-wrapper div:nth-child(4) {
+        display:none;
     }
 
 }
