@@ -1,6 +1,6 @@
 
 <?php get_header();?>
-<div class="wrap">
+<div class="gma500-wrap">
 
 <!--Include the post of the page in the top-->
 <?php
