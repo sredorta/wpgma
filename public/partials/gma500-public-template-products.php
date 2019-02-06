@@ -1,7 +1,7 @@
 
 <?php get_header();?>
 <div class="gma500-wrap">
-
+<div class="gma500-wrap-content">
 <!--Include the post of the page in the top-->
 <?php
     $thepageinquestion = get_post(get_the_ID());
@@ -9,7 +9,7 @@
     $content = apply_filters('the_content', $content);
     echo $content;
 ?>
-
+</div>
     <!--SEARCH PRODUCT AJAX AND REDIRECTION-->
     <div style='display:flex;vertical-align:center;max-width:400px;margin-left:5px;margin-bottom:15px'>
         <input id="public-search-products-input" type="text" name="search" id="search" placeholder="Chercher" value=""/>
@@ -65,7 +65,7 @@
         }
         ?>
     </div>    
-        <div class='kubiiks-add' style='margin:0 auto'>
+        <div class='kubiiks-add' style='margin:20px'>
             <small>Ce plugin de gestion du matériel à été fait par <a href='http://www.kubiiks.com'>kubiiks</a></small>
         </div>
 

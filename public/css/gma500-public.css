@@ -2,6 +2,23 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
+.gma500-wrap {
+    margin-top:180px !important;
+}
+@media screen and (max-width:1000px) {
+  .gma500-wrap {
+    margin-top:230px !important;
+  }  
+}
+@media screen and (max-width:768px) {
+    .gma500-wrap {
+      margin-top:60px !important;
+    }
+}
+.gma500-wrap-content {
+    padding-left:30px;
+}
+
 .gma500-products-search-list-wrapper {
     border: 1px solid rgba(0,0,0,0.3);
     border-radius: 3px;
