@@ -118,9 +118,6 @@
 @media screen and (max-width:600px) {
    .gma500-product-item-main {
        font-size:12px;
-       margin-left:5px !important;
-       margin-right:5px !important;
-
    }
    .gma500-product-item-main div:first-child {
        min-width:60px;
