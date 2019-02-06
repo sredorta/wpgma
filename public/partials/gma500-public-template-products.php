@@ -25,7 +25,7 @@
         $products = $wpdb->get_results($sql);
         
         if (sizeof($products)==0) {
-            echo "<p>Pas de matériel disponible en ce moment</p>";
+            echo "<p style='margin-left:20px;'>Pas de matériel disponible en ce moment</p>";
         } else {
             echo "
             <div class='gma500-product-item-main gma500-header' style='display:flex'>

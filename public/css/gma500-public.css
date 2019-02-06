@@ -2,13 +2,17 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
+ #public-search-products-input {
+    margin-top:20px;
+    margin-right:15px;
+}
 .gma500-wrap {
     margin-top:180px !important;
 }
 @media screen and (max-width:1000px) {
-  .gma500-wrap {
-    margin-top:230px !important;
-  }  
+   .gma500-wrap {
+     margin-top:230px !important;
+   }
 }
 @media screen and (max-width:768px) {
     .gma500-wrap {
@@ -19,149 +23,155 @@
     padding-left:30px;
 }
 
-.gma500-products-search-list-wrapper {
-    border: 1px solid rgba(0,0,0,0.3);
-    border-radius: 3px;
-    margin:3px;
+#public-main-view-products-list {
+    padding-left:20px;
+    padding-right:20px;
 }
 
- .gma500-product-item-main {
-    background-color:white;
-    padding:5px;
-    background-color: white;  
-    display: flex;    
-    justify-content: center;
+.gma500-products-search-list-wrapper {
+   margin-top:3px;
+   margin-bottom:3px;
+}
+
+.gma500-product-item-main {
+    border: 1px solid rgba(0,0,0,0.3);
+   background-color:white;
+   padding:5px;
+   margin: 0 auto;
+   border-radius:3px;
+   background-color: white;  
+   display: flex;    
+   justify-content: center;
 }
 .gma500-product-item-main:hover {
-    cursor:pointer;
-    box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.5);
+   cursor:pointer;
+   box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.5);
 }
 
 .gma500-product-item-main div {
-    flex:1;
-    align-self: center;
+   flex:1;
+   align-self: center;
 }
 .gma500-product-item-main div:first-child {
-    max-width:110px;
-    min-width: 110px;
+   max-width:110px;
+   min-width: 110px;
 }
 .gma500-product-item-main div:nth-child(5) {
-    max-width:60px;
-    min-width: 60px;
+   max-width:60px;
+   min-width: 60px;
 }
 .gma500-product-item-main:not(.gma500-header) div:nth-child(2) {
-    color:blue;
-    font-weight: bold;
+   color:blue;
+   font-weight: bold;
 }
 
 .gma500-product-expansion {
-    display:none;
+   display:none;
 }
 
 .gma500-header {
-    font-weight:bold;
+   font-weight:bold;
 }
 
 .gma500-image-small {
-    width:100px !important;
-    height:100px !important;
-    min-width:100px !important;
-    min-height:100px !important;
-    margin:0px;
+   width:100px !important;
+   height:100px !important;
+   min-width:100px !important;
+   min-height:100px !important;
+   margin:0px;
 }
 
 
 .gma500-product-label {
-    border-bottom: 1px solid;
-    font-size:10px;
-    font-weight: bold;
-    opacity: 0.5;
-    margin:3px;
+   border-bottom: 1px solid;
+   font-size:10px;
+   font-weight: bold;
+   opacity: 0.5;
+   margin:3px;
 }
 
 .gma500-product-value {
-    margin:3px;
-    margin-bottom:10px;
-    font-size: 14px;
+   margin:3px;
+   margin-bottom:10px;
+   font-size: 14px;
 }
 .gma500-product-expansion {
-    width:100%;
-    padding:5px;
-    background-color:white;
-    padding:5px;
-    border-radius: 3px;
-    background-color: white; 
-    justify-content: center;
-    font-size: 15px;  
-    display:none;  
+   width:100%;
+   padding:5px;
+   background-color:white;
+   padding:5px;
+   border-radius: 3px;
+   background-color: white; 
+   justify-content: center;
+   font-size: 15px;  
+   display:none;  
 }
 .gma500-header {
-    font-weight: bold;
-    cursor:default !important;
+   font-weight: bold;
+   cursor:default !important;
 }
 .gma500-header:hover {
-    cursor: default !important;
-    box-shadow: none !important;
+   cursor: default !important;
+   box-shadow: none !important;
 }
 
 @media screen and (max-width:600px) {
-    .gma500-product-item-main {
-        font-size:12px;
-        margin-left:5px !important;
-        margin-right:5px !important;
+   .gma500-product-item-main {
+       font-size:12px;
+       margin-left:5px !important;
+       margin-right:5px !important;
 
-    }
-    .gma500-product-item-main div:first-child {
-        min-width:60px;
-        max-width:60px;
-    }
-    .gma500-h1 {
-        font-size:20px;
-    }
-    .gma500-image-small {
-        width:50px !important;
-        height:50px !important;
-        min-width:50px !important;
-        min-height:50px !important;
-    }    
-    .gma500-header {
-        font-size:11px;
-    }
-    
+   }
+   .gma500-product-item-main div:first-child {
+       min-width:60px;
+       max-width:60px;
+   }
+   .gma500-h1 {
+       font-size:20px;
+   }
+   .gma500-image-small {
+       width:50px !important;
+       height:50px !important;
+       min-width:50px !important;
+       min-height:50px !important;
+   }    
+   .gma500-header {
+       font-size:11px;
+   }
+   
 }
 /*remove brand if too small screeen*/
 @media screen and (max-width:400px) {
-    .gma500-product-item-main div:nth-child(4) {
-        display: none;
-    }
-    .gma500-product-item-main div:nth-child(5) {
-        max-width: 40px;
-        min-width: 40px;
-    }
-    .wrap {
-        padding-left:5px !important;
-        padding-right: 5px !important;
-    }
+   .gma500-product-item-main div:nth-child(4) {
+       display: none;
+   }
+   .gma500-product-item-main div:nth-child(5) {
+       max-width: 40px;
+       min-width: 40px;
+   }
+   .wrap {
+       padding-left:5px !important;
+       padding-right: 5px !important;
+   }
 
 }
 
 .kubiiks-add {
-    display:flex;
-    justify-content:flex-start;
-    margin-top:30px;
+   display:flex;
+   justify-content:flex-start;
 }
 .kubiiks-add small {
-    transition: all 0.4s ease-in-out;
+   transition: all 0.4s ease-in-out;
 }
 .kubiiks-add a {
-    font-weight:bold;
+   font-weight:bold;
 }
 
 .kubiiks-add small:hover {
-    transform:scale(1.1);
+   transform:scale(1.1);
 
 }
 
 .gma500-form-hidden {
-    display:none;
+   display:none;
 }
