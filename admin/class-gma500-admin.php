@@ -291,7 +291,7 @@ class Gma500_Admin {
 		global $wpdb;
 		$table = $wpdb->prefix.'gma500_products';
 		$sql = $wpdb->prepare (
-			"INSERT INTO ".$table . " (idGMA,cathegory,brand,serialNumber,doc,isEPI,location,description,image,bought,time,isRental) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+			"INSERT INTO ".$table . " (idGMA,cathegory,brand,serialNumber,doc,isEPI,location,description,image,bought,time,isRental) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
 			$_POST['idGMA'],$_POST['cathegory'],$_POST['brand'],$_POST['serialNumber'],$_POST['doc'],$_POST['isEPI'],$_POST['location'],stripcslashes($_POST['description']),$_POST['image'],$_POST['bought'], current_time('mysql'),$_POST['isRental'] );
 		$wpdb->query($sql);
 		if($wpdb->last_error !== '') {
