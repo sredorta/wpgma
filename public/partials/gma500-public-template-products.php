@@ -11,7 +11,7 @@
 ?>
 </div>
     <!--SEARCH PRODUCT AJAX AND REDIRECTION-->
-    <div style='display:flex;vertical-align:center;max-width:400px;margin-left:5px;margin-bottom:15px'>
+    <div style='display:flex;vertical-align:center;max-width:400px;margin-left:25px;margin-bottom:15px'>
         <input id="public-search-products-input" type="text" name="search" id="search" placeholder="Chercher" value=""/>
 		<span class="input-group-btn">
 			<button id="public-search-products" class="button button-secondary"><i class="fa fa-search fa-lg"></i></button>
@@ -53,8 +53,6 @@
             echo "<div class='gma500-product-expansion'>";
             echo "<p class='gma500-product-label'>DESCRIPTION:</p>";
             echo "<p class='gma500-product-value'>" . stripcslashes($product->description) . "</p>";
-            echo "<p class='gma500-product-label'>UTILISATION:</p>";
-            echo "<p class='gma500-product-value'>". $product->utilization . "</p>";
             if ($product->doc != "") {
                 echo "<p class='gma500-product-label'>DOC:</p>";
             echo "<p class='gma500-product-value'><a href='". $product->doc . "'>Voir la documentation</a></p>";

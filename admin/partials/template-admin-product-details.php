@@ -11,9 +11,7 @@
         <p class='gma500-product-admin-label'>DISPOSITIF EPI:</p>
         <?php $isEPIText = "Non";
               if ($product->isEPI == 1) $isEPIText = "Oui";?>
-        <?php echo "<p class='gma500-product-admin-value'>" . $isEPIText . "</p>";?>       
-        <p class='gma500-product-admin-label'>TYPE D'UTILISATION:</p>
-        <?php echo "<p class='gma500-product-admin-value'>" . $product->utilization . "</p>";?>   
+        <?php echo "<p class='gma500-product-admin-value'>" . $isEPIText . "</p>";?>         
         <p class='gma500-product-admin-label'>LIEU DE STOCKAGE:</p>
         <?php echo "<p class='gma500-product-admin-value'>" . $product->location . "</p>";?>    
         <p class='gma500-product-admin-label'>DATE D'ACHAT:</p>
@@ -33,7 +31,7 @@
         </div>
         <div id="gma500-admin-product-details-historic-more-content">
             <?php if (sizeof($historics) == 0) {
-                echo "<div>Pas d'historic de location pour le moment</div>";
+                echo "<div>Pas d'historique de location pour le moment</div>";
             } else {
                 echo "<div class='gma500-historic-item gma500-header'>
                         <div class='gma500-historic-wrapper'>

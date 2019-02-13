@@ -45,7 +45,6 @@ class Gma500_Activator {
 				idGMA varchar(50) NOT NULL UNIQUE,
 				cathegory varchar(50) NOT NULL DEFAULT 'Inconue',
 				brand varchar(50) NOT NULL DEFAULT 'Inconue',
-				utilization varchar(50) NOT NULL DEFAULT 'Inconu',
 				serialNumber varchar(50) NOT NULL DEFAULT 'Inconu',
 				doc varchar(200) NOT NULL DEFAULT 'toto',
 				isEPI boolean NOT NULL DEFAULT '0',

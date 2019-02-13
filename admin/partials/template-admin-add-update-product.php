@@ -9,7 +9,7 @@
         <div style="min-width:200px;margin:0 auto">
             <?php echo "<p>ID GMA*:<br /><input  id='idGMA' name='idGMA' type='text' required minlength='3' style='width:170px' value='".$idGMA."'></p>"?>
             <?php echo "<p>MARQUE*:<br /><input  id='marque' name='brand' type='text' required minlength='3' style='width:170px' value='".$brand."'></p>"?>
-            <?php echo "<p>NÚMERO DE SÉRIE:<br /><input  id='serialNumber' name='serialNumber' type='text' style='width:170px' value='".$serialNumber."'></p>"?>
+            <?php echo "<p>NUMÉRO DE SÉRIE:<br /><input  id='serialNumber' name='serialNumber' type='text' style='width:170px' value='".$serialNumber."'></p>"?>
         </div>  
         <div style="min-width:200px;display:flex;flex-flow:column;justify-content:center;margin:0 auto">
             <div style="display:flex;justify-content:center">
@@ -45,14 +45,6 @@
                   }?>
             </select>           
             </p>
-            <p>UTILISATION*:<br />
-            <select id="utilization" name="utilization" required style="width:170px">
-            <?php if ($utilization!="") echo "<option value='". $utilization. "' selected='selected'>".$utilization."</option>";
-                  else echo "<option value=''>--Sélectioner--</option>";?>            
-                <option value="Salle">Salle</option>
-                <option value="Exterieur">Exterieur</option>
-            </select>  
-            </p>
             <p>EPI*:<br />
             <select id="epi" name="isEPI" required style="width:170px">
             <?php $epiText = "Oui";
@@ -62,10 +54,8 @@
                 <option value="1">Oui</option>
                 <option value="0">Non</option>
             </select>  
-            </p>            
-        </div>  
-        <div style="min-width:200px;margin:0 auto">
-            <p>INDROIT*:<br />
+            </p>   
+            <p>LIEU*:<br />
             <select id="location" name="location" required style="width:170px">
             <?php if ($location!="") echo "<option value='". $location. "' selected='selected'>".$location."</option>";
                   else echo "<option value=''>--Sélectioner--</option>";
@@ -74,12 +64,16 @@
                   }?>                              
             </select>              
             </p>
+
+        </div>  
+        <div style="min-width:200px;margin:0 auto">
+
             <?php echo "<p>DOC:<br /><input  id='doc' name='doc' type='url' optional style='width:170px' value=". $doc."></p>"?>
             <?php echo "<p>DATE ACHAT*:<br /><input  id='bought' name='bought' type='date' required style='width:170px' value=".$bought."></p>"?>
         </div>         
       </div> 
       <div style="display:flex;flex-flow:column;max-width:400px;min-width:200px;margin:0 auto">
-        <p>Disponilbe à la location*:<br />
+        <p>Disponilbe au prêt*:<br />
             <select id="isRental" name="isRental" required style="width:170px">
             <?php $isRentalText = "Oui";
                   if ($isRental == "0") $isRentalText = "Non";

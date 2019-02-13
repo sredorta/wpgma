@@ -15,7 +15,7 @@
     <!--LIST PRODUCTS IN USE-->
     <h2>Liste de matériel en utilisation</h2>
     <?php if (sizeof($products)==0) {
-            echo "<p>Pas de matériel en utilization en ce moment</p>";
+            echo "<p>Pas de matériel en utilisation en ce moment</p>";
         } else {
             echo "
             <div class='gma500-products-in-use-list-wrapper gma500-header' style='display:flex'>

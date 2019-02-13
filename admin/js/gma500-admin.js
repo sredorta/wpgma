@@ -38,7 +38,6 @@ console.log(ajaxurl);
 						"idGMA" : jQuery('#idGMA').val(),
 						"cathegory" : jQuery('#cathegory').val(),
 						"brand" : jQuery('#marque').val(),
-						"utilization" : jQuery('#utilization').val(),
 						"serialNumber" : jQuery('#serialNumber').val(),
 						"doc" : jQuery('#doc').val(),
 						"isEPI" : jQuery('#epi').val(),
@@ -140,11 +139,14 @@ console.log(ajaxurl);
 				ctx.drawImage(myImageData, sourceX,sourceY, sourceSize, sourceSize, 0, 0, destSize,destSize);
 				var real = jQuery('#productImage')[0];
 				$base64 = canvas.toDataURL('image/jpeg', 0.9);
+				if ($base64.length >=14000) {
+					$base64 = canvas.toDataURL('image/jpeg', 0.8);
+				}
+				console.log("File size is: " + $base64.length);
 				real.src = $base64;
 				jQuery('#imagebase64').val($base64);
 				jQuery('#rotate').show();
 				jQuery('#clear').show();
-				console.log("Length is: " + canvas.toDataURL('image/jpeg', 0.9).length);
 			  }
 			};
 		};		
@@ -167,6 +169,9 @@ console.log(ajaxurl);
 		  ctx.drawImage(myImageData, 0, 0);   
 		  var real = jQuery('#productImage')[0];
 		  $base64 = canvas.toDataURL('image/jpeg', 0.9);
+		  if ($base64.length >=14000) {
+			$base64 = canvas.toDataURL('image/jpeg', 0.8);
+		  }
 		  real.src = $base64;
 		  jQuery('#imagebase64').val($base64);		  
 		  ctx.restore();
@@ -197,7 +202,6 @@ jQuery('#gma500-submit-update-product').click(function() {
 					"idGMA" : jQuery('#idGMA').val(),
 					"cathegory" : jQuery('#cathegory').val(),
 					"brand" : jQuery('#marque').val(),
-					"utilization" : jQuery('#utilization').val(),
 					"serialNumber" : jQuery('#serialNumber').val(),
 					"doc" : jQuery('#doc').val(),
 					"isEPI" : jQuery('#epi').val(),

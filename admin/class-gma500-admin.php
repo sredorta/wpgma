@@ -114,7 +114,7 @@ class Gma500_Admin {
 			$serialNumber = $product->serialNumber;
 			$image = $product->image;
 			$cathegory = $product->cathegory;
-			$utilization = $product->utilization;
+			$doc = $product->doc;
 			$isEPI = $product->isEPI;
 			$location = $product->location;
 			$description = $product->description;
@@ -291,8 +291,8 @@ class Gma500_Admin {
 		global $wpdb;
 		$table = $wpdb->prefix.'gma500_products';
 		$sql = $wpdb->prepare (
-			"INSERT INTO ".$table . " (idGMA,cathegory,brand,utilization,serialNumber,doc,isEPI,location,description,image,bought,time,isRental) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-			$_POST['idGMA'],$_POST['cathegory'],$_POST['brand'],$_POST['utilization'],$_POST['serialNumber'],$_POST['doc'],$_POST['isEPI'],$_POST['location'],stripcslashes($_POST['description']),$_POST['image'],$_POST['bought'], current_time('mysql'),$_POST['isRental'] );
+			"INSERT INTO ".$table . " (idGMA,cathegory,brand,serialNumber,doc,isEPI,location,description,image,bought,time,isRental) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+			$_POST['idGMA'],$_POST['cathegory'],$_POST['brand'],$_POST['serialNumber'],$_POST['doc'],$_POST['isEPI'],$_POST['location'],stripcslashes($_POST['description']),$_POST['image'],$_POST['bought'], current_time('mysql'),$_POST['isRental'] );
 		$wpdb->query($sql);
 		if($wpdb->last_error !== '') {
 			echo json_encode(["error" => $wpdb->last_error]); //return json error
@@ -311,7 +311,6 @@ class Gma500_Admin {
 		$data = array('idGMA'=>$_POST['idGMA'],
 					  'cathegory'=>$_POST['cathegory'],
 					  'brand'=>$_POST['brand'],
-					  'utilization'=>$_POST['utilization'],
 					  'serialNumber'=>$_POST['serialNumber'],
 					  'doc'=>$_POST['doc'],
 					  'isEPI'=>$_POST['isEPI'],
