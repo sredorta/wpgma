@@ -339,18 +339,20 @@ class Gma500_Admin {
 
 		//Image handling first
 		$product = $this->getProductById($_POST['id']);
-		//Remove current image if exists
-		if (strpos($product->image, '/photos/img') !== false) {
-			if (file_exists($product->image)) {
-				unlink($product->image);
-			}
-		}
+
 		//Generate new image if is base64
 		if (strpos($_POST['image'],'data:image/jpeg;base64')  !== false) {
+			//Remove current image if exists
+			if (strpos($product->image, '/photos/img') !== false) {
+				if (file_exists($product->image)) {
+					unlink($product->image);
+				}
+			}			
 			$image_part = str_replace('data:image/jpeg;base64,','', $_POST['image']);
 			$image_base64 = base64_decode($image_part);
 			file_put_contents(plugin_dir_path( __FILE__ ) . 'assets/photos/' . 'img_' .$product->id . '.jpg', $image_base64);
 			$imageFile = '../wp-content/plugins/gma500/admin/assets/photos/img_'.$product->id . '.jpg';
+
 		} else {
 			$imageFile = $_POST['image'];
 		}
@@ -387,7 +389,7 @@ class Gma500_Admin {
 	function getproducts() {
 		global $wpdb;
 		$table = $wpdb->prefix.'gma500_products';
-		$sql = $wpdb->prepare ("SELECT * FROM ". $table, $toto);
+		$sql = $wpdb->prepare ("SELECT * FROM ". $table . 'ORDER BY idGMA DESC;', $toto);
 		$products = $wpdb->get_results($sql);
 		return $products;
 	}
@@ -398,7 +400,7 @@ class Gma500_Admin {
 		global $wpdb;
 		$table = $wpdb->prefix.'gma500_products';
 		$filter = strtolower($_POST['filter']);
-		$sql = $wpdb->prepare ("SELECT * FROM ". $table . " WHERE lower(idGMA) RLIKE '". $filter . "' OR lower(cathegory) RLIKE '". $filter . "' OR lower(brand) RLIKE '". $filter . "' OR lower(location) RLIKE '". $filter . "' OR lower(description) RLIKE '". $filter ."';");
+		$sql = $wpdb->prepare ("SELECT * FROM ". $table . " WHERE lower(idGMA) RLIKE '". $filter . "' OR lower(cathegory) RLIKE '". $filter . "' OR lower(brand) RLIKE '". $filter . "' OR lower(location) RLIKE '". $filter . "' OR lower(description) RLIKE '". $filter ."' ORDER BY cathegory,LENGTH(idGMA),idGMA;");
 		$products = $wpdb->get_results($sql);
 		if (sizeof($products) == 0) {
 			echo "<p>Pas des resultats pour votre recherche</p>";

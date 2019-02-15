@@ -21,7 +21,7 @@
         <?php 
 		global $wpdb;
 		$table = $wpdb->prefix.'gma500_products';
-		$sql = $wpdb->prepare ("SELECT * FROM ". $table . " WHERE isRental = 1 ORDER BY cathegory;", $dummy);
+		$sql = $wpdb->prepare ("SELECT * FROM ". $table . ' WHERE isRental = 1 ORDER BY cathegory,LENGTH(idGMA),idGMA;', $dummy);
         $products = $wpdb->get_results($sql);
         
         if (sizeof($products)==0) {

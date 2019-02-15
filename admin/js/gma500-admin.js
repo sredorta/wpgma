@@ -193,6 +193,10 @@ jQuery('#gma500-reset-update-product').click(function() {
 //Product submit   
 jQuery('#gma500-submit-update-product').click(function() {
 	if (jQuery('#gma500-form-add-update-product').valid()) {
+		var myUpdatedImage =  jQuery('#imagebase64').val();
+		if (myUpdatedImage.indexOf('default-product') !== -1 && jQuery('#productImage').attr('src').indexOf('default-product') === -1) {
+			myUpdatedImage = jQuery('#productImage').attr('src');
+		}
 		jQuery.ajax({
 			type: 'POST',
 			url: ajaxurl,
@@ -207,12 +211,11 @@ jQuery('#gma500-submit-update-product').click(function() {
 					"isEPI" : jQuery('#epi').val(),
 					"location" : jQuery('#location').val(),
 					"description" : jQuery('#description').val(),	
-					"image" : jQuery('#imagebase64').val(),
+					"image" : myUpdatedImage,
 					"isRental" : jQuery('#isRental').val(),
 					"bought" : jQuery('#bought').val(),																																									
 				  },
 			success: function(data) {
-				console.log(data);
 				var result = JSON.parse(data);
 				if (result.error != null) {						
 					jQuery('#gma500-add-product-ajax-result').html(result.error).removeClass('gma500-ajax-success').addClass('gma500-ajax-error').fadeIn();
