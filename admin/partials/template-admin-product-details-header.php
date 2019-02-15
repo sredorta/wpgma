@@ -20,9 +20,9 @@
             <p class='gma500-product-admin-label'>IDGMA:</p>
             <?php echo "<p class='gma500-product-admin-value'>". $product->idGMA . "</p>"?>
             <p class='gma500-product-admin-label'>CATÉGORIE:</p>
-            <?php echo "<p class='gma500-product-admin-value'>" . $product->cathegory . "</p>"?>
+            <?php echo "<p class='gma500-product-admin-value'>" . stripcslashes($product->cathegory) . "</p>"?>
             <p class='gma500-product-admin-label'>MARQUE:</p>
-            <?php echo "<p class='gma500-product-admin-value'>" . $product->brand . "</p>"?>                       
+            <?php echo "<p class='gma500-product-admin-value'>" . stripcslashes($product->brand) . "</p>"?>                       
         </div>
     </div>
     <div style="display:flex;flex-flow:column;max-width:600px;margin:0 auto;margin-top:20px">

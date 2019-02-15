@@ -184,7 +184,7 @@ class Gma500_Public {
 	function getproducts() {
 		global $wpdb;
 		$table = $wpdb->prefix.'gma500_products';
-		$sql = $wpdb->prepare ("SELECT * FROM ". $table . " WHERE isRental = 1 ORDER BY cathegory;", $dummy);
+		$sql = $wpdb->prepare ("SELECT * FROM ". $table . " WHERE isRental = 1 GROUP BY cathegory ORDER BY idGMA;", $dummy);
 		return $wpdb->get_results($sql);			
 	}
 

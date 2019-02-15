@@ -4,8 +4,8 @@
     echo "<div class='gma500-product-item-main'>";
     echo "<div><img class='gma500-product-image gma500-image-small' src=\"" .$product->image. "\" alt='Image du matériel'></div>";
     echo "<div>".$product->idGMA."</div>";
-    echo "<div>".$product->cathegory."</div>";
-    echo "<div>".$product->brand."</div>";
+    echo "<div>".stripcslashes($product->cathegory)."</div>";
+    echo "<div>".stripcslashes($product->brand)."</div>";
     if ($product->user_id == 0)
         echo "<div style='font-weight:bold;color:green'>OUI</div>";
     else

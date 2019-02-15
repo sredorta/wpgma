@@ -146,11 +146,21 @@ class Gma500_Admin {
 			die();
 		}
 		//DELETE PRODUCT
-		if ($_POST['action'] == "gma500_admin_deleteproduct_page") {
+		if ($_POST['action'] == "gma500_admin_deleteproduct_page") {	
+			//Delete the image if exists
+			$product = $this->getProductById($_POST['id']);
+			$image = $product->image;
+			if (strpos($product->image, '/photos/img') !== false) {
+				if (file_exists($product->image)) {
+					unlink($product->image);
+				}
+			}
+			//Delete the product in the table
 			global $wpdb;
 			$table = $wpdb->prefix.'gma500_products';
 			$where = array('id'=> $_POST['id']);
 			$wpdb->delete($table, $where);
+
 		}
 
 		//VIEW PRODUCT DETAILS
@@ -287,13 +297,35 @@ class Gma500_Admin {
 
 	//Adds product in SQL DB
 	function insertproduct() {
-		//Add product action
+		//STEP1 save into database without the image
 		global $wpdb;
 		$table = $wpdb->prefix.'gma500_products';
 		$sql = $wpdb->prepare (
-			"INSERT INTO ".$table . " (idGMA,cathegory,brand,serialNumber,doc,isEPI,location,description,image,bought,time,isRental) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-			$_POST['idGMA'],$_POST['cathegory'],$_POST['brand'],$_POST['serialNumber'],$_POST['doc'],$_POST['isEPI'],$_POST['location'],stripcslashes($_POST['description']),$_POST['image'],$_POST['bought'], current_time('mysql'),$_POST['isRental'] );
+			"INSERT INTO ".$table . " (idGMA,cathegory,brand,serialNumber,doc,isEPI,location,description,bought,time,isRental) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+			$_POST['idGMA'],stripcslashes($_POST['cathegory']),stripcslashes($_POST['brand']),$_POST['serialNumber'],$_POST['doc'],$_POST['isEPI'],$_POST['location'],stripcslashes($_POST['description']),$_POST['bought'], current_time('mysql'),$_POST['isRental'] );
 		$wpdb->query($sql);
+		if($wpdb->last_error !== '') {
+			echo json_encode(["error" => $wpdb->last_error]); //return json error
+			die();
+		}
+		//STEP2 create image file if required and update image pointer in db
+		if (strpos($_POST['image'], 'data:image/jpeg;base64') !== false) {
+			$id = $wpdb->insert_id;
+			$image_part = str_replace('data:image/jpeg;base64,','', $_POST['image']);
+			$image_base64 = base64_decode($image_part);
+			file_put_contents(plugin_dir_path( __FILE__ ) . 'assets/photos/' . 'img_' .$id . '.jpg', $image_base64);
+			$imageFile = '../wp-content/plugins/gma500/admin/assets/photos/img_'.$id . '.jpg';
+			$where = array('id'=> $id);
+			$data = array('image'=>$imageFile);
+			$wpdb->update ($table, $data, $where);		
+		} else {
+			$id = $wpdb->insert_id;
+			$where = array('id'=> $id);
+			$data = array('image'=>'../wp-content/plugins/gma500/admin/assets/default-product.jpg');
+			$wpdb->update ($table, $data, $where);					
+		}
+
+
 		if($wpdb->last_error !== '') {
 			echo json_encode(["error" => $wpdb->last_error]); //return json error
 			die();
@@ -304,20 +336,39 @@ class Gma500_Admin {
 	}
 	//Updates product in SQLDB
 	function updateproduct() {
+
+		//Image handling first
+		$product = $this->getProductById($_POST['id']);
+		//Remove current image if exists
+		if (strpos($product->image, '/photos/img') !== false) {
+			if (file_exists($product->image)) {
+				unlink($product->image);
+			}
+		}
+		//Generate new image if is base64
+		if (strpos($_POST['image'],'data:image/jpeg;base64')  !== false) {
+			$image_part = str_replace('data:image/jpeg;base64,','', $_POST['image']);
+			$image_base64 = base64_decode($image_part);
+			file_put_contents(plugin_dir_path( __FILE__ ) . 'assets/photos/' . 'img_' .$product->id . '.jpg', $image_base64);
+			$imageFile = '../wp-content/plugins/gma500/admin/assets/photos/img_'.$product->id . '.jpg';
+		} else {
+			$imageFile = $_POST['image'];
+		}
+
 		//Add product action
 		global $wpdb;
 		$table = $wpdb->prefix.'gma500_products';
 		$where = array('id'=> $_POST['id']);
 		$data = array('idGMA'=>$_POST['idGMA'],
-					  'cathegory'=>$_POST['cathegory'],
-					  'brand'=>$_POST['brand'],
+					  'cathegory'=>stripcslashes($_POST['cathegory']),
+					  'brand'=>stripcslashes($_POST['brand']),
 					  'serialNumber'=>$_POST['serialNumber'],
 					  'doc'=>$_POST['doc'],
 					  'isEPI'=>$_POST['isEPI'],
 					  'location'=>$_POST['location'],
 					  'description'=>stripcslashes($_POST['description']),
 					  'isRental'=>$_POST['isRental'],
-					  'image'=>$_POST['image'],
+					  'image'=>$imageFile,
 					  'bought'=>$_POST['bought']					  					  
 		);
 		$wpdb->update ($table, $data, $where);
@@ -347,7 +398,7 @@ class Gma500_Admin {
 		global $wpdb;
 		$table = $wpdb->prefix.'gma500_products';
 		$filter = strtolower($_POST['filter']);
-		$sql = $wpdb->prepare ("SELECT * FROM ". $table . " WHERE lower(idGMA) RLIKE '". $filter . "' OR lower(cathegory) RLIKE '". $filter . "' OR lower(brand) RLIKE '". $filter . "' OR lower(location) RLIKE '". $filter . "';");
+		$sql = $wpdb->prepare ("SELECT * FROM ". $table . " WHERE lower(idGMA) RLIKE '". $filter . "' OR lower(cathegory) RLIKE '". $filter . "' OR lower(brand) RLIKE '". $filter . "' OR lower(location) RLIKE '". $filter . "' OR lower(description) RLIKE '". $filter ."';");
 		$products = $wpdb->get_results($sql);
 		if (sizeof($products) == 0) {
 			echo "<p>Pas des resultats pour votre recherche</p>";

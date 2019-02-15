@@ -29,7 +29,7 @@ class Gma500_Activator {
 	 *
 	 * @since    1.0.0
 	 */
-	public static function activate() {
+	public static function activate() {		 
 		GMA500_Activator::create_db();
 	}
 
@@ -50,7 +50,7 @@ class Gma500_Activator {
 				isEPI boolean NOT NULL DEFAULT '0',
 				location varchar(50) NOT NULL DEFAULT 'Local',
 				description varchar(500) NOT NULL DEFAULT 'Pas de description',
-				image varchar(14000) NOT NULL DEFAULT '../wp-content/plugins/gma500/admin/assets/default-product.jpg',
+				image varchar(500) NOT NULL DEFAULT '../wp-content/plugins/gma500/admin/assets/default-product.jpg',
 				bought datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
 				time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
 				isRental boolean NOT NULL DEFAULT '0',
@@ -100,5 +100,35 @@ class Gma500_Activator {
 				) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;";
 			dbDelta($sql);			
 		}
+		/*
+		if ( ! function_exists('write_log')) {
+			function write_log ( $log )  {
+			   if ( is_array( $log ) || is_object( $log ) ) {
+				  error_log( print_r( $log, true ) );
+			   } else {
+				  error_log( $log );
+			   }
+			}
+		 }*/
+				/*Patch the database by converting any base64 to file*/
+		/*		global $wpdb;
+				$table = $wpdb->prefix.'gma500_products';
+				$sql = $wpdb->prepare("SELECT * FROM ". $table. " WHERE 1;", $dummy);
+				$products = $wpdb->get_results($sql);
+				foreach ($products as $product) {
+					if (strpos($product->image, 'data:image/jpeg;base64') !== false) {
+						write_log('Processing id : ' . $product->id);
+						$image_part = str_replace('data:image/jpeg;base64,','', $product->image);
+						//write_log('Image : '. plugin_dir_path( __FILE__ ));
+						$image_base64 = base64_decode($image_part);
+						//file_put_contents(plugin_dir_path( __FILE__ ) . '\assets\photos\\' . 'img_' .$product->id . '.jpg', $image_base64);
+						file_put_contents('C:\xampp\htdocs\wpgma500\wp-content\plugins\gma500\admin\assets\photos\\' . 'img_' .$product->id . '.jpg', $image_base64);
+						$product->image = '../wp-content/plugins/gma500/admin/assets/photos/img_'.$product->id . '.jpg';
+						$where = array('id'=> $product->id);
+						$data = array('image'=>$product->image);
+						$wpdb->update ($table, $data, $where);						
+					}
+				}		
+		*/
 	}
 }
