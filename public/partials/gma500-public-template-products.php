@@ -12,7 +12,7 @@
 </div>
     <!--SEARCH PRODUCT AJAX AND REDIRECTION-->
     <?php 
-    if (current_user_can('Participant')) {
+    if (current_user_can('bbp_participant') || current_user_can('bbp_keymaster') || current_user_can('bbp_moderator')  ) {
         echo "<div style='display:flex;vertical-align:center;max-width:400px;margin-left:25px;margin-bottom:15px'>";
         echo "<input id='public-search-products-input' type='text' name='search' id='search' placeholder='Chercher' value=''/>";
         echo "	<span class='input-group-btn'>";
