@@ -6,10 +6,13 @@
     echo "<div>".$product->idGMA."</div>";
     echo "<div>".stripcslashes($product->cathegory)."</div>";
     echo "<div>".stripcslashes($product->brand)."</div>";
-    if ($product->user_id == 0)
-        echo "<div style='font-weight:bold;color:green'>OUI</div>";
-    else
-        echo "<div style='font-weight:bold;color:red'>NON</div>";
+    if ($product->user_id != 0) {
+        $meta = get_user_meta($product->user_id);
+        $name = $meta['first_name'][0] . " " . $meta['last_name'][0];
+        echo "<div><small style='color:red;font-weight:bold'>Utlizé par:</small><p style='word-wrap:break-word'>".$name."</p></div>";
+    } else {
+        echo "<div style='color:green;font-weight:bold'>OUI</div>"; 
+    }
     echo '</div>';
     echo "<div class='gma500-product-expansion'>";
         echo "<p class='gma500-product-label'>DESCRIPTION:</p>";
