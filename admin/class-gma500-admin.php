@@ -165,6 +165,7 @@ class Gma500_Admin {
 
 		//VIEW PRODUCT DETAILS
 		if ($_POST['action'] == "gma500_admin_viewproductdetails") {
+
 			$product_id = $_POST['id'];
 			$product = $this->getProductById($product_id);
 			$user = get_userdata($product->user_id);
@@ -242,7 +243,8 @@ class Gma500_Admin {
 	function getHistoric($product_id) {
 		global $wpdb;
 		$table = $wpdb->prefix.'gma500_historic';
-		$sql = $wpdb->prepare ("SELECT * FROM ". $table . " WHERE product_id = '". $product_id . "' ORDER BY id DESC LIMIT 10;", $dummy);
+		//$sql = $wpdb->prepare ("SELECT * FROM ". $table . " WHERE product_id = '". $product_id . "' ORDER BY id DESC LIMIT 10;", $dummy);
+		$sql = $wpdb->prepare ("SELECT * FROM ". $table . " WHERE id IN ( SELECT MAX(id) FROM ". $table . " GROUP BY product_id );", $dummy);
 		$historics = $wpdb->get_results($sql);
 		return $historics;
 	}
@@ -389,7 +391,7 @@ class Gma500_Admin {
 	function getproducts() {
 		global $wpdb;
 		$table = $wpdb->prefix.'gma500_products';
-		$sql = $wpdb->prepare ("SELECT * FROM ". $table . 'ORDER BY idGMA DESC;', $toto);
+		$sql = $wpdb->prepare ("SELECT * FROM ". $table . ' ORDER BY idGMA DESC;', $toto);
 		$products = $wpdb->get_results($sql);
 		return $products;
 	}

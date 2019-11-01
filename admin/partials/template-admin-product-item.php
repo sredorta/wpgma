@@ -14,6 +14,20 @@
         echo "<div style='color:green;font-weight:bold'>OUI</div>"; 
     }
     echo '</div>';
+
+    if (current_user_can('administrator')) {
+        echo "<div class='gma500-product-item-main-last-control'>";
+        if ($product->control[0] == null) {
+            echo "<p class='gma500-product-item-main-last-control-content'>Aucun controle présent</p>";
+        } else {
+            echo "<p class='gma500-product-item-main-last-control-header'>Dernier control défini:</p>";
+            echo "<p class='gma500-product-item-main-last-control-element'>STATUS: " . $product->control[0]->status . "</p>";
+            echo "<p class='gma500-product-item-main-last-control-element'>DATE: " . date('d/m/Y',strtotime($product->control[0]->due)) . "</p>";
+            echo "<p class='gma500-product-item-main-last-control-element'>DESCRIPTION: " . stripcslashes($product->control[0]->description) . "</p>";
+        }
+        echo '</div>';
+    }    
+
     echo "<div class='gma500-product-expansion'>";
         echo "<p class='gma500-product-label'>DESCRIPTION:</p>";
         echo "<p class='gma500-product-value'>" . stripcslashes($product->description) . "</p>";
